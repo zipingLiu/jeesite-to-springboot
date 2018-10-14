@@ -1,6 +1,6 @@
-package com.baidu.cms.modules.sys.interceptor;
+package com.baidu.cms.base.modules.sys.interceptor;
 
-import com.baidu.cms.modules.sys.entity.Log;
+import com.baidu.cms.base.modules.sys.entity.Log;
 
 public class InterceptorLogEntity {
     private Log log;

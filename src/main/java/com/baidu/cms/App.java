@@ -1,6 +1,6 @@
 package com.baidu.cms;
 
-import com.baidu.cms.modules.sys.service.SystemService;
+import com.baidu.cms.base.modules.sys.service.SystemService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;

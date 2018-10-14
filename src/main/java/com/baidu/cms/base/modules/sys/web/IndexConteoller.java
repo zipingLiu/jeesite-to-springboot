@@ -1,4 +1,4 @@
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

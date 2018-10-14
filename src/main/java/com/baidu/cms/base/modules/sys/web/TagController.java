@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,7 +33,7 @@ public class TagController extends BaseController {
 		model.addAttribute("selectIds", request.getParameter("selectIds")); // 指定默认选中的ID
 		model.addAttribute("isAll", request.getParameter("isAll")); 	// 是否读取全部数据，不进行权限过滤
 		model.addAttribute("module", request.getParameter("module"));	// 过滤栏目模型（仅针对CMS的Category树）
-		return "modules/sys/tagTreeselect";
+		return "base/modules/sys/tagTreeselect";
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class TagController extends BaseController {
 	@RequestMapping(value = "iconselect")
 	public String iconselect(HttpServletRequest request, Model model) {
 		model.addAttribute("value", request.getParameter("value"));
-		return "modules/sys/tagIconselect";
+		return "base/modules/sys/tagIconselect";
 	}
 	
 }

@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.baidu.cms.modules.sys.entity.Dict;
-import com.baidu.cms.modules.sys.service.DictService;
+import com.baidu.cms.base.modules.sys.entity.Dict;
+import com.baidu.cms.base.modules.sys.service.DictService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
@@ -56,14 +56,14 @@ public class DictController extends BaseController {
 		model.addAttribute("typeList", typeList);
         Page<Dict> page = dictService.findPage(new Page<Dict>(request, response), dict); 
         model.addAttribute("page", page);
-		return "modules/sys/dictList";
+		return "base/modules/sys/dictList";
 	}
 
 	@RequiresPermissions("sys:dict:view")
 	@RequestMapping(value = "form")
 	public String form(Dict dict, Model model) {
 		model.addAttribute("dict", dict);
-		return "modules/sys/dictForm";
+		return "base/modules/sys/dictForm";
 	}
 
 	@RequiresPermissions("sys:dict:edit")

@@ -1,11 +1,11 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
-import com.baidu.cms.modules.sys.security.FormAuthenticationFilter;
-import com.baidu.cms.modules.sys.security.SystemAuthorizingRealm;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.security.FormAuthenticationFilter;
+import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import com.google.common.collect.Maps;
 import com.baidu.cms.common.security.shiro.session.SessionDAO;
 import com.baidu.cms.common.servlet.ValidateCodeServlet;
@@ -58,7 +58,7 @@ public class LoginController extends BaseController {
         // 如果已经登录，则跳转到管理首页
         if (principal != null && !principal.isMobileLogin())
             return "redirect:" + adminPath;
-        return "modules/sys/sysLogin";
+        return "base/modules/sys/sysLogin";
     }
 
     /**
@@ -107,7 +107,7 @@ public class LoginController extends BaseController {
             return renderString(response, model);
         }
 
-        return "modules/sys/sysLogin";
+        return "base/modules/sys/sysLogin";
     }
 
     /**
@@ -131,11 +131,11 @@ public class LoginController extends BaseController {
                 return renderString(response, principal);
             }
             if (request.getParameter("index") != null) {
-                return "modules/sys/sysIndex";
+                return "base/modules/sys/sysIndex";
             }
             return "redirect:" + adminPath + "/login";
         }
-        return "modules/sys/sysIndex";
+        return "base/modules/sys/sysIndex";
     }
 
     /**

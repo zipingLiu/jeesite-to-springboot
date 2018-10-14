@@ -3,8 +3,8 @@
  */
 package com.baidu.cms.common.utils.excel.fieldtype;
 
-import com.baidu.cms.modules.sys.entity.Office;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import com.baidu.cms.common.utils.StringUtils;
 
 /**

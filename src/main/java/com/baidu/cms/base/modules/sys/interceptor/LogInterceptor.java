@@ -1,11 +1,11 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.interceptor;
+package com.baidu.cms.base.modules.sys.interceptor;
 
 import com.baidu.cms.common.service.BaseService;
 import com.baidu.cms.common.utils.DateUtils;
-import com.baidu.cms.modules.sys.utils.LogUtils;
+import com.baidu.cms.base.modules.sys.utils.LogUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NamedThreadLocal;

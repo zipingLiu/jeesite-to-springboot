@@ -1,16 +1,16 @@
 /**
  * Copyright &copy; 2012-2013 <a href="httparamMap://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.service;
+package com.baidu.cms.base.modules.sys.service;
 
 import com.baidu.cms.common.utils.DateUtils;
-import com.baidu.cms.modules.sys.entity.Log;
+import com.baidu.cms.base.modules.sys.entity.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.service.CrudService;
-import com.baidu.cms.modules.sys.dao.LogDao;
+import com.baidu.cms.base.modules.sys.dao.LogDao;
 
 /**
  * 日志Service

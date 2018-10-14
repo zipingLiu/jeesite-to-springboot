@@ -1,18 +1,18 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.baidu.cms.modules.sys.entity.Office;
-import com.baidu.cms.modules.sys.entity.User;
-import com.baidu.cms.modules.sys.service.OfficeService;
-import com.baidu.cms.modules.sys.utils.DictUtils;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.service.OfficeService;
+import com.baidu.cms.base.modules.sys.utils.DictUtils;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
@@ -54,14 +54,14 @@ public class OfficeController extends BaseController {
 	@RequestMapping(value = {""})
 	public String index(Office office, Model model) {
 //        model.addAttribute("list", officeService.findAll());
-		return "modules/sys/officeIndex";
+		return "base/modules/sys/officeIndex";
 	}
 
 	@RequiresPermissions("sys:office:view")
 	@RequestMapping(value = {"list"})
 	public String list(Office office, Model model) {
         model.addAttribute("list", officeService.findList(office));
-		return "modules/sys/officeList";
+		return "base/modules/sys/officeList";
 	}
 	
 	@RequiresPermissions("sys:office:view")
@@ -89,7 +89,7 @@ public class OfficeController extends BaseController {
 			office.setCode(office.getParent().getCode() + StringUtils.leftPad(String.valueOf(size > 0 ? size+1 : 1), 3, "0"));
 		}
 		model.addAttribute("office", office);
-		return "modules/sys/officeForm";
+		return "base/modules/sys/officeForm";
 	}
 	
 	@RequiresPermissions("sys:office:edit")

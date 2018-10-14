@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import java.util.List;
 import java.util.Map;
@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 
-import com.baidu.cms.modules.sys.entity.Office;
-import com.baidu.cms.modules.sys.entity.Role;
-import com.baidu.cms.modules.sys.entity.User;
-import com.baidu.cms.modules.sys.service.SystemService;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.entity.Role;
+import com.baidu.cms.base.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.service.SystemService;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import com.baidu.cms.common.utils.DateUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.utils.excel.ImportExcel;
@@ -62,7 +62,7 @@ public class UserController extends BaseController {
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"index"})
 	public String index(User user, Model model) {
-		return "modules/sys/userIndex";
+		return "base/modules/sys/userIndex";
 	}
 
 	@RequiresPermissions("sys:user:view")
@@ -70,7 +70,7 @@ public class UserController extends BaseController {
 	public String list(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<User> page = systemService.findUser(new Page<User>(request, response), user);
         model.addAttribute("page", page);
-		return "modules/sys/userList";
+		return "base/modules/sys/userList";
 	}
 	
 	@ResponseBody
@@ -92,7 +92,7 @@ public class UserController extends BaseController {
 		}
 		model.addAttribute("user", user);
 		model.addAttribute("allRoles", systemService.findAllRole());
-		return "modules/sys/userForm";
+		return "base/modules/sys/userForm";
 	}
 
 	@RequiresPermissions("sys:user:edit")
@@ -278,7 +278,7 @@ public class UserController extends BaseController {
 		if (StringUtils.isNotBlank(user.getName())){
 			if(Global.isDemoMode()){
 				model.addAttribute("message", "演示模式，不允许操作！");
-				return "modules/sys/userInfo";
+				return "base/modules/sys/userInfo";
 			}
 			currentUser.setEmail(user.getEmail());
 			currentUser.setPhone(user.getPhone());
@@ -290,7 +290,7 @@ public class UserController extends BaseController {
 		}
 		model.addAttribute("user", currentUser);
 		model.addAttribute("Global", new Global());
-		return "modules/sys/userInfo";
+		return "base/modules/sys/userInfo";
 	}
 
 	/**
@@ -318,7 +318,7 @@ public class UserController extends BaseController {
 		if (StringUtils.isNotBlank(oldPassword) && StringUtils.isNotBlank(newPassword)){
 			if(Global.isDemoMode()){
 				model.addAttribute("message", "演示模式，不允许操作！");
-				return "modules/sys/userModifyPwd";
+				return "base/modules/sys/userModifyPwd";
 			}
 			if (SystemService.validatePassword(oldPassword, user.getPassword())){
 				systemService.updatePasswordById(user.getId(), user.getLoginName(), newPassword);
@@ -328,7 +328,7 @@ public class UserController extends BaseController {
 			}
 		}
 		model.addAttribute("user", user);
-		return "modules/sys/userModifyPwd";
+		return "base/modules/sys/userModifyPwd";
 	}
 	
 	@RequiresPermissions("user")

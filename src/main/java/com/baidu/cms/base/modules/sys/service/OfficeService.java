@@ -1,14 +1,14 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.service;
+package com.baidu.cms.base.modules.sys.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.baidu.cms.modules.sys.dao.OfficeDao;
-import com.baidu.cms.modules.sys.entity.Office;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.dao.OfficeDao;
+import com.baidu.cms.base.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

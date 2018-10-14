@@ -1,9 +1,9 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.service;
+package com.baidu.cms.base.modules.sys.service;
 
-import com.baidu.cms.modules.sys.security.SystemAuthorizingRealm;
+import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.security.Digests;
@@ -14,15 +14,15 @@ import com.baidu.cms.common.utils.CacheUtils;
 import com.baidu.cms.common.utils.Encodes;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.Servlets;
-import com.baidu.cms.modules.sys.dao.MenuDao;
-import com.baidu.cms.modules.sys.dao.RoleDao;
-import com.baidu.cms.modules.sys.dao.UserDao;
-import com.baidu.cms.modules.sys.entity.Menu;
-import com.baidu.cms.modules.sys.entity.Office;
-import com.baidu.cms.modules.sys.entity.Role;
-import com.baidu.cms.modules.sys.entity.User;
-import com.baidu.cms.modules.sys.utils.LogUtils;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.dao.MenuDao;
+import com.baidu.cms.base.modules.sys.dao.RoleDao;
+import com.baidu.cms.base.modules.sys.dao.UserDao;
+import com.baidu.cms.base.modules.sys.entity.Menu;
+import com.baidu.cms.base.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.entity.Role;
+import com.baidu.cms.base.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.utils.LogUtils;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,12 +1,12 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.baidu.cms.modules.sys.service.LogService;
+import com.baidu.cms.base.modules.sys.service.LogService;
 import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.modules.sys.entity.Log;
+import com.baidu.cms.base.modules.sys.entity.Log;
 
 /**
  * 日志Controller
@@ -34,7 +34,7 @@ public class LogController extends BaseController {
 	public String list(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
         Page<Log> page = logService.findPage(new Page<Log>(request, response), log); 
         model.addAttribute("page", page);
-		return "modules/sys/logList";
+		return "base/modules/sys/logList";
 	}
 
 }

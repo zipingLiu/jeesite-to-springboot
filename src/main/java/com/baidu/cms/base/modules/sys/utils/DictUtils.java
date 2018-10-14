@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.utils;
+package com.baidu.cms.base.modules.sys.utils;
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +13,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.baidu.cms.common.mapper.JsonMapper;
 import com.baidu.cms.common.utils.CacheUtils;
-import com.baidu.cms.modules.sys.dao.DictDao;
-import com.baidu.cms.modules.sys.entity.Dict;
+import com.baidu.cms.base.modules.sys.dao.DictDao;
+import com.baidu.cms.base.modules.sys.entity.Dict;
 
 /**
  * 字典工具类

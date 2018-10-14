@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.security;
+package com.baidu.cms.base.modules.sys.security;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,12 +14,12 @@ import com.baidu.cms.common.servlet.ValidateCodeServlet;
 import com.baidu.cms.common.utils.Encodes;
 import com.baidu.cms.common.utils.SpringContextHolder;
 import com.baidu.cms.common.web.Servlets;
-import com.baidu.cms.modules.sys.entity.Menu;
-import com.baidu.cms.modules.sys.entity.Role;
-import com.baidu.cms.modules.sys.service.SystemService;
-import com.baidu.cms.modules.sys.utils.LogUtils;
-import com.baidu.cms.modules.sys.utils.UserUtils;
-import com.baidu.cms.modules.sys.web.LoginController;
+import com.baidu.cms.base.modules.sys.entity.Menu;
+import com.baidu.cms.base.modules.sys.entity.Role;
+import com.baidu.cms.base.modules.sys.service.SystemService;
+import com.baidu.cms.base.modules.sys.utils.LogUtils;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.web.LoginController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -37,7 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.baidu.cms.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.entity.User;
 
 /**
  * 系统安全认证实现类

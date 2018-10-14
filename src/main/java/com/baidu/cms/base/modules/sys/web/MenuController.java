@@ -1,19 +1,19 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.baidu.cms.modules.sys.service.SystemService;
+import com.baidu.cms.base.modules.sys.service.SystemService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.modules.sys.entity.Menu;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.entity.Menu;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +55,7 @@ public class MenuController extends BaseController {
 		List<Menu> sourcelist = systemService.findAllMenu();
 		Menu.sortList(list, sourcelist, Menu.getRootId(), true);
         model.addAttribute("list", list);
-		return "modules/sys/menuList";
+		return "base/modules/sys/menuList";
 	}
 
 	@RequiresPermissions("sys:menu:view")
@@ -75,7 +75,7 @@ public class MenuController extends BaseController {
 			}
 		}
 		model.addAttribute("menu", menu);
-		return "modules/sys/menuForm";
+		return "base/modules/sys/menuForm";
 	}
 	
 	@RequiresPermissions("sys:menu:edit")
@@ -116,14 +116,14 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("user")
 	@RequestMapping(value = "tree")
 	public String tree() {
-		return "modules/sys/menuTree";
+		return "base/modules/sys/menuTree";
 	}
 
 	@RequiresPermissions("user")
 	@RequestMapping(value = "treeselect")
 	public String treeselect(String parentId, Model model) {
 		model.addAttribute("parentId", parentId);
-		return "modules/sys/menuTreeselect";
+		return "base/modules/sys/menuTreeselect";
 	}
 	
 	/**

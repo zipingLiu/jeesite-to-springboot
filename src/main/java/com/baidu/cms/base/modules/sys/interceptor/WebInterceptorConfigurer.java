@@ -1,4 +1,4 @@
-package com.baidu.cms.modules.sys.interceptor;
+package com.baidu.cms.base.modules.sys.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

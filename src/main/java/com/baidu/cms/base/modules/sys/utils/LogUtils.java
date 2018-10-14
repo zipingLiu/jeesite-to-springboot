@@ -1,13 +1,13 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.utils;
+package com.baidu.cms.base.modules.sys.utils;
 
-import com.baidu.cms.modules.sys.interceptor.InterceptorLogEntity;
-import com.baidu.cms.modules.sys.interceptor.LogThread;
+import com.baidu.cms.base.modules.sys.interceptor.InterceptorLogEntity;
+import com.baidu.cms.base.modules.sys.interceptor.LogThread;
 import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.modules.sys.entity.Log;
-import com.baidu.cms.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.entity.Log;
+import com.baidu.cms.base.modules.sys.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;

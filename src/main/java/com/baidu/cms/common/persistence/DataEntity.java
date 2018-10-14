@@ -5,8 +5,8 @@ package com.baidu.cms.common.persistence;
 
 import java.util.Date;
 
-import com.baidu.cms.modules.sys.entity.User;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import com.baidu.cms.common.utils.IdGen;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Length;

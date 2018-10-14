@@ -1,16 +1,16 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.utils;
+package com.baidu.cms.base.modules.sys.utils;
 
 import java.util.List;
 
-import com.baidu.cms.modules.sys.entity.Area;
-import com.baidu.cms.modules.sys.entity.Menu;
-import com.baidu.cms.modules.sys.entity.Role;
-import com.baidu.cms.modules.sys.entity.User;
-import com.baidu.cms.modules.sys.security.SystemAuthorizingRealm;
-import com.baidu.cms.modules.sys.dao.OfficeDao;
+import com.baidu.cms.base.modules.sys.entity.Area;
+import com.baidu.cms.base.modules.sys.entity.Menu;
+import com.baidu.cms.base.modules.sys.entity.Role;
+import com.baidu.cms.base.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
+import com.baidu.cms.base.modules.sys.dao.OfficeDao;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.session.InvalidSessionException;
@@ -20,11 +20,11 @@ import org.apache.shiro.subject.Subject;
 import com.baidu.cms.common.service.BaseService;
 import com.baidu.cms.common.utils.CacheUtils;
 import com.baidu.cms.common.utils.SpringContextHolder;
-import com.baidu.cms.modules.sys.dao.AreaDao;
-import com.baidu.cms.modules.sys.dao.MenuDao;
-import com.baidu.cms.modules.sys.dao.RoleDao;
-import com.baidu.cms.modules.sys.dao.UserDao;
-import com.baidu.cms.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.dao.AreaDao;
+import com.baidu.cms.base.modules.sys.dao.MenuDao;
+import com.baidu.cms.base.modules.sys.dao.RoleDao;
+import com.baidu.cms.base.modules.sys.dao.UserDao;
+import com.baidu.cms.base.modules.sys.entity.Office;
 
 /**
  * 用户工具类

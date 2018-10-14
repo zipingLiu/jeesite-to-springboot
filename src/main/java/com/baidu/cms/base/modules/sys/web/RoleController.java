@@ -1,22 +1,22 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.web;
+package com.baidu.cms.base.modules.sys.web;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.baidu.cms.modules.sys.service.OfficeService;
-import com.baidu.cms.modules.sys.service.SystemService;
+import com.baidu.cms.base.modules.sys.service.OfficeService;
+import com.baidu.cms.base.modules.sys.service.SystemService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.Collections3;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.modules.sys.entity.Office;
-import com.baidu.cms.modules.sys.entity.Role;
-import com.baidu.cms.modules.sys.utils.UserUtils;
+import com.baidu.cms.base.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.entity.Role;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.modules.sys.entity.User;
+import com.baidu.cms.base.modules.sys.entity.User;
 
 /**
  * 角色Controller
@@ -61,7 +61,7 @@ public class RoleController extends BaseController {
 	public String list(Role role, Model model) {
 		List<Role> list = systemService.findAllRole();
 		model.addAttribute("list", list);
-		return "modules/sys/roleList";
+		return "base/modules/sys/roleList";
 	}
 
 	@RequiresPermissions("sys:role:view")
@@ -73,7 +73,7 @@ public class RoleController extends BaseController {
 		model.addAttribute("role", role);
 		model.addAttribute("menuList", systemService.findAllMenu());
 		model.addAttribute("officeList", officeService.findAll());
-		return "modules/sys/roleForm";
+		return "base/modules/sys/roleForm";
 	}
 	
 	@RequiresPermissions("sys:role:edit")
@@ -136,7 +136,7 @@ public class RoleController extends BaseController {
 	public String assign(Role role, Model model) {
 		List<User> userList = systemService.findUser(new User(new Role(role.getId())));
 		model.addAttribute("userList", userList);
-		return "modules/sys/roleAssign";
+		return "base/modules/sys/roleAssign";
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class RoleController extends BaseController {
 		model.addAttribute("userList", userList);
 		model.addAttribute("selectIds", Collections3.extractToString(userList, "name", ","));
 		model.addAttribute("officeList", officeService.findAll());
-		return "modules/sys/selectUserToRole";
+		return "base/modules/sys/selectUserToRole";
 	}
 	
 	/**

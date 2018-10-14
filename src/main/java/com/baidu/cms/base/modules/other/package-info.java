@@ -3,4 +3,4 @@
  * create on 2017/1/14 22:03
  * the email is zhao.weiwei@jyall.com.
  */
-package com.baidu.cms.modules.other;
+package com.baidu.cms.base.modules.other;

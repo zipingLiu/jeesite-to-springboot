@@ -1,4 +1,4 @@
-package com.baidu.cms.modules.sys.interceptor;
+package com.baidu.cms.base.modules.sys.interceptor;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -6,10 +6,10 @@ import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.CacheUtils;
 import com.baidu.cms.common.utils.Exceptions;
 import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.modules.sys.dao.LogDao;
-import com.baidu.cms.modules.sys.dao.MenuDao;
-import com.baidu.cms.modules.sys.entity.Log;
-import com.baidu.cms.modules.sys.entity.Menu;
+import com.baidu.cms.base.modules.sys.dao.LogDao;
+import com.baidu.cms.base.modules.sys.dao.MenuDao;
+import com.baidu.cms.base.modules.sys.entity.Log;
+import com.baidu.cms.base.modules.sys.entity.Menu;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

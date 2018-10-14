@@ -2,8 +2,8 @@ package com.baidu.cms.common.config;
 
 import com.baidu.cms.common.security.shiro.session.CacheSessionDAO;
 import com.baidu.cms.common.security.shiro.session.SessionManager;
-import com.baidu.cms.modules.sys.security.FormAuthenticationFilter;
-import com.baidu.cms.modules.sys.security.SystemAuthorizingRealm;
+import com.baidu.cms.base.modules.sys.security.FormAuthenticationFilter;
+import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
 import net.sf.ehcache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;

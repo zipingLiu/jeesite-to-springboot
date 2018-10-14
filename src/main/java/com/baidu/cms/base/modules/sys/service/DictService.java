@@ -1,18 +1,18 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.baidu.cms.modules.sys.service;
+package com.baidu.cms.base.modules.sys.service;
 
 import java.util.List;
 
 import com.baidu.cms.common.utils.CacheUtils;
-import com.baidu.cms.modules.sys.utils.DictUtils;
+import com.baidu.cms.base.modules.sys.utils.DictUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baidu.cms.common.service.CrudService;
-import com.baidu.cms.modules.sys.dao.DictDao;
-import com.baidu.cms.modules.sys.entity.Dict;
+import com.baidu.cms.base.modules.sys.dao.DictDao;
+import com.baidu.cms.base.modules.sys.entity.Dict;
 
 /**
  * 字典Service
