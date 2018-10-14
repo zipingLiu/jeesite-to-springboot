@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baidu.cms.modules.sys.dao.RoleDao">
     
-    <resultMap id="roleResult" type="com.baidu.cms.modules.sys.entity.Role">
+    <resultMap id="roleResult" type="Role">
 		<id property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="enname" column="enname" />
@@ -10,11 +10,21 @@
 		<result property="dataScope" column="dataScope" />
 		<result property="remarks" column="remarks" />
 		<result property="useable" column="useable" />
-		<result property="sysData" column="sysData" />
-		<collection property="menuList" ofType="com.baidu.cms.modules.sys.entity.Menu">
+		<result property="sysData" column="sysData" /><!-- 
+		<collection property="userList" ofType="User">
+			<id property="id" column="userList.id" />
+			<id property="loginName" column="userList.loginName" />
+			<id property="name" column="userList.name" />
+			<id property="email" column="userList.email" />
+			<id property="phone" column="userList.phone" />
+			<id property="mobile" column="userList.mobile" />
+			<id property="office.name" column="userList.office.name" />
+			<id property="company.name" column="userList.company.name" />
+		</collection> -->
+		<collection property="menuList" ofType="Menu">
 			<id property="id" column="menuList.id" />
 		</collection>
-		<collection property="officeList" ofType="com.baidu.cms.modules.sys.entity.Office">
+		<collection property="officeList" ofType="Office">
 			<id property="id" column="officeList.id" />
 		</collection>
 	</resultMap>
@@ -62,7 +72,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="getByName" resultType="com.baidu.cms.modules.sys.entity.Role">
+	<select id="getByName" resultType="Role">
 		SELECT
 			<include refid="roleColumns"/>
 		FROM sys_role a
@@ -70,7 +80,7 @@
 		WHERE a.name = #{name} AND a.del_flag = #{DEL_FLAG_NORMAL}
 	</select>
 	
-	<select id="getByEnname" resultType="com.baidu.cms.modules.sys.entity.Role">
+	<select id="getByEnname" resultType="Role">
 		SELECT
 			<include refid="roleColumns"/>
 		FROM sys_role a
@@ -99,7 +109,7 @@
 		ORDER BY o.code, a.name
 	</select>
 	
-	<select id="findAllList" resultType="com.baidu.cms.modules.sys.entity.Role">
+	<select id="findAllList" resultType="Role">
 		SELECT
 			<include refid="roleColumns"/>
 		FROM sys_role a
@@ -108,9 +118,8 @@
 		ORDER BY o.code, a.name
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO sys_role(
-			id, 
 			office_id, 
 			name, 
 			enname, 
@@ -125,7 +134,6 @@
 			is_sys,
 			useable
 		) VALUES (
-			#{id}, 
 			#{office.id}, 
 			#{name}, 
 			#{enname}, 

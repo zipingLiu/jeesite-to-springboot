@@ -45,7 +45,13 @@
     	ou.id AS "office.primaryPerson.id",
     	ou.name AS "office.primaryPerson.name",
     	ou2.id AS "office.deputyPerson.id",
-    	ou2.name AS "office.deputyPerson.name"
+    	ou2.name AS "office.deputyPerson.name"<!-- ,
+        r.id AS "roleList.id",
+        r.office_id AS "roleList.office.id",
+        r.name AS "roleList.name",
+        r.enname AS "roleList.enname",
+        r.role_type AS "roleList.roleType",
+        r.data_scope AS "roleList.dataScope" -->
     </sql>
     
     <sql id="userJoins">
@@ -62,25 +68,29 @@
     </sql>
 	
 	<!-- 根据编号获得用户 -->
-	<select id="get" resultType="com.baidu.cms.modules.sys.entity.User">
+	<select id="get" resultType="User">
 		SELECT
-			<include refid="userColumns"/>
+			<include refid="userColumns"/><!-- ,
+			ro.office_id AS "roleList.officeList.id" -->
 		FROM sys_user a
-		<include refid="userJoins"/>
+		<include refid="userJoins"/><!-- 
+		LEFT JOIN sys_role_office ro ON ro.role_id = r.id -->
 		WHERE a.id = #{id}
 	</select>
 	
 	<!-- 根据登录名查询用户 -->
-	<select id="getByLoginName" resultType="com.baidu.cms.modules.sys.entity.User" parameterType="com.baidu.cms.modules.sys.entity.User">
+	<select id="getByLoginName" resultType="User" parameterType="User">
 		SELECT
-			<include refid="userColumns"/>
+			<include refid="userColumns"/><!-- ,
+			ro.office_id AS "roleList.officeList.id" -->
 		FROM sys_user a
-		<include refid="userJoins"/>
+		<include refid="userJoins"/><!-- 
+		LEFT JOIN sys_role_office ro ON ro.role_id = r.id -->
 		WHERE a.login_name = #{loginName} AND a.del_flag = #{DEL_FLAG_NORMAL}
 	</select>
 	
 	<!-- 分页查询用户信息 -->
-	<select id="findList" resultType="com.baidu.cms.modules.sys.entity.User">
+	<select id="findList" resultType="User">
 		SELECT
 			<include refid="userColumns"/>
 		FROM sys_user a
@@ -130,7 +140,7 @@
 	</select>
 	
 	<!-- 根据OfficeId获取用户（树查询用户时用） -->
-	<select id="findUserByOfficeId" resultType="com.baidu.cms.modules.sys.entity.User" useCache="true">
+	<select id="findUserByOfficeId" resultType="User" useCache="true">
 		SELECT
 			a.id, a.name, a.login_name
 		FROM sys_user a
@@ -140,7 +150,7 @@
 	</select>
 	
 	<!-- 查询全部用户 -->
-	<select id="findAllList" resultType="com.baidu.cms.modules.sys.entity.User">
+	<select id="findAllList" resultType="User">
 		SELECT
 			<include refid="userColumns"/>
 		FROM sys_user a
@@ -150,7 +160,7 @@
 	</select>
 	
 	<!-- 查询全部用户数目 -->
-	<select id="findAllCount" resultType="java.lang.Long">
+	<select id="findAllCount" resultType="long">
 		SELECT
 			COUNT(1)
 		FROM sys_user a
@@ -158,9 +168,8 @@
 	</select>
 	
 	<!-- 插入用户 -->
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO sys_user(
-			id, 
 			company_id, 
 			office_id, 
 			login_name, 
@@ -180,7 +189,6 @@
 			photo, 
 			del_flag
 		) VALUES (
-			#{id}, 
 			#{company.id}, 
 			#{office.id}, 
 			#{loginName}, 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baidu.cms.modules.sys.dao.LogDao">
     
-	<select id="findList" resultType="com.baidu.cms.modules.sys.entity.Log">
+	<select id="findList" resultType="Log">
 		SELECT 
 			a.*,
 			u.id AS "createBy.id",
@@ -35,9 +35,8 @@
 		ORDER BY a.create_date DESC
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO sys_log(
-			id, 
 			type, 
 			title,
 			create_by, 
@@ -49,7 +48,6 @@
 			params, 
 			exception
 		) VALUES (
-			#{id}, 
 			#{type}, 
 			#{title}, 
 			#{createBy.id}, 

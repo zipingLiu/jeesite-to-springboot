@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baidu.cms.modules.sys.dao.DictDao">
     
-	<select id="get" resultType="com.baidu.cms.modules.sys.entity.Dict">
+	<select id="get" resultType="Dict">
 		SELECT 
 			* 
 		FROM sys_dict 
 		WHERE id = #{id}
 	</select>
 	
-	<select id="findList" resultType="com.baidu.cms.modules.sys.entity.Dict">
+	<select id="findList" resultType="Dict">
 		SELECT 
 			* 
 		FROM sys_dict 
@@ -26,7 +26,7 @@
 		ORDER BY type, sort, update_date DESC
 	</select>
 	
-	<select id="findAllList" resultType="com.baidu.cms.modules.sys.entity.Dict">
+	<select id="findAllList" resultType="Dict">
 		SELECT 
 			* 
 		FROM sys_dict 
@@ -34,7 +34,7 @@
 		ORDER BY type, sort, update_date DESC
 	</select>
 	
-	<select id="findTypeList" resultType="java.lang.String">
+	<select id="findTypeList" resultType="string">
 		SELECT 
 			type 
 		FROM sys_dict 
@@ -43,9 +43,8 @@
 		ORDER BY type
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO sys_dict(
-			id, 
 			value, 
 			label, 
 			type, 
@@ -58,7 +57,6 @@
 			remarks, 
 			del_flag
 		) VALUES (
-			#{id}, 
 			#{value}, 
 			#{label}, 
 			#{type}, 

@@ -26,7 +26,7 @@
 		LEFT JOIN sys_menu p ON p.id = a.parent_id
     </sql>
 	
-	<select id="get" resultType="com.baidu.cms.modules.sys.entity.Menu">
+	<select id="get" resultType="Menu">
 		SELECT
 			<include refid="menuColumns"/>
 		FROM sys_menu a
@@ -34,7 +34,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findAllList" resultType="com.baidu.cms.modules.sys.entity.Menu">
+	<select id="findAllList" resultType="Menu">
 		SELECT
 			<include refid="menuColumns"/>
 		FROM sys_menu a
@@ -43,7 +43,7 @@
 		ORDER BY a.sort
 	</select>
 	
-	<select id="findByParentIdsLike" resultType="com.baidu.cms.modules.sys.entity.Menu">
+	<select id="findByParentIdsLike" resultType="Menu">
 		SELECT
 			a.id,
 			a.parent_id AS "parent.id",
@@ -53,7 +53,7 @@
 		ORDER BY a.sort
 	</select>
 	
-	<select id="findByUserId" resultType="com.baidu.cms.modules.sys.entity.Menu">
+	<select id="findByUserId" resultType="Menu">
 		SELECT DISTINCT
 			<include refid="menuColumns"/>
 		FROM sys_menu a
@@ -66,9 +66,8 @@
 		ORDER BY a.sort
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO sys_menu(
-			id, 
 			parent_id, 
 			parent_ids, 
 			name, 
@@ -85,7 +84,6 @@
 			remarks, 
 			del_flag
 		) VALUES (
-			#{id}, 
 			#{parent.id}, 
 			#{parentIds}, 
 			#{name}, 
