@@ -1,18 +1,17 @@
 server:
-  port: 9090
-#  tomcat:
-#    uri-encoding: UTF-8
-#    basedir: /data/jeesite/tomcat
-#    max-threads: 2000
-#    min-spare-threads: 10
-#    accesslog:
-#      pattern: common
-#      enabled: true
-#      directory: ../logs
-#      prefix: jeesite_access_log
-#      suffix: .log
-#      request-attributes-enabled: true
-#      rename-on-rotate: true
+  port: 18080
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+    accesslog:
+      pattern: common
+      enabled: true
+      directory: ../logs
+      prefix: jeesite_access_log
+      suffix: .log
+      request-attributes-enabled: true
+      rename-on-rotate: true
 logging:
   level:
     root: INFO

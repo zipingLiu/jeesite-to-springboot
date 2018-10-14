@@ -52,7 +52,7 @@ public class AreaController extends BaseController {
 	@RequestMapping(value = {"list", ""})
 	public String list(Area area, Model model) {
 		model.addAttribute("list", areaService.findAll());
-		return "modules/sys/areaList";
+		return "base/modules/sys/areaList";
 	}
 
 	@RequiresPermissions("sys:area:view")
@@ -76,7 +76,7 @@ public class AreaController extends BaseController {
 //			area.setCode(area.getParent().getCode() + StringUtils.leftPad(String.valueOf(size > 0 ? size : 1), 4, "0"));
 //		}
 		model.addAttribute("area", area);
-		return "modules/sys/areaForm";
+		return "base/modules/sys/areaForm";
 	}
 	
 	@RequiresPermissions("sys:area:edit")
