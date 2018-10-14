@@ -52,7 +52,7 @@ public class DataSourceAspect implements Ordered {
         }
     }
 
-    @Pointcut("execution(* com.baidu.cms.base.modules..web.*Controller.*(..))")
+    @Pointcut("execution(* com.baidu.cms.base.modules..*.*(..))")
     public void dataSourcePointCutForBasePackage() {
 
     }
@@ -61,6 +61,23 @@ public class DataSourceAspect implements Ordered {
     public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
         DynamicDataSource.setDataSource(DataSourceNames.FIRST);
         logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.FIRST);
+        try {
+            return point.proceed();
+        } finally {
+            DynamicDataSource.clearDataSource();
+            logger.debug(">>>>>>>>> clean datasource");
+        }
+    }
+
+    @Pointcut("execution(* com.baidu.cms.studio.modules..*.*(..))")
+    public void dataSourcePointCutForStudioPackage() {
+
+    }
+
+    @Around("dataSourcePointCutForStudioPackage()")
+    public Object aroundForStudioPackage(ProceedingJoinPoint point) throws Throwable {
+        DynamicDataSource.setDataSource(DataSourceNames.SECOND);
+        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.SECOND);
         try {
             return point.proceed();
         } finally {
