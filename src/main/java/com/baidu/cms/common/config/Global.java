@@ -23,6 +23,8 @@ public class Global {
 
     private static Logger logger = LoggerFactory.getLogger(Global.class);
 
+    public static String SPRING_DATASOURCE_URL = "spring.datasource.druid.first.url";
+
     static RelaxedPropertyResolver resolver;
     /**
      * 当前对象实例
@@ -119,12 +121,12 @@ public class Global {
     }
 
     public static String getJdbcType() {
-        if (map.containsKey("spring.datasource.url"))
-            return map.get("spring.datasource.url");
+        if (map.containsKey(Global.SPRING_DATASOURCE_URL))
+            return map.get(Global.SPRING_DATASOURCE_URL);
         try {
-            String url = resolver.getProperty("spring.datasource.url");
+            String url = resolver.getProperty(Global.SPRING_DATASOURCE_URL);
             String type = getDbType(url);
-            map.put("spring.datasource.url", type);
+            map.put(Global.SPRING_DATASOURCE_URL, type);
             return type;
         } catch (Exception e) {
             logger.error("get jdbcType error", e);

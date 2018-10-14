@@ -5,12 +5,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * springboot的启动类
  */
 @EnableCaching
+@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @SpringBootApplication
 @ServletComponentScan("com.baidu.cms")
 @ComponentScan(value = "com.baidu.cms",lazyInit = true)
