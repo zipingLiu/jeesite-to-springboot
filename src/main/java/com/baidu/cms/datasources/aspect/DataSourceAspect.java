@@ -25,6 +25,12 @@ import java.lang.reflect.Method;
 public class DataSourceAspect implements Ordered {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
+//    @Value("${spring.datasource.druid.base.pointcutExecution}")
+//    String basePointcutExecution;
+//
+//    @Value("${spring.datasource.druid.studio.pointcutExecution}")
+//    String studioPointcutExecution;
+
     @Pointcut("@annotation(com.baidu.cms.datasources.annotation.DataSource)")
     public void dataSourcePointCutWithAnnotation() {
 
@@ -37,8 +43,8 @@ public class DataSourceAspect implements Ordered {
 
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
-            DynamicDataSource.setDataSource(DataSourceNames.FIRST);
-            logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.FIRST);
+            DynamicDataSource.setDataSource(DataSourceNames.BASE);
+            logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE);
         }else {
             DynamicDataSource.setDataSource(ds.name());
             logger.debug(">>>>>>>>> set datasource is " + ds.name());
@@ -59,8 +65,8 @@ public class DataSourceAspect implements Ordered {
 
     @Around("dataSourcePointCutForBasePackage()")
     public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
-        DynamicDataSource.setDataSource(DataSourceNames.FIRST);
-        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.FIRST);
+        DynamicDataSource.setDataSource(DataSourceNames.BASE);
+        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE);
         try {
             return point.proceed();
         } finally {
@@ -76,8 +82,8 @@ public class DataSourceAspect implements Ordered {
 
     @Around("dataSourcePointCutForStudioPackage()")
     public Object aroundForStudioPackage(ProceedingJoinPoint point) throws Throwable {
-        DynamicDataSource.setDataSource(DataSourceNames.SECOND);
-        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.SECOND);
+        DynamicDataSource.setDataSource(DataSourceNames.STUDIO);
+        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.STUDIO);
         try {
             return point.proceed();
         } finally {
