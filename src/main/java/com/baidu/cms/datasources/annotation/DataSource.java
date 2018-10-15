@@ -1,5 +1,7 @@
 package com.baidu.cms.datasources.annotation;
 
+import com.baidu.cms.datasources.DataSourceNames;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,5 +17,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface DataSource {
-    String name() default "";
+    DataSourceNames name() default DataSourceNames.BASE;
 }

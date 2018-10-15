@@ -13,6 +13,7 @@ import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.datasources.DataSourceNames;
 import com.baidu.cms.datasources.DynamicDataSource;
+import com.baidu.cms.datasources.annotation.DataSource;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,8 @@ public class GenTableController extends BaseController {
 
 	@Autowired
 	private GenTableService genTableService;
-	
+
+	@DataSource(name = DataSourceNames.BASE)
 	@ModelAttribute
 	public GenTable get(@RequestParam(required=false) String id) {
 		if (StringUtils.isNotBlank(id)){
@@ -47,7 +49,8 @@ public class GenTableController extends BaseController {
 			return new GenTable();
 		}
 	}
-	
+
+	@DataSource(name = DataSourceNames.BASE)
 	@RequiresPermissions("gen:genTable:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(GenTable genTable, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -90,6 +93,7 @@ public class GenTableController extends BaseController {
 		return "base/modules/gen/genTableForm";
 	}
 
+	@DataSource(name = DataSourceNames.BASE)
 	@RequiresPermissions("gen:genTable:edit")
 	@RequestMapping(value = "save")
 	public String save(GenTable genTable, Model model, RedirectAttributes redirectAttributes) {
@@ -106,7 +110,8 @@ public class GenTableController extends BaseController {
 		addMessage(redirectAttributes, "保存业务表'" + genTable.getName() + "'成功");
 		return "redirect:" + adminPath + "/gen/genTable/?repage";
 	}
-	
+
+	@DataSource(name = DataSourceNames.BASE)
 	@RequiresPermissions("gen:genTable:edit")
 	@RequestMapping(value = "delete")
 	public String delete(GenTable genTable, RedirectAttributes redirectAttributes) {

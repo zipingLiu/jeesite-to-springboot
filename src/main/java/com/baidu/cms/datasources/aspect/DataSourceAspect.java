@@ -46,7 +46,7 @@ public class DataSourceAspect implements Ordered {
             DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
             logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
         }else {
-            DynamicDataSource.setDataSource(ds.name());
+            DynamicDataSource.setDataSource(ds.name().getKey());
             logger.debug(">>>>>>>>> set datasource is " + ds.name());
         }
 
@@ -58,12 +58,26 @@ public class DataSourceAspect implements Ordered {
         }
     }
 
+    /**
+     * base系统模块所在包
+     */
     @Pointcut("execution(* com.baidu.cms.base.modules..*.*(..))")
     public void dataSourcePointCutForBasePackage() {
 
     }
 
-    @Around("dataSourcePointCutForBasePackage()")
+    /**
+     * 排除代码生成器所在包
+     */
+    @Pointcut("!execution(* com.baidu.cms.base.modules.gen.web.GenTableController.*(..))")
+    public void dataSourcePointCutExcludeGenPackage() {
+
+    }
+
+    /**
+     * base模块并且排除代码生成器
+     */
+    @Around("dataSourcePointCutForBasePackage() && dataSourcePointCutExcludeGenPackage()")
     public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
         DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
         logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
@@ -80,6 +94,9 @@ public class DataSourceAspect implements Ordered {
 
     }
 
+    /**
+     * studio业务模块所在包
+     */
     @Around("dataSourcePointCutForStudioPackage()")
     public Object aroundForStudioPackage(ProceedingJoinPoint point) throws Throwable {
         DynamicDataSource.setDataSource(DataSourceNames.STUDIO.getKey());
