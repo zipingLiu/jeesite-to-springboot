@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.studio.modules.psuser.dao.PsUserDao">
+    
+	<sql id="psUserColumns">
+		a.id AS "id",
+		a.user_name AS "userName",
+		a.user_source_id AS "userSourceId",
+		a.user_type AS "userType",
+		a.create_time AS "createTime",
+		a.last_login_time AS "lastLoginTime",
+		a.status_code AS "statusCode",
+		a.is_employee AS "isEmployee",
+		a.display_name AS "displayName",
+		a.true_name AS "trueName",
+		a.idcard AS "idcard",
+		a.mobile AS "mobile",
+		a.capacity AS "capacity",
+		a.work_place AS "workPlace",
+		a.position AS "position",
+		a.region AS "region",
+		a.portrait AS "portrait",
+		a.user_abs AS "userAbs",
+		a.company_name AS "companyName",
+		a.email AS "email"
+	</sql>
+	
+	<sql id="psUserJoins">
+	</sql>
+    
+	<select id="get" resultType="PsUser">
+		SELECT 
+			<include refid="psUserColumns"/>
+		FROM ps_user a
+		<include refid="psUserJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsUser">
+		SELECT 
+			<include refid="psUserColumns"/>
+		FROM ps_user a
+		<include refid="psUserJoins"/>
+		<where>
+			
+			<if test="userName != null and userName != ''">
+				AND a.user_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{userName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{userName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{userName},'%')</if>
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != ''">
+				AND a.last_login_time = #{lastLoginTime}
+			</if>
+			<if test="trueName != null and trueName != ''">
+				AND a.true_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{trueName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{trueName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{trueName},'%')</if>
+			</if>
+			<if test="idcard != null and idcard != ''">
+				AND a.idcard LIKE 
+					<if test="dbName == 'oracle'">'%'||#{idcard}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{idcard}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{idcard},'%')</if>
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND a.mobile LIKE 
+					<if test="dbName == 'oracle'">'%'||#{mobile}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{mobile}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{mobile},'%')</if>
+			</if>
+			<if test="companyName != null and companyName != ''">
+				AND a.company_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{companyName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{companyName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{companyName},'%')</if>
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PsUser">
+		SELECT 
+			<include refid="psUserColumns"/>
+		FROM ps_user a
+		<include refid="psUserJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ps_user(
+			user_name,
+			user_source_id,
+			user_type,
+			create_time,
+			last_login_time,
+			status_code,
+			is_employee,
+			display_name,
+			true_name,
+			idcard,
+			mobile,
+			capacity,
+			work_place,
+			position,
+			region,
+			portrait,
+			user_abs,
+			company_name,
+			email
+		) VALUES (
+			#{userName},
+			#{userSourceId},
+			#{userType},
+			#{createTime},
+			#{lastLoginTime},
+			#{statusCode},
+			#{isEmployee},
+			#{displayName},
+			#{trueName},
+			#{idcard},
+			#{mobile},
+			#{capacity},
+			#{workPlace},
+			#{position},
+			#{region},
+			#{portrait},
+			#{userAbs},
+			#{companyName},
+			#{email}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_user SET 	
+			user_name = #{userName},
+			user_source_id = #{userSourceId},
+			user_type = #{userType},
+			create_time = #{createTime},
+			last_login_time = #{lastLoginTime},
+			status_code = #{statusCode},
+			is_employee = #{isEmployee},
+			display_name = #{displayName},
+			true_name = #{trueName},
+			idcard = #{idcard},
+			mobile = #{mobile},
+			capacity = #{capacity},
+			work_place = #{workPlace},
+			position = #{position},
+			region = #{region},
+			portrait = #{portrait},
+			user_abs = #{userAbs},
+			company_name = #{companyName},
+			email = #{email}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ps_user
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
