@@ -4,9 +4,9 @@ spring:
   http:
     encoding: { charset: UTF-8, enable: true, force: true }
 #产品信息设置
-productName: Studio-CMS 后台管理
+productName: Studio 后台管理系统
 #产品版本
-version: studio-cms-1.0
+version: studio cms v1.0
 #静态文件后缀
 web:
   staticFile: .css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.htm,.html,.crx,.xpi,.exe,.ipa,.apk

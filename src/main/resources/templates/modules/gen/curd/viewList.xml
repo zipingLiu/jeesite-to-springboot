@@ -4,10 +4,12 @@
 	<filePath>src/main/webapp/WEB-INF/views/${lastPackageName}/${moduleName}/${subModuleName}</filePath>
 	<fileName>${className}List.jsp</fileName>
 	<content><![CDATA[
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
+	<%@ include file="/WEB-INF/views/include/head.jsp" %>
 	<title>${functionNameSimple}管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">

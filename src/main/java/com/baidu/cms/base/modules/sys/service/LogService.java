@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2013 <a href="httparamMap://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.baidu.cms.base.modules.sys.service;
 
 import com.baidu.cms.common.utils.DateUtils;

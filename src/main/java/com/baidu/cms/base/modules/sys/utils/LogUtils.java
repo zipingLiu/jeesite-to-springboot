@@ -99,9 +99,7 @@ public class LogUtils {
             }
             // 保存日志信息
             log.preInsert();
-            int logId = logDao.insert(log);
-            System.out.println(">>>>>>>>保存日志:" + log);
-            System.out.println(">>>>>>>>返回日志ID:" + logId);
+            logDao.insert(log);
         }
     }
 

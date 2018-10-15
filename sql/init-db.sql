@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 50641
  Source Host           : localhost:3306
- Source Schema         : master_jeesite_springboot
+ Source Schema         : master_studio_springboot
 
  Target Server Type    : MySQL
  Target Server Version : 50641

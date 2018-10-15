@@ -44,17 +44,17 @@ public class DataSourceAspect implements Ordered {
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
             DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
-            logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
+            logger.debug("设置数据源: set datasource is " + DataSourceNames.BASE.getKey());
         }else {
             DynamicDataSource.setDataSource(ds.name().getKey());
-            logger.debug(">>>>>>>>> set datasource is " + ds.name());
+            logger.debug("设置数据源: set datasource is " + ds.name());
         }
 
         try {
             return point.proceed();
         } finally {
             DynamicDataSource.clearDataSource();
-            logger.debug(">>>>>>>>> clean datasource");
+            logger.debug("清理数据源: clean datasource");
         }
     }
 
@@ -80,12 +80,12 @@ public class DataSourceAspect implements Ordered {
 //    @Around("dataSourcePointCutForBasePackage() && dataSourcePointCutExcludeGenPackage()")
 //    public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
 //        DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
-//        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
+//        logger.debug("设置数据源: set datasource is " + DataSourceNames.BASE.getKey());
 //        try {
 //            return point.proceed();
 //        } finally {
 //            DynamicDataSource.clearDataSource();
-//            logger.debug(">>>>>>>>> clean datasource");
+//            logger.debug("清理数据源: clean datasource");
 //        }
 //    }
 
@@ -100,12 +100,12 @@ public class DataSourceAspect implements Ordered {
     @Around("dataSourcePointCutForStudioPackage()")
     public Object aroundForStudioPackage(ProceedingJoinPoint point) throws Throwable {
         DynamicDataSource.setDataSource(DataSourceNames.STUDIO.getKey());
-        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.STUDIO.getKey());
+        logger.debug("设置数据源: set datasource is " + DataSourceNames.STUDIO.getKey());
         try {
             return point.proceed();
         } finally {
             DynamicDataSource.clearDataSource();
-            logger.debug(">>>>>>>>> clean datasource");
+            logger.debug("清理数据源: clean datasource");
         }
     }
 

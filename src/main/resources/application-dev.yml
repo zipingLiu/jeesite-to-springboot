@@ -7,7 +7,7 @@ server:
       pattern: common
       enabled: true
       directory: ../logs
-      prefix: jeesite_access_log
+      prefix: studio_access_log
       suffix: .log
       request-attributes-enabled: true
       rename-on-rotate: true
@@ -78,4 +78,4 @@ page:
   pageSize: 10
 #文件上传的路径
 userfiles:
-  basedir: /Users/v_shiyanjun/jeesite/upload2
+  basedir: /Users/v_shiyanjun/studio/upload2

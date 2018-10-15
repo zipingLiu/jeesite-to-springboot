@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.baidu.cms.common.persistence.interceptor;
 
 import com.baidu.cms.common.persistence.dialect.DB2Dialect;

@@ -103,18 +103,6 @@ public class DbUtil {
     }
 
     public static void main(String[] args) {
-        String jdbcUrl = "jdbc:mysql://localhost:3306/db_master_myjeesite";
-        String[] split1 = jdbcUrl.split(":");
-        String len = split1[split1.length - 1];
-        int last = len.lastIndexOf("?") == -1 ? len.length() : len.lastIndexOf("?");
-        String dbName = len.substring(len.indexOf("/") + 1, last);
-        System.out.println(dbName);
 
-        System.out.println(DbUtil.getDataSourceKey("db_master_myjeesite"));
-        System.out.println(DbUtil.getDataSourceKey("xxxx"));
-        System.out.println(DbUtil.getDataSourceKey("d_ai_forum_t"));
-        System.out.println(DbUtil.getDbName("MASTER"));
-        System.out.println(DbUtil.getDbName("SLAVE1"));
-        System.out.println(DbUtil.getDbName("SLAVE2"));
     }
 }

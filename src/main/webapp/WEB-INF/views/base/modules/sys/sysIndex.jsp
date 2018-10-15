@@ -193,7 +193,7 @@
 				</div>
 			</div>
 		    <div id="footer" class="row-fluid">
-	            Copyright &copy; 2012-2030 ${fns:getConfig('productName')} - Powered By <a href="http://jeesite.com" target="_blank">JeeSite</a> ${fns:getConfig('version')}
+	            Copyright &copy; 2018-2030 ${fns:getConfig('productName')} - Powered By <a href="http://baidu.com" target="_blank">Baidu</a> ${fns:getConfig('version')}
 			</div>
 		</div>
 	</div>

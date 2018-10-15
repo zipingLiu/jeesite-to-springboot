@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.baidu.cms.base.modules.sys.service;
 
 import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
@@ -399,7 +396,7 @@ public class SystemService extends BaseService {
 	public static boolean printKeyLoadMessage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\r\n======================================================================\r\n");
-		sb.append("\r\n    欢迎使用 " + Global.getConfig("productName") + "  - Powered By http://jeesite.com\r\n");
+		sb.append("\r\n    欢迎使用 " + Global.getConfig("productName") + "  - Powered By http://baidu.com\r\n");
 		sb.append("\r\n======================================================================\r\n");
 		System.out.println(sb.toString());
 		return true;
