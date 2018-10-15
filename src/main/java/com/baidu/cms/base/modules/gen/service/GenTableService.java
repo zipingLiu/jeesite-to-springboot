@@ -121,12 +121,23 @@ public class GenTableService extends BaseService {
 				}
 
 				// 根据数据库名取得数据库的路由key
-				String tableSchema = genTable.getTableSchema();
-				String dataSourceKey = DbUtil.getDataSourceKey(tableSchema);
-				// 根据数据库路由key切换数据源
-				DynamicDataSource.setDataSource(dataSourceKey);
-				List<GenTableColumn> columnList = genDataBaseDictDao.findTableColumnList(genTable);
-				DynamicDataSource.clearDataSource();
+//				String tableSchema = genTable.getTableSchema();
+//				String dataSourceKey = DbUtil.getDataSourceKey(tableSchema);
+//				// 根据数据库路由key切换数据源
+//				DynamicDataSource.setDataSource(dataSourceKey);
+//				List<GenTableColumn> columnList = genDataBaseDictDao.findTableColumnList(genTable);
+//				DynamicDataSource.clearDataSource();
+
+				List<GenTableColumn> columnList = null;
+				for (DataSourceNames e : enums) {
+					// 根据数据库路由key切换数据源
+					DynamicDataSource.setDataSource(e.getKey());
+					columnList = genDataBaseDictDao.findTableColumnList(genTable);
+					DynamicDataSource.clearDataSource();
+					if (!CollectionUtils.isEmpty(columnList)) {
+						break;
+					}
+				}
 
 				for (GenTableColumn column : columnList){
 					boolean b = false;
