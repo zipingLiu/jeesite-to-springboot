@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.studio.modules.pscode.dao.PsCodeDao">
+    
+	<sql id="psCodeColumns">
+		a.id AS "id",
+		a.code_name AS "codeName",
+		a.code_content AS "codeContent",
+		a.user_id AS "user.id",
+		a.code_category AS "codeCategory",
+		a.status_code AS "statusCode",
+		a.create_time AS "createTime",
+		a.code_type AS "codeType",
+		u4.name AS "user.name"
+	</sql>
+	
+	<sql id="psCodeJoins">
+		LEFT JOIN sys_user u4 ON u4.id = a.user_id
+	</sql>
+    
+	<select id="get" resultType="PsCode">
+		SELECT 
+			<include refid="psCodeColumns"/>
+		FROM ps_code a
+		<include refid="psCodeJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsCode">
+		SELECT 
+			<include refid="psCodeColumns"/>
+		FROM ps_code a
+		<include refid="psCodeJoins"/>
+		<where>
+			
+			<if test="codeName != null and codeName != ''">
+				AND a.code_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{codeName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{codeName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{codeName},'%')</if>
+			</if>
+			<if test="codeContent != null and codeContent != ''">
+				AND a.code_content LIKE 
+					<if test="dbName == 'oracle'">'%'||#{codeContent}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{codeContent}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{codeContent},'%')</if>
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PsCode">
+		SELECT 
+			<include refid="psCodeColumns"/>
+		FROM ps_code a
+		<include refid="psCodeJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ps_code(
+			code_name,
+			code_content,
+			user_id,
+			code_category,
+			status_code,
+			create_time,
+			code_type
+		) VALUES (
+			#{codeName},
+			#{codeContent},
+			#{user.id},
+			#{codeCategory},
+			#{statusCode},
+			#{createTime},
+			#{codeType}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_code SET 	
+			code_name = #{codeName},
+			code_content = #{codeContent},
+			user_id = #{user.id},
+			code_category = #{codeCategory},
+			status_code = #{statusCode},
+			create_time = #{createTime},
+			code_type = #{codeType}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ps_code
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

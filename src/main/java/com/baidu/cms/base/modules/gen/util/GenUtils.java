@@ -301,7 +301,7 @@ public class GenUtils {
 		Map<String, Object> model = Maps.newHashMap();
 		
 		model.put("packageName", StringUtils.lowerCase(genScheme.getPackageName()));
-		model.put("lastPackageName", StringUtils.substringAfterLast((String)model.get("packageName"),"."));
+		model.put("lastPackageName", "studio." + StringUtils.substringAfterLast((String)model.get("packageName"),"."));
 		model.put("moduleName", StringUtils.lowerCase(genScheme.getModuleName()));
 		model.put("subModuleName", StringUtils.lowerCase(genScheme.getSubModuleName()));
 		model.put("className", StringUtils.uncapitalize(genScheme.getGenTable().getClassName()));

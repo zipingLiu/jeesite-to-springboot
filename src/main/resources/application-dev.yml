@@ -79,3 +79,5 @@ page:
 #文件上传的路径
 userfiles:
   basedir: /Users/v_shiyanjun/studio/upload2
+#代码生成路径
+projectPath: /Users/v_shiyanjun/IdeaProjects/jeesite-to-springboot
