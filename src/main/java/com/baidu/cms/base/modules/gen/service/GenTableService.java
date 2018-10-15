@@ -103,7 +103,7 @@ public class GenTableService extends BaseService {
 				// 根据数据库路由key切换数据源
 				DynamicDataSource.setDataSource(e.getKey());
 				list = genDataBaseDictDao.findTableList(genTable);
-				DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
+				DynamicDataSource.clearDataSource();
 				if (!CollectionUtils.isEmpty(list)) {
 					break;
 				}
@@ -126,7 +126,7 @@ public class GenTableService extends BaseService {
 				// 根据数据库路由key切换数据源
 				DynamicDataSource.setDataSource(dataSourceKey);
 				List<GenTableColumn> columnList = genDataBaseDictDao.findTableColumnList(genTable);
-				DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
+				DynamicDataSource.clearDataSource();
 
 				for (GenTableColumn column : columnList){
 					boolean b = false;

@@ -4,3 +4,9 @@ server:
 spring:
   profiles:
     active: dev
+
+# 数据库列表
+# 格式为(数据库路由key1:数据库名称1,数据库路由key2:数据库名称2)
+studio-cms:
+    database-list:
+      base:d_ai_studio_cms,studio:d_ai_studio

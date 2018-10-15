@@ -32,6 +32,17 @@ public class DbUtil {
         return map;
     }
 
+    public static Map<String, String> getDataSourceKeyMap2 () {
+        Map<String, String> map = new HashMap<>();
+        String value = Global.getConfig("studio-cms.database-list");
+        String[] dbList = value.split(",");
+        for (String s : dbList) {
+            String[] kv = s.split(":");
+            map.put(kv[0], kv[1]);
+        }
+        return map;
+    }
+
     /**
      *  从jdbcUrl中解析出数据库名
      *  @author: shiyanjun
@@ -69,7 +80,7 @@ public class DbUtil {
      *  @Date: 2018/10/11 上午10:58
      */
     public static String getDbName(String dataSourceKey) {
-        return DbUtil.getDataSourceKeyMap().get(dataSourceKey);
+        return DbUtil.getDataSourceKeyMap2().get(dataSourceKey);
     }
 
     /**
@@ -78,7 +89,7 @@ public class DbUtil {
      *  @Date: 2018/10/11 上午11:03
      */
     public static String getDataSourceKey(String dbName) {
-        Map<String, String> map = DbUtil.getDataSourceKeyMap();
+        Map<String, String> map = DbUtil.getDataSourceKeyMap2();
         Set<String> keySet = map.keySet();
         Iterator<String> it = keySet.iterator();
         while (it.hasNext()) {

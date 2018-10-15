@@ -77,17 +77,17 @@ public class DataSourceAspect implements Ordered {
     /**
      * base模块并且排除代码生成器
      */
-    @Around("dataSourcePointCutForBasePackage() && dataSourcePointCutExcludeGenPackage()")
-    public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
-        DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
-        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
-        try {
-            return point.proceed();
-        } finally {
-            DynamicDataSource.clearDataSource();
-            logger.debug(">>>>>>>>> clean datasource");
-        }
-    }
+//    @Around("dataSourcePointCutForBasePackage() && dataSourcePointCutExcludeGenPackage()")
+//    public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
+//        DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
+//        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
+//        try {
+//            return point.proceed();
+//        } finally {
+//            DynamicDataSource.clearDataSource();
+//            logger.debug(">>>>>>>>> clean datasource");
+//        }
+//    }
 
     @Pointcut("execution(* com.baidu.cms.studio.modules..*.*(..))")
     public void dataSourcePointCutForStudioPackage() {
