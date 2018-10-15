@@ -25,12 +25,10 @@ spring:
         url: jdbc:mysql://localhost:3306/master_jeesite_springboot?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
         username: root
         password: 123456
-#        pointcutExecution: execution(* com.baidu.cms.base.modules..*.*(..))
       studio:
         url: jdbc:mysql://localhost:3306/slave_jeesite_springboot?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
         username: root
         password: 123456
-#        pointcutExecution: execution(* com.baidu.cms.studio.modules..*.*(..))
       initial-size: 10
       max-active: 100
       min-idle: 10
