@@ -43,8 +43,8 @@ public class DataSourceAspect implements Ordered {
 
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
-            DynamicDataSource.setDataSource(DataSourceNames.BASE);
-            logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE);
+            DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
+            logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
         }else {
             DynamicDataSource.setDataSource(ds.name());
             logger.debug(">>>>>>>>> set datasource is " + ds.name());
@@ -65,8 +65,8 @@ public class DataSourceAspect implements Ordered {
 
     @Around("dataSourcePointCutForBasePackage()")
     public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
-        DynamicDataSource.setDataSource(DataSourceNames.BASE);
-        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE);
+        DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
+        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
         try {
             return point.proceed();
         } finally {
@@ -82,8 +82,8 @@ public class DataSourceAspect implements Ordered {
 
     @Around("dataSourcePointCutForStudioPackage()")
     public Object aroundForStudioPackage(ProceedingJoinPoint point) throws Throwable {
-        DynamicDataSource.setDataSource(DataSourceNames.STUDIO);
-        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.STUDIO);
+        DynamicDataSource.setDataSource(DataSourceNames.STUDIO.getKey());
+        logger.debug(">>>>>>>>> set datasource is " + DataSourceNames.STUDIO.getKey());
         try {
             return point.proceed();
         } finally {

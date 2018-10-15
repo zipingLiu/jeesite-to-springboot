@@ -10,7 +10,13 @@ import com.baidu.cms.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.core.io.DefaultResourceLoader;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +29,7 @@ public class Global {
 
     private static Logger logger = LoggerFactory.getLogger(Global.class);
 
-    public static String SPRING_DATASOURCE_URL = "spring.datasource.druid.first.url";
+    public static String SPRING_DATASOURCE_URL = "spring.datasource.druid.base.url";
 
     static RelaxedPropertyResolver resolver;
     /**
@@ -86,6 +92,23 @@ public class Global {
     }
 
     /**
+     *  获取配置中的所有key
+     *
+     *  @author: shiyanjun
+     *  @Date: 2018/10/11 上午10:23
+     */
+    public static List<String> getPropKeys () {
+        List<String> list = new ArrayList<String>();
+        Enumeration<?> names = loader.getProperties().propertyNames();
+        if (names != null) {
+            while (names.hasMoreElements()) {
+                list.add(names.nextElement().toString());
+            }
+        }
+        return list;
+    }
+
+    /**
      * 获取管理端根路径
      */
     public static String getAdminPath() {
@@ -137,6 +160,38 @@ public class Global {
 
     private static String getDbType(String rawUrl) {
         return rawUrl == null ? null : (!rawUrl.startsWith("jdbc:derby:") && !rawUrl.startsWith("jdbc:log4jdbc:derby:") ? (!rawUrl.startsWith("jdbc:mysql:") && !rawUrl.startsWith("jdbc:cobar:") && !rawUrl.startsWith("jdbc:log4jdbc:mysql:") ? (rawUrl.startsWith("jdbc:mariadb:") ? "mariadb" : (!rawUrl.startsWith("jdbc:oracle:") && !rawUrl.startsWith("jdbc:log4jdbc:oracle:") ? (rawUrl.startsWith("jdbc:alibaba:oracle:") ? "AliOracle" : (!rawUrl.startsWith("jdbc:microsoft:") && !rawUrl.startsWith("jdbc:log4jdbc:microsoft:") ? (!rawUrl.startsWith("jdbc:sqlserver:") && !rawUrl.startsWith("jdbc:log4jdbc:sqlserver:") ? (!rawUrl.startsWith("jdbc:sybase:Tds:") && !rawUrl.startsWith("jdbc:log4jdbc:sybase:") ? (!rawUrl.startsWith("jdbc:jtds:") && !rawUrl.startsWith("jdbc:log4jdbc:jtds:") ? (!rawUrl.startsWith("jdbc:fake:") && !rawUrl.startsWith("jdbc:mock:") ? (!rawUrl.startsWith("jdbc:postgresql:") && !rawUrl.startsWith("jdbc:log4jdbc:postgresql:") ? (rawUrl.startsWith("jdbc:edb:") ? "edb" : (!rawUrl.startsWith("jdbc:hsqldb:") && !rawUrl.startsWith("jdbc:log4jdbc:hsqldb:") ? (rawUrl.startsWith("jdbc:odps:") ? "odps" : (rawUrl.startsWith("jdbc:db2:") ? "db2" : (rawUrl.startsWith("jdbc:sqlite:") ? "sqlite" : (rawUrl.startsWith("jdbc:ingres:") ? "ingres" : (!rawUrl.startsWith("jdbc:h2:") && !rawUrl.startsWith("jdbc:log4jdbc:h2:") ? (rawUrl.startsWith("jdbc:mckoi:") ? "mckoi" : (rawUrl.startsWith("jdbc:cloudscape:") ? "cloudscape" : (!rawUrl.startsWith("jdbc:informix-sqli:") && !rawUrl.startsWith("jdbc:log4jdbc:informix-sqli:") ? (rawUrl.startsWith("jdbc:timesten:") ? "timesten" : (rawUrl.startsWith("jdbc:as400:") ? "as400" : (rawUrl.startsWith("jdbc:sapdb:") ? "sapdb" : (rawUrl.startsWith("jdbc:JSQLConnect:") ? "JSQLConnect" : (rawUrl.startsWith("jdbc:JTurbo:") ? "JTurbo" : (rawUrl.startsWith("jdbc:firebirdsql:") ? "firebirdsql" : (rawUrl.startsWith("jdbc:interbase:") ? "interbase" : (rawUrl.startsWith("jdbc:pointbase:") ? "pointbase" : (rawUrl.startsWith("jdbc:edbc:") ? "edbc" : (rawUrl.startsWith("jdbc:mimer:multi1:") ? "mimer" : (rawUrl.startsWith("jdbc:dm:") ? "dm" : (rawUrl.startsWith("jdbc:kingbase:") ? "kingbase" : (rawUrl.startsWith("jdbc:log4jdbc:") ? "log4jdbc" : (rawUrl.startsWith("jdbc:hive:") ? "hive" : (rawUrl.startsWith("jdbc:hive2:") ? "hive" : (rawUrl.startsWith("jdbc:phoenix:") ? "phoenix" : null)))))))))))))))) : "informix"))) : "h2"))))) : "hsql")) : "postgresql") : "mock") : "jtds") : "sybase") : "sqlserver") : "sqlserver")) : "oracle")) : "mysql") : "derby");
+    }
+
+    /**
+     * 获取工程路径
+     * @return
+     */
+    public static String getProjectPath(){
+        // 如果配置了工程路径，则直接返回，否则自动获取。
+        String projectPath = Global.getConfig("projectPath");
+        if (StringUtils.isNotBlank(projectPath)){
+            return projectPath;
+        }
+        try {
+            File file = new DefaultResourceLoader().getResource("").getFile();
+            if (file != null){
+                while(true){
+                    File f = new File(file.getPath() + File.separator + "src" + File.separator + "main");
+                    if (f == null || f.exists()){
+                        break;
+                    }
+                    if (file.getParentFile() != null){
+                        file = file.getParentFile();
+                    }else{
+                        break;
+                    }
+                }
+                projectPath = file.toString();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return projectPath;
     }
 
 }
