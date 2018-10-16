@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>比赛管理管理</title>
+	<title>比赛管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -20,8 +20,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/psmatch/psMatch/">比赛管理列表</a></li>
-		<shiro:hasPermission name="psmatch:psMatch:edit"><li><a href="${ctx}/psmatch/psMatch/form">比赛管理添加</a></li></shiro:hasPermission>
+		<li class="active"><a href="${ctx}/psmatch/psMatch/">比赛列表</a></li>
+		<shiro:hasPermission name="psmatch:psMatch:edit"><li><a href="${ctx}/psmatch/psMatch/form">比赛添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="psMatch" action="${ctx}/psmatch/psMatch/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -135,7 +135,7 @@
 				</td>
 				<shiro:hasPermission name="psmatch:psMatch:edit"><td>
     				<a href="${ctx}/psmatch/psMatch/form?id=${psMatch.id}">修改</a>
-					<a href="${ctx}/psmatch/psMatch/delete?id=${psMatch.id}" onclick="return confirmx('确认要删除该比赛管理吗？', this.href)">删除</a>
+					<a href="${ctx}/psmatch/psMatch/delete?id=${psMatch.id}" onclick="return confirmx('确认要删除该比赛吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

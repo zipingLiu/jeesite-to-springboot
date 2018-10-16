@@ -30,7 +30,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}/psmatchuser/psMatchUser/">报名用户列表</a></li>
-		<%--<li class="active"><a href="${ctx}/psmatchuser/psMatchUser/form?id=${psMatchUser.id}">报名用户<shiro:hasPermission name="psmatchuser:psMatchUser:edit">${not empty psMatchUser.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatchuser:psMatchUser:edit">查看</shiro:lacksPermission></a></li>--%>
+		<li class="active"><a href="${ctx}/psmatchuser/psMatchUser/form?id=${psMatchUser.id}">报名用户<shiro:hasPermission name="psmatchuser:psMatchUser:edit">${not empty psMatchUser.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatchuser:psMatchUser:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="psMatchUser" action="${ctx}/psmatchuser/psMatchUser/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
@@ -39,21 +39,21 @@
 			<label class="control-label">比赛ID：</label>
 			<div class="controls">
 				<form:input path="matchId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">用户ID：</label>
 			<div class="controls">
 				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">阶段ID：</label>
 			<div class="controls">
 				<form:input path="processId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
@@ -62,7 +62,7 @@
 				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
 					value="<fmt:formatDate value="${psMatchUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
@@ -71,7 +71,7 @@
 				<input name="updateTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
 					value="<fmt:formatDate value="${psMatchUser.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
@@ -81,11 +81,11 @@
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('routine_pass')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="form-actions">
-			<%--<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>--%>
+			<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>
 	</form:form>

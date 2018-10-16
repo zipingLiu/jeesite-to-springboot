@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>阶段管理管理</title>
+	<title>比赛阶段管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -29,8 +29,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/psmatchprocess/psMatchProcess/">阶段管理列表</a></li>
-		<li class="active"><a href="${ctx}/psmatchprocess/psMatchProcess/form?id=${psMatchProcess.id}">阶段管理<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit">${not empty psMatchProcess.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatchprocess:psMatchProcess:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/psmatchprocess/psMatchProcess/">比赛阶段列表</a></li>
+		<li class="active"><a href="${ctx}/psmatchprocess/psMatchProcess/form?id=${psMatchProcess.id}">比赛阶段<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit">${not empty psMatchProcess.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatchprocess:psMatchProcess:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="psMatchProcess" action="${ctx}/psmatchprocess/psMatchProcess/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

@@ -68,7 +68,7 @@ public class PsMatchController extends BaseController {
 			return form(psMatch, model);
 		}
 		psMatchService.save(psMatch);
-		addMessage(redirectAttributes, "保存比赛管理成功");
+		addMessage(redirectAttributes, "保存比赛成功");
 		return "redirect:"+Global.getAdminPath()+"/psmatch/psMatch/?repage";
 	}
 	
@@ -76,7 +76,7 @@ public class PsMatchController extends BaseController {
 	@RequestMapping(value = "delete")
 	public String delete(PsMatch psMatch, RedirectAttributes redirectAttributes) {
 		psMatchService.delete(psMatch);
-		addMessage(redirectAttributes, "删除比赛管理成功");
+		addMessage(redirectAttributes, "删除比赛成功");
 		return "redirect:"+Global.getAdminPath()+"/psmatch/psMatch/?repage";
 	}
 

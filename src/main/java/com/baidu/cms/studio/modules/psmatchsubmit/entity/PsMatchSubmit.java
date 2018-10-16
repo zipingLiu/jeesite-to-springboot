@@ -23,8 +23,8 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 	private Date createTime;		// 创建时间
 	private Integer statusCode;		// 提交状态
 	private Date lastUpdateTime;		// 最后更新时间
-	private Long userid;		// 提交人
-	private String userName;	// 用户名
+	private Long userId;		// 提交人
+    private String userName;	// 用户名
 	private Double score;		// 分数
 	private String resultContent;		// 结果json
 	private String bosKey;		// bos的key值
@@ -47,7 +47,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		super(id);
 	}
 
-	@Length(min=1, max=200, message="提交名称长度必须介于 1 和 200 之间")
+	@Length(min=0, max=200, message="提交名称长度必须介于 0 和 200 之间")
 	public String getSubmitName() {
 		return submitName;
 	}
@@ -56,7 +56,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.submitName = submitName;
 	}
 	
-	@Length(min=1, max=20, message="版本长度必须介于 1 和 20 之间")
+	@Length(min=0, max=20, message="版本长度必须介于 0 和 20 之间")
 	public String getVersion() {
 		return version;
 	}
@@ -95,21 +95,21 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 	}
 	
 	@NotNull(message="提交人不能为空")
-	public Long getUserid() {
-		return userid;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
 	@NotNull(message="分数不能为空")
 	public Double getScore() {
@@ -120,7 +120,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.score = score;
 	}
 	
-	@Length(min=1, max=2000, message="结果json长度必须介于 1 和 2000 之间")
+//	@Length(min=0, max=2000, message="结果json长度必须介于 0 和 2000 之间")
 	public String getResultContent() {
 		return resultContent;
 	}
@@ -129,7 +129,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.resultContent = resultContent;
 	}
 	
-	@Length(min=1, max=500, message="bos的key值长度必须介于 1 和 500 之间")
+//	@Length(min=1, max=500, message="bos的key值长度必须介于 1 和 500 之间")
 	public String getBosKey() {
 		return bosKey;
 	}
@@ -138,7 +138,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.bosKey = bosKey;
 	}
 	
-	@Length(min=1, max=1000, message="bos的url长度必须介于 1 和 1000 之间")
+//	@Length(min=1, max=1000, message="bos的url长度必须介于 1 和 1000 之间")
 	public String getBosFileUrl() {
 		return bosFileUrl;
 	}
@@ -147,7 +147,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.bosFileUrl = bosFileUrl;
 	}
 	
-	@NotNull(message="任务开始时间不能为空")
+//	@NotNull(message="任务开始时间不能为空")
 	public Long getStartTime() {
 		return startTime;
 	}
@@ -156,7 +156,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.startTime = startTime;
 	}
 	
-	@NotNull(message="任务结束时间不能为空")
+//	@NotNull(message="任务结束时间不能为空")
 	public Long getEndTime() {
 		return endTime;
 	}
@@ -183,7 +183,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.anonymous = anonymous;
 	}
 	
-	@Length(min=1, max=500, message="参考文献长度必须介于 1 和 500 之间")
+	@Length(min=0, max=500, message="参考文献长度必须介于 0 和 500 之间")
 	public String getReference() {
 		return reference;
 	}
@@ -192,7 +192,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 		this.reference = reference;
 	}
 	
-	@Length(min=1, max=500, message="简介长度必须介于 1 和 500 之间")
+	@Length(min=0, max=500, message="简介长度必须介于 0 和 500 之间")
 	public String getIntroduction() {
 		return introduction;
 	}

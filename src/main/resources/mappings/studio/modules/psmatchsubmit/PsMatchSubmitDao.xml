@@ -9,7 +9,7 @@
 		a.create_time AS "createTime",
 		a.status_code AS "statusCode",
 		a.last_update_time AS "lastUpdateTime",
-		a.user_id AS "userid",
+		a.user_id AS "userId",
 		a.score AS "score",
 		a.result_content AS "resultContent",
 		a.bos_key AS "bosKey",
@@ -48,12 +48,6 @@
 			<if test="id != null and id != ''">
 				AND a.id = #{id}
 			</if>
-			<if test="submitName != null and submitName != ''">
-				AND a.submit_name = #{submitName}
-			</if>
-			<if test="version != null and version != ''">
-				AND a.version = #{version}
-			</if>
 			<if test="createTime != null and createTime != ''">
 				AND a.create_time &gt;= #{createTime}
 			</if>
@@ -63,8 +57,8 @@
 			<if test="lastUpdateTime != null and lastUpdateTime != ''">
 				AND a.last_update_time &gt;= #{lastUpdateTime}
 			</if>
-			<if test="userid != null and userid != ''">
-				AND a.user_id = #{userid}
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
 			</if>
 			<if test="score != null and score != ''">
 				AND a.score &gt;= #{score}
@@ -93,26 +87,11 @@
 			<if test="anonymous != null and anonymous != ''">
 				AND a.anonymous = #{anonymous}
 			</if>
-			<if test="reference != null and reference != ''">
-				AND a.reference LIKE 
-					<if test="dbName == 'oracle'">'%'||#{reference}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{reference}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{reference},'%')</if>
-			</if>
-			<if test="introduction != null and introduction != ''">
-				AND a.introduction LIKE 
-					<if test="dbName == 'oracle'">'%'||#{introduction}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{introduction}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{introduction},'%')</if>
-			</if>
 			<if test="projectId != null and projectId != ''">
 				AND a.project_id = #{projectId}
 			</if>
 			<if test="matchId != null and matchId != ''">
 				AND a.match_id = #{matchId}
-			</if>
-			<if test="errorMsg != null and errorMsg != ''">
-				AND a.error_msg = #{errorMsg}
 			</if>
 		</where>
 		<choose>
@@ -168,7 +147,7 @@
 			#{createTime},
 			#{statusCode},
 			#{lastUpdateTime},
-			#{userid},
+			#{userId},
 			#{score},
 			#{resultContent},
 			#{bosKey},
@@ -192,7 +171,7 @@
 			create_time = #{createTime},
 			status_code = #{statusCode},
 			last_update_time = #{lastUpdateTime},
-			user_id = #{userid},
+			user_id = #{userId},
 			score = #{score},
 			result_content = #{resultContent},
 			bos_key = #{bosKey},

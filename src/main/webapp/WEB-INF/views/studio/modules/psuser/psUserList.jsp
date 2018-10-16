@@ -91,9 +91,6 @@
 			<li><label>地区：</label>
 				<form:input path="region" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>介绍：</label>
-				<form:input path="userAbs" htmlEscape="false" maxlength="500" class="input-medium"/>
-			</li>
 			<li><label>公司名称：</label>
 				<form:input path="companyName" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
@@ -115,6 +112,7 @@
 				<th>手机号</th>
 				<th>工作地点</th>
 				<th>公司名称</th>
+				<th>邮箱</th>
 				<shiro:hasPermission name="psuser:psUser:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -141,6 +139,9 @@
 				</td>
 				<td>
 					${psUser.companyName}
+				</td>
+				<td>
+					${psUser.email}
 				</td>
 				<shiro:hasPermission name="psuser:psUser:edit"><td>
     				<a href="${ctx}/psuser/psUser/form?id=${psUser.id}">修改</a>

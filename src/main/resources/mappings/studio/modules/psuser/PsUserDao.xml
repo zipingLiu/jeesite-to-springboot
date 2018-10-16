@@ -103,9 +103,6 @@
 			<if test="region != null and region != ''">
 				AND a.region = #{region}
 			</if>
-			<if test="userAbs != null and userAbs != ''">
-				AND a.user_abs = #{userAbs}
-			</if>
 			<if test="companyName != null and companyName != ''">
 				AND a.company_name LIKE 
 					<if test="dbName == 'oracle'">'%'||#{companyName}||'%'</if>
@@ -113,7 +110,10 @@
 					<if test="dbName == 'mysql'">concat('%',#{companyName},'%')</if>
 			</if>
 			<if test="email != null and email != ''">
-				AND a.email = #{email}
+				AND a.email LIKE 
+					<if test="dbName == 'oracle'">'%'||#{email}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{email}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{email},'%')</if>
 			</if>
 		</where>
 		<choose>

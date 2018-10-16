@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>报名管理</title>
+	<title>报名用户管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -20,8 +20,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/psmatchuser/psMatchUser/">报名列表</a></li>
-		<%--<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><li><a href="${ctx}/psmatchuser/psMatchUser/form">报名添加</a></li></shiro:hasPermission>--%>
+		<li class="active"><a href="${ctx}/psmatchuser/psMatchUser/">报名用户列表</a></li>
+		<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><li><a href="${ctx}/psmatchuser/psMatchUser/form">报名用户添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="psMatchUser" action="${ctx}/psmatchuser/psMatchUser/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -49,7 +49,7 @@
 					value="<fmt:formatDate value="${psMatchUser.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
-			<li><label>是否通过：</label>
+			<li><label>常规赛是否通过：</label>
 				<form:select path="routinePass" class="input-medium">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('routine_pass')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
@@ -98,8 +98,8 @@
 					${fns:getDictLabel(psMatchUser.routinePass, 'routine_pass', '')}
 				</td>
 				<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><td>
-    				<a href="${ctx}/psmatchuser/psMatchUser/form?id=${psMatchUser.id}">详情</a>
-					<%--<a href="${ctx}/psmatchuser/psMatchUser/delete?id=${psMatchUser.id}" onclick="return confirmx('确认要删除该报名用户吗？', this.href)">删除</a>--%>
+    				<a href="${ctx}/psmatchuser/psMatchUser/form?id=${psMatchUser.id}">修改</a>
+					<a href="${ctx}/psmatchuser/psMatchUser/delete?id=${psMatchUser.id}" onclick="return confirmx('确认要删除该报名用户吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>阶段管理管理</title>
+	<title>比赛阶段管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -20,8 +20,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/psmatchprocess/psMatchProcess/">阶段管理列表</a></li>
-		<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><li><a href="${ctx}/psmatchprocess/psMatchProcess/form">阶段管理添加</a></li></shiro:hasPermission>
+		<li class="active"><a href="${ctx}/psmatchprocess/psMatchProcess/">比赛阶段列表</a></li>
+		<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><li><a href="${ctx}/psmatchprocess/psMatchProcess/form">比赛阶段添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="psMatchProcess" action="${ctx}/psmatchprocess/psMatchProcess/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -64,7 +64,7 @@
 			<li><label>执行脚本：</label>
 				<form:input path="evalDockerImage" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>Token开始时间：</label>
+			<li><label>获取Token开始时间：</label>
 				<input name="tokenStartTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${psMatchProcess.tokenStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
@@ -121,7 +121,7 @@
 				</td>
 				<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><td>
     				<a href="${ctx}/psmatchprocess/psMatchProcess/form?id=${psMatchProcess.id}">修改</a>
-					<a href="${ctx}/psmatchprocess/psMatchProcess/delete?id=${psMatchProcess.id}" onclick="return confirmx('确认要删除该阶段管理吗？', this.href)">删除</a>
+					<a href="${ctx}/psmatchprocess/psMatchProcess/delete?id=${psMatchProcess.id}" onclick="return confirmx('确认要删除该比赛阶段吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

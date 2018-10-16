@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>比赛管理管理</title>
+	<title>比赛管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -29,8 +29,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/psmatch/psMatch/">比赛管理列表</a></li>
-		<li class="active"><a href="${ctx}/psmatch/psMatch/form?id=${psMatch.id}">比赛管理<shiro:hasPermission name="psmatch:psMatch:edit">${not empty psMatch.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatch:psMatch:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/psmatch/psMatch/">比赛列表</a></li>
+		<li class="active"><a href="${ctx}/psmatch/psMatch/form?id=${psMatch.id}">比赛<shiro:hasPermission name="psmatch:psMatch:edit">${not empty psMatch.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatch:psMatch:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="psMatch" action="${ctx}/psmatch/psMatch/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

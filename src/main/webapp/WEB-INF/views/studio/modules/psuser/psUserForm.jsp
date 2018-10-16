@@ -134,7 +134,7 @@
 		<div class="control-group">
 			<label class="control-label">介绍：</label>
 			<div class="controls">
-				<form:input path="userAbs" htmlEscape="false" maxlength="500" class="input-xlarge required"/>
+				<form:textarea path="userAbs" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

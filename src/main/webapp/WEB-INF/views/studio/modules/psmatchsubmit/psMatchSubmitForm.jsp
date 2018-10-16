@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>提交管理管理</title>
+	<title>提交管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -29,8 +29,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/psmatchsubmit/psMatchSubmit/">提交管理列表</a></li>
-		<li class="active"><a href="${ctx}/psmatchsubmit/psMatchSubmit/form?id=${psMatchSubmit.id}">提交管理<shiro:hasPermission name="psmatchsubmit:psMatchSubmit:edit">${not empty psMatchSubmit.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatchsubmit:psMatchSubmit:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/psmatchsubmit/psMatchSubmit/">提交列表</a></li>
+		<li class="active"><a href="${ctx}/psmatchsubmit/psMatchSubmit/form?id=${psMatchSubmit.id}">提交<shiro:hasPermission name="psmatchsubmit:psMatchSubmit:edit">${not empty psMatchSubmit.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psmatchsubmit:psMatchSubmit:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="psMatchSubmit" action="${ctx}/psmatchsubmit/psMatchSubmit/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
@@ -38,15 +38,13 @@
 		<div class="control-group">
 			<label class="control-label">提交名称：</label>
 			<div class="controls">
-				<form:input path="submitName" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="submitName" htmlEscape="false" maxlength="200" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">版本：</label>
 			<div class="controls">
-				<form:input path="version" htmlEscape="false" maxlength="20" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="version" htmlEscape="false" maxlength="20" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -80,8 +78,7 @@
 		<div class="control-group">
 			<label class="control-label">提交人：</label>
 			<div class="controls">
-				<sys:treeselect id="userid" name="userid" value="${psMatchSubmit.userid}" labelName="" labelValue="${psMatchSubmit.userName}"
-					title="用户" url="/sys/office/treeData?type=3" cssClass="required" allowClear="true" notAllowSelectParent="true"/>
+				<form:input path="userName" htmlEscape="false" maxlength="10" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -95,36 +92,35 @@
 		<div class="control-group">
 			<label class="control-label">结果json：</label>
 			<div class="controls">
-				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">bos的key值：</label>
 			<div class="controls">
-				<form:input path="bosKey" htmlEscape="false" maxlength="500" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="bosKey" htmlEscape="false" maxlength="500" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">bos的url：</label>
 			<div class="controls">
-				<form:input path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">任务开始时间：</label>
 			<div class="controls">
-				<form:input path="startTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="startTime" htmlEscape="false" maxlength="20" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">任务结束时间：</label>
 			<div class="controls">
-				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
 		<div class="control-group">
@@ -147,15 +143,13 @@
 		<div class="control-group">
 			<label class="control-label">参考文献：</label>
 			<div class="controls">
-				<form:input path="reference" htmlEscape="false" maxlength="500" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:textarea path="reference" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">简介：</label>
 			<div class="controls">
-				<form:input path="introduction" htmlEscape="false" maxlength="500" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:textarea path="introduction" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
