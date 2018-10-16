@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.studio.modules.psmatchsubmit.dao.PsMatchSubmitDao">
+    
+	<sql id="psMatchSubmitColumns">
+		a.id AS "id",
+		a.submit_name AS "submitName",
+		a.version AS "version",
+		a.create_time AS "createTime",
+		a.status_code AS "statusCode",
+		a.last_update_time AS "lastUpdateTime",
+		a.user_id AS "userid",
+		a.score AS "score",
+		a.result_content AS "resultContent",
+		a.bos_key AS "bosKey",
+		a.bos_file_url AS "bosFileUrl",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.process_id AS "processId",
+		a.anonymous AS "anonymous",
+		a.reference AS "reference",
+		a.introduction AS "introduction",
+		a.project_id AS "projectId",
+		a.match_id AS "matchId",
+		a.error_msg AS "errorMsg",
+		p.user_name AS "userName"
+	</sql>
+	
+	<sql id="psMatchSubmitJoins">
+		LEFT JOIN ps_user p ON p.id = a.user_id
+	</sql>
+    
+	<select id="get" resultType="PsMatchSubmit">
+		SELECT 
+			<include refid="psMatchSubmitColumns"/>
+		FROM ps_match_submit a
+		<include refid="psMatchSubmitJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsMatchSubmit">
+		SELECT 
+			<include refid="psMatchSubmitColumns"/>
+		FROM ps_match_submit a
+		<include refid="psMatchSubmitJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="submitName != null and submitName != ''">
+				AND a.submit_name = #{submitName}
+			</if>
+			<if test="version != null and version != ''">
+				AND a.version = #{version}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time &gt;= #{createTime}
+			</if>
+			<if test="statusCode != null and statusCode != ''">
+				AND a.status_code = #{statusCode}
+			</if>
+			<if test="lastUpdateTime != null and lastUpdateTime != ''">
+				AND a.last_update_time &gt;= #{lastUpdateTime}
+			</if>
+			<if test="userid != null and userid != ''">
+				AND a.user_id = #{userid}
+			</if>
+			<if test="score != null and score != ''">
+				AND a.score &gt;= #{score}
+			</if>
+			<if test="bosKey != null and bosKey != ''">
+				AND a.bos_key LIKE 
+					<if test="dbName == 'oracle'">'%'||#{bosKey}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{bosKey}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{bosKey},'%')</if>
+			</if>
+			<if test="bosFileUrl != null and bosFileUrl != ''">
+				AND a.bos_file_url LIKE 
+					<if test="dbName == 'oracle'">'%'||#{bosFileUrl}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{bosFileUrl}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{bosFileUrl},'%')</if>
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time &lt;= #{endTime}
+			</if>
+			<if test="processId != null and processId != ''">
+				AND a.process_id = #{processId}
+			</if>
+			<if test="anonymous != null and anonymous != ''">
+				AND a.anonymous = #{anonymous}
+			</if>
+			<if test="reference != null and reference != ''">
+				AND a.reference LIKE 
+					<if test="dbName == 'oracle'">'%'||#{reference}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{reference}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{reference},'%')</if>
+			</if>
+			<if test="introduction != null and introduction != ''">
+				AND a.introduction LIKE 
+					<if test="dbName == 'oracle'">'%'||#{introduction}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{introduction}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{introduction},'%')</if>
+			</if>
+			<if test="projectId != null and projectId != ''">
+				AND a.project_id = #{projectId}
+			</if>
+			<if test="matchId != null and matchId != ''">
+				AND a.match_id = #{matchId}
+			</if>
+			<if test="errorMsg != null and errorMsg != ''">
+				AND a.error_msg = #{errorMsg}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PsMatchSubmit">
+		SELECT 
+			<include refid="psMatchSubmitColumns"/>
+		FROM ps_match_submit a
+		<include refid="psMatchSubmitJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ps_match_submit(
+			submit_name,
+			version,
+			create_time,
+			status_code,
+			last_update_time,
+			user_id,
+			score,
+			result_content,
+			bos_key,
+			bos_file_url,
+			start_time,
+			end_time,
+			process_id,
+			anonymous,
+			reference,
+			introduction,
+			project_id,
+			match_id,
+			error_msg
+		) VALUES (
+			#{submitName},
+			#{version},
+			#{createTime},
+			#{statusCode},
+			#{lastUpdateTime},
+			#{userid},
+			#{score},
+			#{resultContent},
+			#{bosKey},
+			#{bosFileUrl},
+			#{startTime},
+			#{endTime},
+			#{processId},
+			#{anonymous},
+			#{reference},
+			#{introduction},
+			#{projectId},
+			#{matchId},
+			#{errorMsg}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_match_submit SET 	
+			submit_name = #{submitName},
+			version = #{version},
+			create_time = #{createTime},
+			status_code = #{statusCode},
+			last_update_time = #{lastUpdateTime},
+			user_id = #{userid},
+			score = #{score},
+			result_content = #{resultContent},
+			bos_key = #{bosKey},
+			bos_file_url = #{bosFileUrl},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			process_id = #{processId},
+			anonymous = #{anonymous},
+			reference = #{reference},
+			introduction = #{introduction},
+			project_id = #{projectId},
+			match_id = #{matchId},
+			error_msg = #{errorMsg}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ps_match_submit
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

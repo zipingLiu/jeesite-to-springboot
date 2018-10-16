@@ -183,7 +183,7 @@ legend + .control-group {
 }
 
 .input-small {
-    width: 120px
+    width: 140px
 }
 
 .input-medium {
@@ -223,7 +223,7 @@ legend + .control-group {
 }
 
 .form-search .ul-form li label {
-    width: 80px;
+    width: 120px;
     text-align: right
 }
 

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.studio.modules.psmatch.dao.PsMatchDao">
+    
+	<sql id="psMatchColumns">
+		a.id AS "id",
+		a.match_name AS "matchName",
+		a.status_code AS "statusCode",
+		a.create_time AS "createTime",
+		a.update_time AS "updateTime",
+		a.match_key AS "matchKey",
+		a.process_id AS "processId",
+		a.project_id AS "projectId",
+		a.reward AS "reward",
+		a.signup_count AS "signupCount",
+		a.tags AS "tags",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.match_abs AS "matchAbs",
+		a.logo AS "logo",
+		a.forum_url AS "forumUrl",
+		a.routine AS "routine"
+	</sql>
+	
+	<sql id="psMatchJoins">
+	</sql>
+    
+	<select id="get" resultType="PsMatch">
+		SELECT 
+			<include refid="psMatchColumns"/>
+		FROM ps_match a
+		<include refid="psMatchJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsMatch">
+		SELECT 
+			<include refid="psMatchColumns"/>
+		FROM ps_match a
+		<include refid="psMatchJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="matchName != null and matchName != ''">
+				AND a.match_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{matchName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{matchName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{matchName},'%')</if>
+			</if>
+			<if test="statusCode != null and statusCode != ''">
+				AND a.status_code = #{statusCode}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				AND a.update_time = #{updateTime}
+			</if>
+			<if test="matchKey != null and matchKey != ''">
+				AND a.match_key LIKE 
+					<if test="dbName == 'oracle'">'%'||#{matchKey}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{matchKey}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{matchKey},'%')</if>
+			</if>
+			<if test="processId != null and processId != ''">
+				AND a.process_id = #{processId}
+			</if>
+			<if test="projectId != null and projectId != ''">
+				AND a.project_id = #{projectId}
+			</if>
+			<if test="reward != null and reward != ''">
+				AND a.reward = #{reward}
+			</if>
+			<if test="signupCount != null and signupCount != ''">
+				AND a.signup_count &gt;= #{signupCount}
+			</if>
+			<if test="tags != null and tags != ''">
+				AND a.tags = #{tags}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time &lt;= #{endTime}
+			</if>
+			<if test="matchAbs != null and matchAbs != ''">
+				AND a.match_abs LIKE 
+					<if test="dbName == 'oracle'">'%'||#{matchAbs}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{matchAbs}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{matchAbs},'%')</if>
+			</if>
+			<if test="routine != null and routine != ''">
+				AND a.routine = #{routine}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PsMatch">
+		SELECT 
+			<include refid="psMatchColumns"/>
+		FROM ps_match a
+		<include refid="psMatchJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ps_match(
+			match_name,
+			status_code,
+			create_time,
+			update_time,
+			match_key,
+			process_id,
+			project_id,
+			reward,
+			signup_count,
+			tags,
+			start_time,
+			end_time,
+			match_abs,
+			logo,
+			forum_url,
+			routine
+		) VALUES (
+			#{matchName},
+			#{statusCode},
+			#{createTime},
+			#{updateTime},
+			#{matchKey},
+			#{processId},
+			#{projectId},
+			#{reward},
+			#{signupCount},
+			#{tags},
+			#{startTime},
+			#{endTime},
+			#{matchAbs},
+			#{logo},
+			#{forumUrl},
+			#{routine}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_match SET 	
+			match_name = #{matchName},
+			status_code = #{statusCode},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			match_key = #{matchKey},
+			process_id = #{processId},
+			project_id = #{projectId},
+			reward = #{reward},
+			signup_count = #{signupCount},
+			tags = #{tags},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			match_abs = #{matchAbs},
+			logo = #{logo},
+			forum_url = #{forumUrl},
+			routine = #{routine}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ps_match
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

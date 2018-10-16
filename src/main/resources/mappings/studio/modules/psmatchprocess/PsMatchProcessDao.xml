@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.studio.modules.psmatchprocess.dao.PsMatchProcessDao">
+    
+	<sql id="psMatchProcessColumns">
+		a.id AS "id",
+		a.process_name AS "processName",
+		a.match_id AS "matchId",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.project_id AS "projectId",
+		a.self_signup AS "selfSignup",
+		a.has_leaderboard AS "hasLeaderboard",
+		a.eval_docker_image AS "evalDockerImage",
+		a.eval_service AS "evalService",
+		a.eval_docker_command AS "evalDockerCommand",
+		a.columns AS "columns",
+		a.token_start_time AS "tokenStartTime"
+	</sql>
+	
+	<sql id="psMatchProcessJoins">
+	</sql>
+    
+	<select id="get" resultType="PsMatchProcess">
+		SELECT 
+			<include refid="psMatchProcessColumns"/>
+		FROM ps_match_process a
+		<include refid="psMatchProcessJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsMatchProcess">
+		SELECT 
+			<include refid="psMatchProcessColumns"/>
+		FROM ps_match_process a
+		<include refid="psMatchProcessJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="processName != null and processName != ''">
+				AND a.process_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{processName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{processName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{processName},'%')</if>
+			</if>
+			<if test="matchId != null and matchId != ''">
+				AND a.match_id = #{matchId}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				AND a.start_time &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND a.end_time &lt;= #{endTime}
+			</if>
+			<if test="projectId != null and projectId != ''">
+				AND a.project_id = #{projectId}
+			</if>
+			<if test="selfSignup != null and selfSignup != ''">
+				AND a.self_signup = #{selfSignup}
+			</if>
+			<if test="hasLeaderboard != null and hasLeaderboard != ''">
+				AND a.has_leaderboard = #{hasLeaderboard}
+			</if>
+			<if test="evalDockerImage != null and evalDockerImage != ''">
+				AND a.eval_docker_image LIKE 
+					<if test="dbName == 'oracle'">'%'||#{evalDockerImage}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{evalDockerImage}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{evalDockerImage},'%')</if>
+			</if>
+			<if test="tokenStartTime != null and tokenStartTime != ''">
+				AND a.token_start_time &gt;= #{tokenStartTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PsMatchProcess">
+		SELECT 
+			<include refid="psMatchProcessColumns"/>
+		FROM ps_match_process a
+		<include refid="psMatchProcessJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ps_match_process(
+			process_name,
+			match_id,
+			start_time,
+			end_time,
+			project_id,
+			self_signup,
+			has_leaderboard,
+			eval_docker_image,
+			eval_service,
+			eval_docker_command,
+			columns,
+			token_start_time
+		) VALUES (
+			#{processName},
+			#{matchId},
+			#{startTime},
+			#{endTime},
+			#{projectId},
+			#{selfSignup},
+			#{hasLeaderboard},
+			#{evalDockerImage},
+			#{evalService},
+			#{evalDockerCommand},
+			#{columns},
+			#{tokenStartTime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_match_process SET 	
+			process_name = #{processName},
+			match_id = #{matchId},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			project_id = #{projectId},
+			self_signup = #{selfSignup},
+			has_leaderboard = #{hasLeaderboard},
+			eval_docker_image = #{evalDockerImage},
+			eval_service = #{evalService},
+			eval_docker_command = #{evalDockerCommand},
+			columns = #{columns},
+			token_start_time = #{tokenStartTime}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ps_match_process
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
