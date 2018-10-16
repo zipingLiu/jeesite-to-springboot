@@ -45,7 +45,10 @@
 		<div class="control-group">
 			<label class="control-label">状态：</label>
 			<div class="controls">
-				<form:input path="statusCode" htmlEscape="false" maxlength="2" class="input-xlarge required digits"/>
+				<form:select path="statusCode" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('match_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

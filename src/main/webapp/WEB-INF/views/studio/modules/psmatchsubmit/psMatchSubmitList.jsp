@@ -26,6 +26,7 @@
 	<form:form id="searchForm" modelAttribute="psMatchSubmit" action="${ctx}/psmatchsubmit/psMatchSubmit/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<ul class="ul-form">
 			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
@@ -90,7 +91,7 @@
 				<th>ID</th>
 				<th>提交状态</th>
 				<th>提交人</th>
-				<th>分数</th>
+				<th class="sort-column score">分数</th>
 				<th>任务开始时间</th>
 				<th>任务结束时间</th>
 				<th>阶段ID</th>

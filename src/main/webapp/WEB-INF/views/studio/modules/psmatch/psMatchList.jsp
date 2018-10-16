@@ -26,6 +26,7 @@
 	<form:form id="searchForm" modelAttribute="psMatch" action="${ctx}/psmatch/psMatch/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<ul class="ul-form">
 			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
@@ -34,7 +35,10 @@
 				<form:input path="matchName" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
 			<li><label>状态：</label>
-				<form:input path="statusCode" htmlEscape="false" maxlength="2" class="input-medium"/>
+				<form:select path="statusCode" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('match_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>创建时间：</label>
 				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
@@ -113,7 +117,7 @@
 					${psMatch.matchName}
 				</td>
 				<td>
-					${psMatch.statusCode}
+					${fns:getDictLabel(psMatch.statusCode, 'match_status_code', '')}
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatch.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

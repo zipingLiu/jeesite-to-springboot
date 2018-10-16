@@ -32,6 +32,7 @@
 	<form:form id="searchForm" modelAttribute="${className}" action="${r"${ctx}"}/${urlPrefix}/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${r"${page.pageNo}"}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${r"${page.pageSize}"}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${r"${page.orderBy}"}" callback="page();"/>
 		<ul class="ul-form">
 		<#list table.columnList as c>
 			<#if c.isQuery?? && c.isQuery == "1">
