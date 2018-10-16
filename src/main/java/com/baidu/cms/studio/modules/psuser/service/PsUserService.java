@@ -14,9 +14,9 @@ import com.baidu.cms.studio.modules.psuser.entity.PsUser;
 import com.baidu.cms.studio.modules.psuser.dao.PsUserDao;
 
 /**
- * Studio用户Service
+ * 用户管理Service
  * @author shiyanjun
- * @version 2018-10-15
+ * @version 2018-10-16
  */
 @Service
 @Transactional(readOnly = true)

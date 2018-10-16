@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.studio.modules.psmatchuser.dao.PsMatchUserDao">
+    
+	<sql id="psMatchUserColumns">
+		a.id AS "id",
+		a.match_id AS "matchId",
+		a.user_id AS "userId",
+		a.process_id AS "processId",
+		a.create_time AS "createTime",
+		a.update_time AS "updateTime",
+		a.routine_pass AS "routinePass"
+	</sql>
+	
+	<sql id="psMatchUserJoins">
+	</sql>
+    
+	<select id="get" resultType="PsMatchUser">
+		SELECT 
+			<include refid="psMatchUserColumns"/>
+		FROM ps_match_user a
+		<include refid="psMatchUserJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsMatchUser">
+		SELECT 
+			<include refid="psMatchUserColumns"/>
+		FROM ps_match_user a
+		<include refid="psMatchUserJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="matchId != null and matchId != ''">
+				AND a.match_id = #{matchId}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="processId != null and processId != ''">
+				AND a.process_id = #{processId}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time &gt;= #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				AND a.update_time &gt;= #{updateTime}
+			</if>
+			<if test="routinePass != null and routinePass != ''">
+				AND a.routine_pass = #{routinePass}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PsMatchUser">
+		SELECT 
+			<include refid="psMatchUserColumns"/>
+		FROM ps_match_user a
+		<include refid="psMatchUserJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ps_match_user(
+			match_id,
+			user_id,
+			process_id,
+			routine_pass
+		) VALUES (
+			#{matchId},
+			#{userId},
+			#{processId},
+			#{routinePass}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_match_user SET 	
+			match_id = #{matchId},
+			user_id = #{userId},
+			process_id = #{processId},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			routine_pass = #{routinePass}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ps_match_user
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

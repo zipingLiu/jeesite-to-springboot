@@ -11,25 +11,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.baidu.cms.common.persistence.DataEntity;
 
 /**
- * Studio用户Entity
+ * 用户管理Entity
  * @author shiyanjun
- * @version 2018-10-15
+ * @version 2018-10-16
  */
 public class PsUser extends DataEntity<PsUser> {
 	
 	private static final long serialVersionUID = 1L;
 	private String userName;		// 用户名
 	private Long userSourceId;		// 源ID
-	private String userType;		// 用户类型 1：pass 2：uc
+	private Integer userType;		// 用户类型
 	private Date createTime;		// 创建时间
 	private Date lastLoginTime;		// 更新时间
-	private String statusCode;		// 状态：1可用
-	private String isEmployee;		// 0:普通用户，1：百度帐号
+	private Integer statusCode;		// 可用状态
+	private Integer isEmployee;		// 是否为员工
 	private String displayName;		// 显示名称
 	private String trueName;		// 姓名
 	private String idcard;		// 身份证
 	private String mobile;		// 手机号
-	private String capacity;		// 身份 Consts.UserCapacity
+	private Integer capacity;		// 身份
 	private String workPlace;		// 工作地点
 	private String position;		// 职位
 	private String region;		// 地区
@@ -64,12 +64,12 @@ public class PsUser extends DataEntity<PsUser> {
 		this.userSourceId = userSourceId;
 	}
 	
-	@Length(min=1, max=2, message="用户类型 1：pass 2：uc长度必须介于 1 和 2 之间")
-	public String getUserType() {
+	@NotNull(message="用户类型不能为空")
+	public Integer getUserType() {
 		return userType;
 	}
 
-	public void setUserType(String userType) {
+	public void setUserType(Integer userType) {
 		this.userType = userType;
 	}
 	
@@ -93,21 +93,21 @@ public class PsUser extends DataEntity<PsUser> {
 		this.lastLoginTime = lastLoginTime;
 	}
 	
-	@Length(min=1, max=2, message="状态：1可用长度必须介于 1 和 2 之间")
-	public String getStatusCode() {
+	@NotNull(message="可用状态不能为空")
+	public Integer getStatusCode() {
 		return statusCode;
 	}
 
-	public void setStatusCode(String statusCode) {
+	public void setStatusCode(Integer statusCode) {
 		this.statusCode = statusCode;
 	}
 	
-	@Length(min=1, max=2, message="0:普通用户，1：百度帐号长度必须介于 1 和 2 之间")
-	public String getIsEmployee() {
+	@NotNull(message="是否为员工不能为空")
+	public Integer getIsEmployee() {
 		return isEmployee;
 	}
 
-	public void setIsEmployee(String isEmployee) {
+	public void setIsEmployee(Integer isEmployee) {
 		this.isEmployee = isEmployee;
 	}
 	
@@ -146,13 +146,13 @@ public class PsUser extends DataEntity<PsUser> {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-
-	@Length(min=1, max=2, message="身份证长度必须介于 1 和 2 之间")
-	public String getCapacity() {
+	
+	@NotNull(message="身份不能为空")
+	public Integer getCapacity() {
 		return capacity;
 	}
 
-	public void setCapacity(String capacity) {
+	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
 	}
 	

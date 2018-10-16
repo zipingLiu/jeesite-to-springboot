@@ -10,13 +10,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * springboot的启动类
+ * 启动类
  */
 @EnableCaching
-@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @SpringBootApplication
 @ServletComponentScan("com.baidu.cms")
 @ComponentScan(value = "com.baidu.cms",lazyInit = true)
+@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 public class App {
     public static void main(String[] args) {
         new SpringApplicationBuilder(App.class).web(true).run(args);

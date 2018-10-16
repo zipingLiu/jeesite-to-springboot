@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>Studio用户管理</title>
+	<title>用户管理管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -29,8 +29,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/psuser/psUser/">Studio用户列表</a></li>
-		<li class="active"><a href="${ctx}/psuser/psUser/form?id=${psUser.id}">Studio用户<shiro:hasPermission name="psuser:psUser:edit">${not empty psUser.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psuser:psUser:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/psuser/psUser/">用户管理列表</a></li>
+		<li class="active"><a href="${ctx}/psuser/psUser/form?id=${psUser.id}">用户管理<shiro:hasPermission name="psuser:psUser:edit">${not empty psUser.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="psuser:psUser:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="psUser" action="${ctx}/psuser/psUser/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
@@ -43,48 +43,32 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">源ID：</label>
+			<label class="control-label">用户类型：</label>
 			<div class="controls">
-				<form:input path="userSourceId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="userType" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('user_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">用户类型 1：pass 2：uc：</label>
+			<label class="control-label">可用状态：</label>
 			<div class="controls">
-				<form:input path="userType" htmlEscape="false" maxlength="2" class="input-xlarge required"/>
+				<form:select path="statusCode" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">创建时间：</label>
+			<label class="control-label">是否为员工：</label>
 			<div class="controls">
-				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
-					value="<fmt:formatDate value="${psUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">更新时间：</label>
-			<div class="controls">
-				<input name="lastLoginTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
-					value="<fmt:formatDate value="${psUser.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">状态：1可用：</label>
-			<div class="controls">
-				<form:input path="statusCode" htmlEscape="false" maxlength="2" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">0:普通用户，1：百度帐号：</label>
-			<div class="controls">
-				<form:input path="isEmployee" htmlEscape="false" maxlength="2" class="input-xlarge required"/>
+				<form:select path="isEmployee" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -117,9 +101,12 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">身份 Consts.UserCapacity：</label>
+			<label class="control-label">身份：</label>
 			<div class="controls">
-				<form:input path="capacity" htmlEscape="false" maxlength="2" class="input-xlarge required"/>
+				<form:select path="capacity" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('capacity')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -141,13 +128,6 @@
 			<label class="control-label">地区：</label>
 			<div class="controls">
 				<form:input path="region" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">头像：</label>
-			<div class="controls">
-				<form:input path="portrait" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

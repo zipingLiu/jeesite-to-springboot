@@ -23,9 +23,9 @@ import com.baidu.cms.studio.modules.psuser.entity.PsUser;
 import com.baidu.cms.studio.modules.psuser.service.PsUserService;
 
 /**
- * Studio用户Controller
+ * 用户管理Controller
  * @author shiyanjun
- * @version 2018-10-15
+ * @version 2018-10-16
  */
 @Controller
 @RequestMapping(value = "${adminPath}/psuser/psUser")
@@ -68,7 +68,7 @@ public class PsUserController extends BaseController {
 			return form(psUser, model);
 		}
 		psUserService.save(psUser);
-		addMessage(redirectAttributes, "保存Studio用户成功");
+		addMessage(redirectAttributes, "保存用户管理成功");
 		return "redirect:"+Global.getAdminPath()+"/psuser/psUser/?repage";
 	}
 	
@@ -76,7 +76,7 @@ public class PsUserController extends BaseController {
 	@RequestMapping(value = "delete")
 	public String delete(PsUser psUser, RedirectAttributes redirectAttributes) {
 		psUserService.delete(psUser);
-		addMessage(redirectAttributes, "删除Studio用户成功");
+		addMessage(redirectAttributes, "删除用户管理成功");
 		return "redirect:"+Global.getAdminPath()+"/psuser/psUser/?repage";
 	}
 
