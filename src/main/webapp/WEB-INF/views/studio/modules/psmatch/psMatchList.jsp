@@ -21,7 +21,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/psmatch/psMatch/">比赛列表</a></li>
-		<shiro:hasPermission name="psmatch:psMatch:edit"><li><a href="${ctx}/psmatch/psMatch/form">比赛添加</a></li></shiro:hasPermission>
+		<shiro:hasPermission name="psmatch:psMatch:edit"><li><a href="${ctx}/psmatch/psMatch/form">添加比赛</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="psMatch" action="${ctx}/psmatch/psMatch/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -137,6 +137,15 @@
     				<a href="${ctx}/psmatch/psMatch/form?id=${psMatch.id}">修改</a>
 					<a href="${ctx}/psmatch/psMatch/delete?id=${psMatch.id}" onclick="return confirmx('确认要删除该比赛吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
+				<td>
+					<a href="${ctx}/psmatchprocess/psMatchProcess/toProcessList/${psMatch.id}">阶段</a>
+				</td>
+				<td>
+					<a href="${ctx}/psmatchuser/psMatchUser/toMatchUserList/${psMatch.id}">参赛</a>
+				</td>
+				<td>
+					<a href="${ctx}/psmatchsubmit/psMatchSubmit/toSubmitList/${psMatch.id}">提交</a>
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>

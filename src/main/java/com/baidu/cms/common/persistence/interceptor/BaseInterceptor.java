@@ -1,5 +1,7 @@
 package com.baidu.cms.common.persistence.interceptor;
 
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.persistence.dialect.DB2Dialect;
 import com.baidu.cms.common.persistence.dialect.DerbyDialect;
 import com.baidu.cms.common.persistence.dialect.Dialect;
@@ -10,9 +12,6 @@ import com.baidu.cms.common.persistence.dialect.OracleDialect;
 import com.baidu.cms.common.persistence.dialect.PostgreSQLDialect;
 import com.baidu.cms.common.persistence.dialect.SQLServer2005Dialect;
 import com.baidu.cms.common.persistence.dialect.SybaseDialect;
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.persistence.dialect.*;
 import com.baidu.cms.common.utils.Reflections;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;

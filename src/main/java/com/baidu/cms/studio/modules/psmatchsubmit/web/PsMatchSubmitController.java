@@ -3,24 +3,24 @@
  */
 package com.baidu.cms.studio.modules.psmatchsubmit.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.StringUtils;
+import com.baidu.cms.common.web.BaseController;
+import com.baidu.cms.studio.modules.psmatchsubmit.entity.PsMatchSubmit;
+import com.baidu.cms.studio.modules.psmatchsubmit.service.PsMatchSubmitService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.studio.modules.psmatchsubmit.entity.PsMatchSubmit;
-import com.baidu.cms.studio.modules.psmatchsubmit.service.PsMatchSubmitService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 提交管理Controller
@@ -59,6 +59,18 @@ public class PsMatchSubmitController extends BaseController {
 	public String form(PsMatchSubmit psMatchSubmit, Model model) {
 		model.addAttribute("psMatchSubmit", psMatchSubmit);
 		return "studio/modules/psmatchsubmit/psMatchSubmitForm";
+	}
+
+	@RequiresPermissions("psmatch:psMatch:view")
+	@RequestMapping(value = "toSubmitList/{matchId}")
+	public String toSubmitList(@PathVariable("matchId") Long matchId, PsMatchSubmit psMatchSubmit, HttpServletRequest request, HttpServletResponse response, Model model) {
+		if (psMatchSubmit != null) {
+			psMatchSubmit.setMatchId(matchId);
+		}
+		Page<PsMatchSubmit> page = psMatchSubmitService.findPage(new Page<PsMatchSubmit>(request, response), psMatchSubmit);
+		model.addAttribute("page", page);
+		model.addAttribute("matchId", matchId);
+		return "studio/modules/psmatchsubmit/sub/psMatchSubmitList";
 	}
 
 	@RequiresPermissions("psmatchsubmit:psMatchSubmit:edit")
