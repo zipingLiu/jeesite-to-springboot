@@ -155,7 +155,7 @@ public class SessionManager extends DefaultWebSessionManager {
     public Object removeAttribute(SessionKey sessionKey, Object attributeKey) {
     	try{
     		return super.removeAttribute(sessionKey, attributeKey);
-    	}catch (InvalidSessionException e) {
+    	}catch (Exception e) {
     		// 获取不到SESSION不抛出异常
         	return null;
 		}

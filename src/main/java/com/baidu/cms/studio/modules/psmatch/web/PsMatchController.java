@@ -25,7 +25,7 @@ import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
 /**
  * 比赛管理Controller
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-17
  */
 @Controller
 @RequestMapping(value = "${adminPath}/psmatch/psMatch")

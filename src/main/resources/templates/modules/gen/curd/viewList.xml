@@ -14,7 +14,22 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			//$("#name").focus();
+			$("#searchForm").validate({
+				submitHandler: function(form){
+					loading('正在查询，请稍等...');
+					form.submit();
+				},
+				errorContainer: "#messageBox",
+				errorPlacement: function(error, element) {
+					$("#messageBox").text("输入有误，请先更正。");
+					if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
+						error.appendTo(element.parent().parent());
+					} else {
+						error.insertAfter(element);
+					}
+				}
+			});
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
@@ -32,6 +47,7 @@
 	<form:form id="searchForm" modelAttribute="${className}" action="${r"${ctx}"}/${urlPrefix}/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${r"${page.pageNo}"}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${r"${page.pageSize}"}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${r"${page.orderBy}"}" callback="page();"/>
 		<ul class="ul-form">
 		<#list table.columnList as c>
 			<#if c.isQuery?? && c.isQuery == "1">
@@ -81,7 +97,7 @@
 			<tr>
 				<#list table.columnList as c>
 					<#if c.isList?? && c.isList == "1">
-				<th>${c.comments}</th>
+				<th class="sort-column ${c.javaField}">${c.comments}</th>
 					</#if>
 				</#list>
 				<shiro:hasPermission name="${permissionPrefix}:edit"><th>操作</th></shiro:hasPermission>

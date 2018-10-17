@@ -16,7 +16,7 @@ import com.baidu.cms.studio.modules.psmatch.dao.PsMatchDao;
 /**
  * 比赛管理Service
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-17
  */
 @Service
 @Transactional(readOnly = true)

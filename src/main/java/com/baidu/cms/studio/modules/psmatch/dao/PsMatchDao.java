@@ -10,7 +10,7 @@ import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
 /**
  * 比赛管理DAO接口
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-17
  */
 @Mapper
 public interface PsMatchDao extends CrudDao<PsMatch> {
