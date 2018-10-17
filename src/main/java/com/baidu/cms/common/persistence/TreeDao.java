@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * DAO支持类实现
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  * @param <T>
  */

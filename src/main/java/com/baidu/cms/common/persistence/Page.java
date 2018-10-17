@@ -15,7 +15,7 @@ import com.baidu.cms.common.utils.CookieUtils;
 
 /**
  * 分页类
- * @author ThinkGem
+ * @author Idea
  * @version 2013-7-2
  * @param <T>
  */

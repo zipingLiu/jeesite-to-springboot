@@ -37,7 +37,7 @@ import com.baidu.cms.common.utils.excel.ExportExcel;
 
 /**
  * 用户Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2013-8-29
  */
 @Controller

@@ -11,7 +11,7 @@ import com.baidu.cms.common.web.BaseController;
 
 /**
  * 标签Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2013-3-23
  */
 @Controller

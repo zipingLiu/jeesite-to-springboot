@@ -25,7 +25,7 @@ import com.baidu.cms.base.modules.sys.entity.Office;
 
 /**
  * 用户工具类
- * @author ThinkGem
+ * @author Idea
  * @version 2013-12-05
  */
 public class UserUtils {

@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 /**
  * SQL工具类
  *
- * @author poplar.yfyang / thinkgem
+ * @author poplar.yfyang / Idea
  * @version 2013-8-28
  */
 public class SQLHelper {

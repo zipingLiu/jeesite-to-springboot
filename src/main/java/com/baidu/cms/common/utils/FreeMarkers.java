@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * FreeMarkers工具类
- * @author ThinkGem
+ * @author Idea
  * @version 2013-01-15
  */
 public class FreeMarkers {

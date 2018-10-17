@@ -27,7 +27,7 @@ import com.baidu.cms.base.modules.sys.dao.MenuDao;
 
 /**
  * 字典工具类
- * @author ThinkGem
+ * @author Idea
  * @version 2014-11-7
  */
 public class LogUtils {

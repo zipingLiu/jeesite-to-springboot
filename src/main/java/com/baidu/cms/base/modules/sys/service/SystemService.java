@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * 系统管理，安全相关实体的管理类,包括用户、角色、菜单.
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2013-12-05
  */
 @Service

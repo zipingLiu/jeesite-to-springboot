@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * CKFinderConnectorServlet
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2014-06-25
  */
 @WebServlet(urlPatterns = "/static/ckfinder/core/connector/java/connector.java", initParams = {

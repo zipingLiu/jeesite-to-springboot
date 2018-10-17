@@ -9,7 +9,7 @@ import com.baidu.cms.common.persistence.DataEntity;
 
 /**
  * 字典Entity
- * @author ThinkGem
+ * @author Idea
  * @version 2013-05-15
  */
 public class Dict extends DataEntity<Dict> {

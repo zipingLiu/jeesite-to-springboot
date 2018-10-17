@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 自定义WEB会话管理类
- * @author ThinkGem
+ * @author Idea
  * @version 2014-7-20
  */
 @Component

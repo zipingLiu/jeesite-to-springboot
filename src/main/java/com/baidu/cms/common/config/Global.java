@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * 全局配置类
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2014-06-25
  */
 public class Global {

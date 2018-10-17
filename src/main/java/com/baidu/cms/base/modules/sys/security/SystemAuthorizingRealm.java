@@ -38,7 +38,7 @@ import com.baidu.cms.base.modules.sys.entity.User;
 
 /**
  * 系统安全认证实现类
- * @author ThinkGem
+ * @author Idea
  * @version 2014-7-5
  */
 @Service

@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * 代码生成工具类
- * @author ThinkGem
+ * @author Idea
  * @version 2013-11-16
  */
 public class GenUtils {

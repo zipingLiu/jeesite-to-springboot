@@ -12,7 +12,7 @@ import com.baidu.cms.common.persistence.DataEntity;
 
 /**
  * 菜单Entity
- * @author ThinkGem
+ * @author Idea
  * @version 2013-05-15
  */
 public class Menu extends DataEntity<Menu> {

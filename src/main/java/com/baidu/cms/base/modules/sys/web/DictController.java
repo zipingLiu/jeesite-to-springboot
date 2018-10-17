@@ -27,7 +27,7 @@ import com.baidu.cms.common.persistence.Page;
 
 /**
  * 字典Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Controller

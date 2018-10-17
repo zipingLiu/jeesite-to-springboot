@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 /**
  * 日志拦截器
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2014-8-19
  */
 public class LogInterceptor extends BaseService implements HandlerInterceptor {

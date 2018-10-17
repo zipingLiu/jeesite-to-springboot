@@ -11,7 +11,7 @@ import com.baidu.cms.common.utils.SpringContextHolder;
 
 /**
  * 字段类型转换
- * @author ThinkGem
+ * @author Idea
  * @version 2013-5-29
  */
 public class RoleListType {

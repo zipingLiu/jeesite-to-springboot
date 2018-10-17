@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 /**
  * 生成方案Entity
- * @author ThinkGem
+ * @author Idea
  * @version 2013-10-15
  */
 public class GenScheme extends DataEntity<GenScheme> {

@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 系统安全认证实现类
- * @author ThinkGem
+ * @author Idea
  * @version 2014-7-24
  */
 @Component("sessionDAO")

@@ -31,7 +31,7 @@ import com.baidu.cms.base.modules.sys.entity.User;
 
 /**
  * 角色Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2013-12-05
  */
 @Controller

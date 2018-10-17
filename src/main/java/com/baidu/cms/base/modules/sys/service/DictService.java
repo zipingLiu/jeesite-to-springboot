@@ -13,7 +13,7 @@ import com.baidu.cms.base.modules.sys.entity.Dict;
 
 /**
  * 字典Service
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Service

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 区域DAO接口
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Mapper

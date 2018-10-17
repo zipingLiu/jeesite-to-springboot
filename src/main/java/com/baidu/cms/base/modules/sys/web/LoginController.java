@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * 登录Controller
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2013-5-31
  */
 @Controller
