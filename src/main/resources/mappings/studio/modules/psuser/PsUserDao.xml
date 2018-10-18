@@ -5,24 +5,24 @@
 	<sql id="psUserColumns">
 		a.id AS "id",
 		a.user_name AS "userName",
-		a.user_source_id AS "userSourceId",
 		a.user_type AS "userType",
-		a.create_time AS "createTime",
-		a.last_login_time AS "lastLoginTime",
-		a.status_code AS "statusCode",
-		a.is_employee AS "isEmployee",
-		a.display_name AS "displayName",
 		a.true_name AS "trueName",
 		a.idcard AS "idcard",
 		a.mobile AS "mobile",
+		a.email AS "email",
+		a.company_name AS "companyName",
+		a.region AS "region",
 		a.capacity AS "capacity",
 		a.work_place AS "workPlace",
 		a.position AS "position",
-		a.region AS "region",
 		a.portrait AS "portrait",
 		a.user_abs AS "userAbs",
-		a.company_name AS "companyName",
-		a.email AS "email"
+		a.is_employee AS "isEmployee",
+		a.display_name AS "displayName",
+		a.user_source_id AS "userSourceId",
+		a.status_code AS "statusCode",
+		a.create_time AS "createTime",
+		a.last_login_time AS "lastLoginTime"
 	</sql>
 	
 	<sql id="psUserJoins">
@@ -52,29 +52,8 @@
 					<if test="dbName == 'mssql'">'%'+#{userName}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{userName},'%')</if>
 			</if>
-			<if test="userSourceId != null and userSourceId != ''">
-				AND a.user_source_id = #{userSourceId}
-			</if>
 			<if test="userType != null and userType != ''">
 				AND a.user_type = #{userType}
-			</if>
-			<if test="createTime != null and createTime != ''">
-				AND a.create_time &gt;= #{createTime}
-			</if>
-			<if test="lastLoginTime != null and lastLoginTime != ''">
-				AND a.last_login_time &gt;= #{lastLoginTime}
-			</if>
-			<if test="statusCode != null and statusCode != ''">
-				AND a.status_code = #{statusCode}
-			</if>
-			<if test="isEmployee != null and isEmployee != ''">
-				AND a.is_employee = #{isEmployee}
-			</if>
-			<if test="displayName != null and displayName != ''">
-				AND a.display_name LIKE 
-					<if test="dbName == 'oracle'">'%'||#{displayName}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{displayName}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{displayName},'%')</if>
 			</if>
 			<if test="trueName != null and trueName != ''">
 				AND a.true_name LIKE 
@@ -83,10 +62,34 @@
 					<if test="dbName == 'mysql'">concat('%',#{trueName},'%')</if>
 			</if>
 			<if test="idcard != null and idcard != ''">
-				AND a.idcard = #{idcard}
+				AND a.idcard LIKE 
+					<if test="dbName == 'oracle'">'%'||#{idcard}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{idcard}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{idcard},'%')</if>
 			</if>
 			<if test="mobile != null and mobile != ''">
-				AND a.mobile = #{mobile}
+				AND a.mobile LIKE 
+					<if test="dbName == 'oracle'">'%'||#{mobile}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{mobile}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{mobile},'%')</if>
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email LIKE 
+					<if test="dbName == 'oracle'">'%'||#{email}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{email}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{email},'%')</if>
+			</if>
+			<if test="companyName != null and companyName != ''">
+				AND a.company_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{companyName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{companyName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{companyName},'%')</if>
+			</if>
+			<if test="region != null and region != ''">
+				AND a.region LIKE 
+					<if test="dbName == 'oracle'">'%'||#{region}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{region}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{region},'%')</if>
 			</if>
 			<if test="capacity != null and capacity != ''">
 				AND a.capacity = #{capacity}
@@ -98,22 +101,43 @@
 					<if test="dbName == 'mysql'">concat('%',#{workPlace},'%')</if>
 			</if>
 			<if test="position != null and position != ''">
-				AND a.position = #{position}
+				AND a.position LIKE 
+					<if test="dbName == 'oracle'">'%'||#{position}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{position}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{position},'%')</if>
 			</if>
-			<if test="region != null and region != ''">
-				AND a.region = #{region}
+			<if test="portrait != null and portrait != ''">
+				AND a.portrait LIKE 
+					<if test="dbName == 'oracle'">'%'||#{portrait}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{portrait}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{portrait},'%')</if>
 			</if>
-			<if test="companyName != null and companyName != ''">
-				AND a.company_name LIKE 
-					<if test="dbName == 'oracle'">'%'||#{companyName}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{companyName}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{companyName},'%')</if>
+			<if test="userAbs != null and userAbs != ''">
+				AND a.user_abs LIKE 
+					<if test="dbName == 'oracle'">'%'||#{userAbs}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{userAbs}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{userAbs},'%')</if>
 			</if>
-			<if test="email != null and email != ''">
-				AND a.email LIKE 
-					<if test="dbName == 'oracle'">'%'||#{email}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{email}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{email},'%')</if>
+			<if test="isEmployee != null and isEmployee != ''">
+				AND a.is_employee = #{isEmployee}
+			</if>
+			<if test="displayName != null and displayName != ''">
+				AND a.display_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{displayName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{displayName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{displayName},'%')</if>
+			</if>
+			<if test="userSourceId != null and userSourceId != ''">
+				AND a.user_source_id = #{userSourceId}
+			</if>
+			<if test="statusCode != null">
+				AND a.status_code = #{statusCode}
+			</if>
+			<if test="createTime != null">
+				AND a.create_time &gt;= #{createTime}
+			</if>
+			<if test="lastLoginTime != null">
+				AND a.last_login_time &gt;= #{lastLoginTime}
 			</if>
 		</where>
 		<choose>
@@ -145,44 +169,44 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO ps_user(
 			user_name,
-			user_source_id,
 			user_type,
-			create_time,
-			last_login_time,
-			status_code,
-			is_employee,
-			display_name,
 			true_name,
 			idcard,
 			mobile,
+			email,
+			company_name,
+			region,
 			capacity,
 			work_place,
 			position,
-			region,
 			portrait,
 			user_abs,
-			company_name,
-			email
+			is_employee,
+			display_name,
+			user_source_id,
+			status_code,
+			create_time,
+			last_login_time
 		) VALUES (
 			#{userName},
-			#{userSourceId},
 			#{userType},
-			#{createTime},
-			#{lastLoginTime},
-			#{statusCode},
-			#{isEmployee},
-			#{displayName},
 			#{trueName},
 			#{idcard},
 			#{mobile},
+			#{email},
+			#{companyName},
+			#{region},
 			#{capacity},
 			#{workPlace},
 			#{position},
-			#{region},
 			#{portrait},
 			#{userAbs},
-			#{companyName},
-			#{email}
+			#{isEmployee},
+			#{displayName},
+			#{userSourceId},
+			#{statusCode},
+			#{createTime},
+			#{lastLoginTime}
 		)
 	</insert>
 	
@@ -190,19 +214,23 @@
 		UPDATE ps_user SET 	
 			user_name = #{userName},
 			user_type = #{userType},
-			status_code = #{statusCode},
-			is_employee = #{isEmployee},
-			display_name = #{displayName},
 			true_name = #{trueName},
 			idcard = #{idcard},
 			mobile = #{mobile},
+			email = #{email},
+			company_name = #{companyName},
+			region = #{region},
 			capacity = #{capacity},
 			work_place = #{workPlace},
 			position = #{position},
-			region = #{region},
+			portrait = #{portrait},
 			user_abs = #{userAbs},
-			company_name = #{companyName},
-			email = #{email}
+			is_employee = #{isEmployee},
+			display_name = #{displayName},
+			user_source_id = #{userSourceId},
+			status_code = #{statusCode},
+			create_time = #{createTime},
+			last_login_time = #{lastLoginTime}
 		WHERE id = #{id}
 	</update>
 	

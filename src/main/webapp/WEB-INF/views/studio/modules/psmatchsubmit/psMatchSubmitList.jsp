@@ -68,11 +68,11 @@
 					value="<fmt:formatDate value="${psMatchSubmit.lastUpdateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
-			<li><label>提交人：</label>
-				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-medium"/>
+			<li><label>提交人ID：</label>
+				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-medium digits"/>
 			</li>
 			<li><label>分数：</label>
-				<form:input path="score" htmlEscape="false" class="input-medium"/>
+				<form:input path="score" htmlEscape="false" class="input-medium number"/>
 			</li>
 			<li><label>结果json：</label>
 				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-medium"/>
@@ -89,12 +89,12 @@
 			<li><label>任务结束时间：</label>
 				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-medium"/>
 			</li>
-			<li><label>阶段ID：</label>
+			<%--<li><label>阶段ID：</label>
 				<form:select path="processId" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
 				</form:select>
-			</li>
+			</li>--%>
 			<li><label>是否匿名：</label>
 				<form:select path="anonymous" class="input-medium">
 					<form:option value="" label=""/>
@@ -110,13 +110,13 @@
 			<li><label>项目ID：</label>
 				<form:select path="projectId" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>比赛ID：</label>
 				<form:select path="matchId" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>对比结果：</label>
@@ -175,7 +175,7 @@
 					<fmt:formatDate value="${psMatchSubmit.lastUpdateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-					${psMatchSubmit.userId}
+					${psMatchSubmit.userName}
 				</td>
 				<td>
 					${psMatchSubmit.score}
@@ -196,7 +196,7 @@
 					${psMatchSubmit.endTime}
 				</td>
 				<td>
-					${fns:getDictLabel(psMatchSubmit.processId, '', '')}
+					${psMatchSubmit.processName}
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchSubmit.anonymous, 'anonymous', '')}
@@ -208,10 +208,10 @@
 					${psMatchSubmit.introduction}
 				</td>
 				<td>
-					${fns:getDictLabel(psMatchSubmit.projectId, '', '')}
+					${psMatchSubmit.projectName}
 				</td>
 				<td>
-					${fns:getDictLabel(psMatchSubmit.matchId, '', '')}
+					${psMatchSubmit.matchName}
 				</td>
 				<td>
 					${psMatchSubmit.errorMsg}

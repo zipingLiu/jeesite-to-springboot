@@ -49,39 +49,11 @@
 			<li><label>用户名：</label>
 				<form:input path="userName" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
-			<li><label>源ID：</label>
-				<form:input path="userSourceId" htmlEscape="false" maxlength="10" class="input-medium"/>
-			</li>
 			<li><label>用户类型：</label>
 				<form:select path="userType" class="input-medium">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('user_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
-			</li>
-			<li><label>创建时间：</label>
-				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${psUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-			</li>
-			<li><label>更新时间：</label>
-				<input name="lastLoginTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${psUser.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-			</li>
-			<li><label>可用状态：</label>
-				<form:select path="statusCode" class="input-medium">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('ps_user_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
-			</li>
-			<li><label>是否为员工：</label>
-				<form:select path="isEmployee" class="input-medium">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
-			</li>
-			<li><label>显示名称：</label>
-				<form:input path="displayName" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
 			<li><label>姓名：</label>
 				<form:input path="trueName" htmlEscape="false" maxlength="100" class="input-medium"/>
@@ -91,6 +63,15 @@
 			</li>
 			<li><label>手机号：</label>
 				<form:input path="mobile" htmlEscape="false" maxlength="50" class="input-medium"/>
+			</li>
+			<li><label>邮箱：</label>
+				<form:input path="email" htmlEscape="false" maxlength="255" class="input-medium"/>
+			</li>
+			<li><label>公司名称：</label>
+				<form:input path="companyName" htmlEscape="false" maxlength="255" class="input-medium"/>
+			</li>
+			<li><label>地区：</label>
+				<form:input path="region" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
 			<li><label>身份：</label>
 				<form:select path="capacity" class="input-medium">
@@ -104,14 +85,39 @@
 			<li><label>职位：</label>
 				<form:input path="position" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>地区：</label>
-				<form:input path="region" htmlEscape="false" maxlength="255" class="input-medium"/>
+			<li><label>头像：</label>
+				<form:input path="portrait" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>公司名称：</label>
-				<form:input path="companyName" htmlEscape="false" maxlength="255" class="input-medium"/>
+			<li><label>介绍：</label>
+				<form:input path="userAbs" htmlEscape="false" maxlength="500" class="input-medium"/>
 			</li>
-			<li><label>邮箱：</label>
-				<form:input path="email" htmlEscape="false" maxlength="255" class="input-medium"/>
+			<li><label>是否为员工：</label>
+				<form:select path="isEmployee" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
+			<li><label>显示名称：</label>
+				<form:input path="displayName" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>源ID：</label>
+				<form:input path="userSourceId" htmlEscape="false" maxlength="10" class="input-medium"/>
+			</li>
+			<li><label>可用状态：</label>
+				<form:select path="statusCode" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
+			<li><label>创建时间：</label>
+				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					value="<fmt:formatDate value="${psUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			</li>
+			<li><label>更新时间：</label>
+				<input name="lastLoginTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					value="<fmt:formatDate value="${psUser.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -123,12 +129,24 @@
 			<tr>
 				<th class="sort-column id">ID</th>
 				<th class="sort-column userName">用户名</th>
+				<th class="sort-column userType">用户类型</th>
 				<th class="sort-column trueName">姓名</th>
 				<th class="sort-column idcard">身份证</th>
 				<th class="sort-column mobile">手机号</th>
-				<th class="sort-column workPlace">工作地点</th>
-				<th class="sort-column companyName">公司名称</th>
 				<th class="sort-column email">邮箱</th>
+				<th class="sort-column companyName">公司名称</th>
+				<th class="sort-column region">地区</th>
+				<th class="sort-column capacity">身份</th>
+				<th class="sort-column workPlace">工作地点</th>
+				<th class="sort-column position">职位</th>
+				<th class="sort-column portrait">头像</th>
+				<th class="sort-column userAbs">介绍</th>
+				<th class="sort-column isEmployee">是否为员工</th>
+				<th class="sort-column displayName">显示名称</th>
+				<th class="sort-column userSourceId">源ID</th>
+				<th class="sort-column statusCode">可用状态</th>
+				<th class="sort-column createTime">创建时间</th>
+				<th class="sort-column lastLoginTime">更新时间</th>
 				<shiro:hasPermission name="psuser:psUser:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -142,6 +160,9 @@
 					${psUser.userName}
 				</td>
 				<td>
+					${fns:getDictLabel(psUser.userType, 'user_type', '')}
+				</td>
+				<td>
 					${psUser.trueName}
 				</td>
 				<td>
@@ -151,13 +172,46 @@
 					${psUser.mobile}
 				</td>
 				<td>
-					${psUser.workPlace}
+					${psUser.email}
 				</td>
 				<td>
 					${psUser.companyName}
 				</td>
 				<td>
-					${psUser.email}
+					${psUser.region}
+				</td>
+				<td>
+					${fns:getDictLabel(psUser.capacity, 'capacity', '')}
+				</td>
+				<td>
+					${psUser.workPlace}
+				</td>
+				<td>
+					${psUser.position}
+				</td>
+				<td>
+					${psUser.portrait}
+				</td>
+				<td>
+					${psUser.userAbs}
+				</td>
+				<td>
+					${fns:getDictLabel(psUser.isEmployee, 'is_employee', '')}
+				</td>
+				<td>
+					${psUser.displayName}
+				</td>
+				<td>
+					${psUser.userSourceId}
+				</td>
+				<td>
+					${fns:getDictLabel(psUser.statusCode, 'studio_status_code', '')}
+				</td>
+				<td>
+					<fmt:formatDate value="${psUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					<fmt:formatDate value="${psUser.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="psuser:psUser:edit"><td>
     				<a href="${ctx}/psuser/psUser/form?id=${psUser.id}">修改</a>

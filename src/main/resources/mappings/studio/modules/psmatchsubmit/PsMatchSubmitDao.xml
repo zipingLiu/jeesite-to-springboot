@@ -22,10 +22,18 @@
 		a.introduction AS "introduction",
 		a.project_id AS "projectId",
 		a.match_id AS "matchId",
-		a.error_msg AS "errorMsg"
+		a.error_msg AS "errorMsg",
+		pm.match_name AS "matchName",
+		pmp.process_name AS "processName",
+		pp.project_name AS "projectName",
+		pu.user_name AS "userName"
 	</sql>
 	
 	<sql id="psMatchSubmitJoins">
+		LEFT JOIN ps_match pm ON pm.id = a.match_id
+		LEFT JOIN ps_match_process pmp ON pmp.id = a.process_id
+		LEFT JOIN ps_project pp ON pp.id = a.project_id
+		LEFT JOIN ps_user pu ON pu.id = a.user_id
 	</sql>
     
 	<select id="get" resultType="PsMatchSubmit">
@@ -58,13 +66,13 @@
 					<if test="dbName == 'mssql'">'%'+#{version}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{version},'%')</if>
 			</if>
-			<if test="createTime != null and createTime != ''">
+			<if test="createTime != null">
 				AND a.create_time &gt;= #{createTime}
 			</if>
-			<if test="statusCode != null and statusCode != ''">
+			<if test="statusCode != null">
 				AND a.status_code = #{statusCode}
 			</if>
-			<if test="lastUpdateTime != null and lastUpdateTime != ''">
+			<if test="lastUpdateTime != null">
 				AND a.last_update_time &gt;= #{lastUpdateTime}
 			</if>
 			<if test="userId != null and userId != ''">
@@ -91,10 +99,10 @@
 					<if test="dbName == 'mssql'">'%'+#{bosFileUrl}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{bosFileUrl},'%')</if>
 			</if>
-			<if test="startTime != null and startTime != ''">
+			<if test="startTime != null">
 				AND a.start_time &gt;= #{startTime}
 			</if>
-			<if test="endTime != null and endTime != ''">
+			<if test="endTime != null">
 				AND a.end_time &lt;= #{endTime}
 			</if>
 			<if test="processId != null and processId != ''">

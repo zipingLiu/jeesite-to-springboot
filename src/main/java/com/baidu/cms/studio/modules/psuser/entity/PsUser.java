@@ -19,24 +19,24 @@ public class PsUser extends DataEntity<PsUser> {
 	
 	private static final long serialVersionUID = 1L;
 	private String userName;		// 用户名
-	private Long userSourceId;		// 源ID
 	private Integer userType;		// 用户类型
-	private Date createTime;		// 创建时间
-	private Date lastLoginTime;		// 更新时间
-	private Integer statusCode;		// 可用状态
-	private Integer isEmployee;		// 是否为员工
-	private String displayName;		// 显示名称
 	private String trueName;		// 姓名
 	private String idcard;		// 身份证
 	private String mobile;		// 手机号
+	private String email;		// 邮箱
+	private String companyName;		// 公司名称
+	private String region;		// 地区
 	private Integer capacity;		// 身份
 	private String workPlace;		// 工作地点
 	private String position;		// 职位
-	private String region;		// 地区
 	private String portrait;		// 头像
 	private String userAbs;		// 介绍
-	private String companyName;		// 公司名称
-	private String email;		// 邮箱
+	private Integer isEmployee;		// 是否为员工
+	private String displayName;		// 显示名称
+	private Long userSourceId;		// 源ID
+	private Integer statusCode;		// 可用状态
+	private Date createTime;		// 创建时间
+	private Date lastLoginTime;		// 更新时间
 	
 	public PsUser() {
 		super();
@@ -55,15 +55,6 @@ public class PsUser extends DataEntity<PsUser> {
 		this.userName = userName;
 	}
 	
-	@NotNull(message="源ID不能为空")
-	public Long getUserSourceId() {
-		return userSourceId;
-	}
-
-	public void setUserSourceId(Long userSourceId) {
-		this.userSourceId = userSourceId;
-	}
-	
 	@NotNull(message="用户类型不能为空")
 	public Integer getUserType() {
 		return userType;
@@ -71,53 +62,6 @@ public class PsUser extends DataEntity<PsUser> {
 
 	public void setUserType(Integer userType) {
 		this.userType = userType;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(message="创建时间不能为空")
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(message="更新时间不能为空")
-	public Date getLastLoginTime() {
-		return lastLoginTime;
-	}
-
-	public void setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
-	
-	@NotNull(message="可用状态不能为空")
-	public Integer getStatusCode() {
-		return statusCode;
-	}
-
-	public void setStatusCode(Integer statusCode) {
-		this.statusCode = statusCode;
-	}
-	
-	@NotNull(message="是否为员工不能为空")
-	public Integer getIsEmployee() {
-		return isEmployee;
-	}
-
-	public void setIsEmployee(Integer isEmployee) {
-		this.isEmployee = isEmployee;
-	}
-	
-	@Length(min=1, max=100, message="显示名称长度必须介于 1 和 100 之间")
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
 	}
 	
 	@Length(min=1, max=100, message="姓名长度必须介于 1 和 100 之间")
@@ -147,6 +91,33 @@ public class PsUser extends DataEntity<PsUser> {
 		this.mobile = mobile;
 	}
 	
+	@Length(min=1, max=255, message="邮箱长度必须介于 1 和 255 之间")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	@Length(min=1, max=255, message="公司名称长度必须介于 1 和 255 之间")
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	
+	@Length(min=1, max=255, message="地区长度必须介于 1 和 255 之间")
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	
 	@NotNull(message="身份不能为空")
 	public Integer getCapacity() {
 		return capacity;
@@ -174,15 +145,6 @@ public class PsUser extends DataEntity<PsUser> {
 		this.position = position;
 	}
 	
-	@Length(min=1, max=255, message="地区长度必须介于 1 和 255 之间")
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-	
 	@Length(min=1, max=255, message="头像长度必须介于 1 和 255 之间")
 	public String getPortrait() {
 		return portrait;
@@ -201,22 +163,60 @@ public class PsUser extends DataEntity<PsUser> {
 		this.userAbs = userAbs;
 	}
 	
-	@Length(min=1, max=255, message="公司名称长度必须介于 1 和 255 之间")
-	public String getCompanyName() {
-		return companyName;
+	@NotNull(message="是否为员工不能为空")
+	public Integer getIsEmployee() {
+		return isEmployee;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setIsEmployee(Integer isEmployee) {
+		this.isEmployee = isEmployee;
 	}
 	
-	@Length(min=1, max=255, message="邮箱长度必须介于 1 和 255 之间")
-	public String getEmail() {
-		return email;
+	@Length(min=1, max=100, message="显示名称长度必须介于 1 和 100 之间")
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	
+	@NotNull(message="源ID不能为空")
+	public Long getUserSourceId() {
+		return userSourceId;
+	}
+
+	public void setUserSourceId(Long userSourceId) {
+		this.userSourceId = userSourceId;
+	}
+	
+	@NotNull(message="可用状态不能为空")
+	public Integer getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(Integer statusCode) {
+		this.statusCode = statusCode;
+	}
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@NotNull(message="创建时间不能为空")
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@NotNull(message="更新时间不能为空")
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 	
 }

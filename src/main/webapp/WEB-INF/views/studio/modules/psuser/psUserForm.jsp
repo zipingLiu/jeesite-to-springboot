@@ -53,33 +53,6 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">可用状态：</label>
-			<div class="controls">
-				<form:select path="statusCode" class="input-xlarge required">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('ps_user_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">是否为员工：</label>
-			<div class="controls">
-				<form:select path="isEmployee" class="input-xlarge required">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">显示名称：</label>
-			<div class="controls">
-				<form:input path="displayName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
 			<label class="control-label">姓名：</label>
 			<div class="controls">
 				<form:input path="trueName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
@@ -101,6 +74,27 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">邮箱：</label>
+			<div class="controls">
+				<form:input path="email" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">公司名称：</label>
+			<div class="controls">
+				<form:input path="companyName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">地区：</label>
+			<div class="controls">
+				<form:input path="region" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">身份：</label>
 			<div class="controls">
 				<form:select path="capacity" class="input-xlarge required">
@@ -113,7 +107,7 @@
 		<div class="control-group">
 			<label class="control-label">工作地点：</label>
 			<div class="controls">
-				<form:input path="workPlace" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:textarea path="workPlace" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -125,9 +119,9 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">地区：</label>
+			<label class="control-label">头像：</label>
 			<div class="controls">
-				<form:input path="region" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input path="portrait" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -139,16 +133,54 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">公司名称：</label>
+			<label class="control-label">是否为员工：</label>
 			<div class="controls">
-				<form:input path="companyName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:select path="isEmployee" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">邮箱：</label>
+			<label class="control-label">显示名称：</label>
 			<div class="controls">
-				<form:input path="email" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input path="displayName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">源ID：</label>
+			<div class="controls">
+				<form:input path="userSourceId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">可用状态：</label>
+			<div class="controls">
+				<form:select path="statusCode" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">创建时间：</label>
+			<div class="controls">
+				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
+					value="<fmt:formatDate value="${psUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">更新时间：</label>
+			<div class="controls">
+				<input name="lastLoginTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
+					value="<fmt:formatDate value="${psUser.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

@@ -18,25 +18,29 @@ import com.baidu.cms.common.persistence.DataEntity;
 public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 	
 	private static final long serialVersionUID = 1L;
-	private String submitName;		// 提交名称
+	private String submitName;	// 提交名称
 	private String version;		// 版本
-	private Date createTime;		// 创建时间
-	private Integer statusCode;		// 提交状态
-	private Date lastUpdateTime;		// 最后更新时间
+	private Date createTime;	// 创建时间
+	private Integer statusCode;	// 提交状态
+	private Date lastUpdateTime;// 最后更新时间
 	private Long userId;		// 提交人
 	private Double score;		// 分数
-	private String resultContent;		// 结果json
+	private String resultContent;// 结果json
 	private String bosKey;		// bos的key值
-	private String bosFileUrl;		// bos的url
+	private String bosFileUrl;	// bos的url
 	private Long startTime;		// 任务开始时间
 	private Long endTime;		// 任务结束时间
 	private Long processId;		// 阶段ID
-	private Integer anonymous;		// 是否匿名
-	private String reference;		// 参考文献
-	private String introduction;		// 简介
+	private Integer anonymous;	// 是否匿名
+	private String reference;	// 参考文献
+	private String introduction;// 简介
 	private Long projectId;		// 项目ID
 	private Long matchId;		// 比赛ID
-	private String errorMsg;		// 对比结果
+	private String errorMsg;	// 对比结果
+	private String matchName;	// 比赛名称
+	private String processName; // 比赛阶段名称
+	private String projectName;	// 关联项目名称
+	private String userName;	// 用户名
 	
 	public PsMatchSubmit() {
 		super();
@@ -218,5 +222,36 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
 	}
-	
+
+	public String getMatchName() {
+		return matchName;
+	}
+
+	public void setMatchName(String matchName) {
+		this.matchName = matchName;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 }
