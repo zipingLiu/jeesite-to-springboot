@@ -34,7 +34,9 @@ public class PsMatch extends DataEntity<PsMatch> {
 	private String forumUrl;		// 论坛链接
 	private Date createTime;		// 创建时间
 	private Date updateTime;		// 更新时间
-	
+	private String processName;		// 比赛阶段名称
+	private String projectName;		// 关联项目名称
+
 	public PsMatch() {
 		super();
 	}
@@ -190,5 +192,20 @@ public class PsMatch extends DataEntity<PsMatch> {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 }

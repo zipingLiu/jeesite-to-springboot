@@ -52,24 +52,20 @@
 			<li><label>比赛奖金：</label>
 				<form:input path="reward" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
-			<li><label>当前比赛阶段：</label>
+			<%--<li><label>当前比赛阶段：</label>
 				<form:input path="processId" htmlEscape="false" maxlength="10" class="input-medium"/>
-			</li>
+			</li>--%>
 			<li><label>报名人数：</label>
 				<form:input path="signupCount" htmlEscape="false" maxlength="10" class="input-medium digits"/>
 			</li>
-			<li><label>关联项目：</label>
-				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-medium"/>
+			<li><label>标签：</label>
+				<form:input path="tags" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>开始时间：</label>
-				<input name="startTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${psMatch.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			<li><label>关键字：</label>
+				<form:input path="matchKey" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>结束时间：</label>
-				<input name="endTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${psMatch.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			<li><label>简介：</label>
+				<form:input path="matchAbs" htmlEscape="false" maxlength="1000" class="input-medium"/>
 			</li>
 			<li><label>是否为常规赛：</label>
 				<form:select path="routine" class="input-medium">
@@ -83,14 +79,16 @@
 					<form:options items="${fns:getDictList('ps_match_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
-			<li><label>简介：</label>
-				<form:input path="matchAbs" htmlEscape="false" maxlength="1000" class="input-medium"/>
+			<br />
+			<li><label>开始时间：</label>
+				<input name="startTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					   value="<fmt:formatDate value="${psMatch.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
-			<li><label>标签：</label>
-				<form:input path="tags" htmlEscape="false" maxlength="255" class="input-medium"/>
-			</li>
-			<li><label>关键字：</label>
-				<form:input path="matchKey" htmlEscape="false" maxlength="255" class="input-medium"/>
+			<li><label>结束时间：</label>
+				<input name="endTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					   value="<fmt:formatDate value="${psMatch.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
 			<li><label>创建时间：</label>
 				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
@@ -102,6 +100,12 @@
 					value="<fmt:formatDate value="${psMatch.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
+			<%--<li><label>关联项目：</label>
+					&lt;%&ndash;<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-medium"/>&ndash;%&gt;
+				<form:select path="projectId" class="input-medium">
+					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
+				</form:select>
+			</li>--%>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>
@@ -143,13 +147,13 @@
 					${psMatch.reward}
 				</td>
 				<td>
-					${psMatch.processId}
+					${psMatch.processName}
 				</td>
 				<td>
 					${psMatch.signupCount}
 				</td>
 				<td>
-					${psMatch.projectId}
+					${psMatch.projectName}
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatch.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

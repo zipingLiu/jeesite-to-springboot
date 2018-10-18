@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.studio.modules.psproject.dao.PsProjectDao">
+    
+	<sql id="psProjectColumns">
+		a.id AS "id",
+		a.project_name AS "projectName",
+		a.project_abs AS "projectAbs",
+		a.user_id AS "userId",
+		a.status_code AS "statusCode",
+		a.create_time AS "createTime",
+		a.update_time AS "updateTime",
+		a.project_file_id AS "projectFileId",
+		a.project_type AS "projectType",
+		a.office_project AS "officeProject",
+		a.project_framework AS "projectFramework",
+		a.project_environment AS "projectEnvironment",
+		a.fork_from AS "forkFrom",
+		a.project_html AS "projectHtml",
+		a.project_weight AS "projectWeight",
+		a.fork_count AS "forkCount",
+		a.collect_count AS "collectCount",
+		a.comment_count AS "commentCount",
+		a.week_weight AS "weekWeight",
+		a.month_weight AS "monthWeight",
+		a.resource_alloc AS "resourceAlloc",
+		a.active_notebook_cluster AS "activeNotebookCluster",
+		a.active_notebook_cookie AS "activeNotebookCookie",
+		a.active_notebook_path AS "activeNotebookPath"
+	</sql>
+	
+	<sql id="psProjectJoins">
+	</sql>
+    
+	<select id="get" resultType="PsProject">
+		SELECT 
+			<include refid="psProjectColumns"/>
+		FROM ps_project a
+		<include refid="psProjectJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PsProject">
+		SELECT 
+			<include refid="psProjectColumns"/>
+		FROM ps_project a
+		<include refid="psProjectJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="projectName != null and projectName != ''">
+				AND a.project_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{projectName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{projectName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{projectName},'%')</if>
+			</if>
+			<if test="projectAbs != null and projectAbs != ''">
+				AND a.project_abs LIKE 
+					<if test="dbName == 'oracle'">'%'||#{projectAbs}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{projectAbs}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{projectAbs},'%')</if>
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="statusCode != null and statusCode != ''">
+				AND a.status_code = #{statusCode}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND a.create_time &gt;= #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				AND a.update_time &gt;= #{updateTime}
+			</if>
+			<if test="projectFileId != null and projectFileId != ''">
+				AND a.project_file_id = #{projectFileId}
+			</if>
+			<if test="projectType != null and projectType != ''">
+				AND a.project_type = #{projectType}
+			</if>
+			<if test="officeProject != null and officeProject != ''">
+				AND a.office_project = #{officeProject}
+			</if>
+			<if test="projectFramework != null and projectFramework != ''">
+				AND a.project_framework = #{projectFramework}
+			</if>
+			<if test="projectEnvironment != null and projectEnvironment != ''">
+				AND a.project_environment = #{projectEnvironment}
+			</if>
+			<if test="forkFrom != null and forkFrom != ''">
+				AND a.fork_from = #{forkFrom}
+			</if>
+			<if test="projectHtml != null and projectHtml != ''">
+				AND a.project_html = #{projectHtml}
+			</if>
+			<if test="projectWeight != null and projectWeight != ''">
+				AND a.project_weight = #{projectWeight}
+			</if>
+			<if test="forkCount != null and forkCount != ''">
+				AND a.fork_count = #{forkCount}
+			</if>
+			<if test="collectCount != null and collectCount != ''">
+				AND a.collect_count &gt;= #{collectCount}
+			</if>
+			<if test="commentCount != null and commentCount != ''">
+				AND a.comment_count &gt;= #{commentCount}
+			</if>
+			<if test="weekWeight != null and weekWeight != ''">
+				AND a.week_weight &gt;= #{weekWeight}
+			</if>
+			<if test="monthWeight != null and monthWeight != ''">
+				AND a.month_weight &gt;= #{monthWeight}
+			</if>
+			<if test="resourceAlloc != null and resourceAlloc != ''">
+				AND a.resource_alloc = #{resourceAlloc}
+			</if>
+			<if test="activeNotebookCluster != null and activeNotebookCluster != ''">
+				AND a.active_notebook_cluster = #{activeNotebookCluster}
+			</if>
+			<if test="activeNotebookCookie != null and activeNotebookCookie != ''">
+				AND a.active_notebook_cookie LIKE 
+					<if test="dbName == 'oracle'">'%'||#{activeNotebookCookie}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{activeNotebookCookie}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{activeNotebookCookie},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PsProject">
+		SELECT 
+			<include refid="psProjectColumns"/>
+		FROM ps_project a
+		<include refid="psProjectJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ps_project(
+			project_name,
+			project_abs,
+			user_id,
+			status_code,
+			create_time,
+			update_time,
+			project_file_id,
+			project_type,
+			office_project,
+			project_framework,
+			project_environment,
+			fork_from,
+			project_html,
+			project_weight,
+			fork_count,
+			collect_count,
+			comment_count,
+			week_weight,
+			month_weight,
+			resource_alloc,
+			active_notebook_cluster,
+			active_notebook_cookie,
+			active_notebook_path
+		) VALUES (
+			#{projectName},
+			#{projectAbs},
+			#{userId},
+			#{statusCode},
+			#{createTime},
+			#{updateTime},
+			#{projectFileId},
+			#{projectType},
+			#{officeProject},
+			#{projectFramework},
+			#{projectEnvironment},
+			#{forkFrom},
+			#{projectHtml},
+			#{projectWeight},
+			#{forkCount},
+			#{collectCount},
+			#{commentCount},
+			#{weekWeight},
+			#{monthWeight},
+			#{resourceAlloc},
+			#{activeNotebookCluster},
+			#{activeNotebookCookie},
+			#{activeNotebookPath}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ps_project SET 	
+			project_name = #{projectName},
+			project_abs = #{projectAbs},
+			user_id = #{userId},
+			status_code = #{statusCode},
+			create_time = #{createTime},
+			update_time = #{updateTime},
+			project_file_id = #{projectFileId},
+			project_type = #{projectType},
+			office_project = #{officeProject},
+			project_framework = #{projectFramework},
+			project_environment = #{projectEnvironment},
+			fork_from = #{forkFrom},
+			project_html = #{projectHtml},
+			project_weight = #{projectWeight},
+			fork_count = #{forkCount},
+			collect_count = #{collectCount},
+			comment_count = #{commentCount},
+			week_weight = #{weekWeight},
+			month_weight = #{monthWeight},
+			resource_alloc = #{resourceAlloc},
+			active_notebook_cluster = #{activeNotebookCluster},
+			active_notebook_cookie = #{activeNotebookCookie},
+			active_notebook_path = #{activeNotebookPath}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ps_project
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

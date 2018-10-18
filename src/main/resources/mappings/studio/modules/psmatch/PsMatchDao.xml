@@ -19,10 +19,14 @@
 		a.logo AS "logo",
 		a.forum_url AS "forumUrl",
 		a.create_time AS "createTime",
-		a.update_time AS "updateTime"
+		a.update_time AS "updateTime",
+		pmp.process_name AS "processName",
+		pp.project_name AS "projectName"
 	</sql>
 	
 	<sql id="psMatchJoins">
+		LEFT JOIN ps_match_process pmp ON pmp.id = a.process_id
+		LEFT JOIN ps_project pp ON pp.id = a.project_id
 	</sql>
     
 	<select id="get" resultType="PsMatch">
