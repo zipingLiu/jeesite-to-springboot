@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 
 /**
  * Service基类
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Transactional(readOnly = true)

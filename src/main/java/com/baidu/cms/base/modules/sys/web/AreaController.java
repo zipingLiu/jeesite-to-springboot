@@ -26,7 +26,7 @@ import com.baidu.cms.common.config.Global;
 
 /**
  * 区域Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2013-5-15
  */
 @Controller

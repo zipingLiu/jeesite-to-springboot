@@ -8,6 +8,7 @@ import com.baidu.cms.base.modules.gen.service.GenTableService;
 import com.baidu.cms.base.modules.gen.util.GenUtils;
 import com.baidu.cms.base.modules.sys.entity.User;
 import com.baidu.cms.base.modules.sys.utils.UserUtils;
+import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
@@ -26,11 +27,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 业务表Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2013-10-15
  */
 @Controller
@@ -70,10 +73,13 @@ public class GenTableController extends BaseController {
 		// 获取物理表列表
 		List<GenTable> tableList = new ArrayList<GenTable>();
 
-		// TODO 从所有库加载物理表，待优化
-		DataSourceNames[] enums = DataSourceNames.values();
-		for (DataSourceNames e : enums) {
-			DynamicDataSource.setDataSource(e.getKey());
+		// 从配置获取所有的数据库路由键和数据库名称
+		Map<String, String> map = Global.getDatasourceKeyAndName();
+		Iterator<String> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			String datasourceKey = it.next();
+			DynamicDataSource.setDataSource(datasourceKey);
+			// 加载物理表
 			List<GenTable> subList = genTableService.findTableListFormDb(new GenTable());
 			tableList.addAll(subList);
 		}

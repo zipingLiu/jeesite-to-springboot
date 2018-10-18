@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Cache工具类
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2013-5-29
  */
 public class CacheUtils {

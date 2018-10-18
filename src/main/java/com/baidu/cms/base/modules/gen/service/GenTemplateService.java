@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 代码模板Service
- * @author ThinkGem
+ * @author Idea
  * @version 2013-10-15
  */
 @Service

@@ -147,7 +147,7 @@
     <label for="rememberMe" title="下次不需要再登录"><input type="checkbox" id="rememberMe"
                                                     name="rememberMe" ${rememberMe ? 'checked' : ''}/>
         记住我（公共场所慎用）</label>
-    <div id="themeSwitch" class="dropdown">
+    <%--<div id="themeSwitch" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown"
            href="#">${fns:getDictLabel(cookie.theme.value,'theme','默认主题')}<b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -159,7 +159,7 @@
         </ul>
         <!--[if lte IE 6]>
         <script type="text/javascript">$('#themeSwitch').hide();</script><![endif]-->
-    </div>
+    </div>--%>
 </form>
 <div class="footer">
     Copyright &copy; 2018-2030 <a href="${pageContext.request.contextPath}">${fns:getConfig('productName')}</a> -

@@ -3,24 +3,24 @@
  */
 package com.baidu.cms.studio.modules.psmatchprocess.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.StringUtils;
+import com.baidu.cms.common.web.BaseController;
+import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
+import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
-import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 阶段管理Controller
@@ -59,6 +59,16 @@ public class PsMatchProcessController extends BaseController {
 	public String form(PsMatchProcess psMatchProcess, Model model) {
 		model.addAttribute("psMatchProcess", psMatchProcess);
 		return "studio/modules/psmatchprocess/psMatchProcessForm";
+	}
+
+	@RequiresPermissions("psmatch:psMatch:view")
+	@RequestMapping(value = "toProcessList/{matchId}")
+	public String toProcessList(@PathVariable("matchId") Long matchId, HttpServletRequest request, HttpServletResponse response, Model model) {
+		PsMatchProcess psMatchProcess = new PsMatchProcess();
+		psMatchProcess.setMatchId(matchId);
+		Page<PsMatchProcess> page = psMatchProcessService.findPage(new Page<PsMatchProcess>(request, response), psMatchProcess);
+		model.addAttribute("page", page);
+		return "studio/modules/psmatchprocess/psMatchProcessList";
 	}
 
 	@RequiresPermissions("psmatchprocess:psMatchProcess:edit")

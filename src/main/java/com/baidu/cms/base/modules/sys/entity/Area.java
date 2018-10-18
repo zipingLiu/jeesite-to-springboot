@@ -6,7 +6,7 @@ import com.baidu.cms.common.persistence.TreeEntity;
 
 /**
  * 区域Entity
- * @author ThinkGem
+ * @author Idea
  * @version 2013-05-15
  */
 public class Area extends TreeEntity<Area> {

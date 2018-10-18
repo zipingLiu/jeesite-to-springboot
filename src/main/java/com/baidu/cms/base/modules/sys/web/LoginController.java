@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * 登录Controller
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2013-5-31
  */
 @Controller
@@ -44,10 +44,14 @@ public class LoginController extends BaseController {
     public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
         SystemAuthorizingRealm.Principal principal = UserUtils.getPrincipal();
 
+        String theme = CookieUtils.getCookie(request, "theme");
+        if (theme == null) {
+            CookieUtils.setCookie(response, "theme", "flat");
+        }
         // 默认页签模式
         String tabmode = CookieUtils.getCookie(request, "tabmode");
         if (tabmode == null) {
-            CookieUtils.setCookie(response, "tabmode", "1");
+            CookieUtils.setCookie(response, "tabmode", "0");
         }
         if (logger.isDebugEnabled()) {
             logger.debug("login, active session size: {}", sessionDAO.getActiveSessions(false).size());

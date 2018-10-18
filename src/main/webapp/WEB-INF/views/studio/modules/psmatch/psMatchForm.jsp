@@ -43,37 +43,9 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">状态：</label>
+			<label class="control-label">比赛奖金：</label>
 			<div class="controls">
-				<form:select path="statusCode" class="input-xlarge required">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('match_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">创建时间：</label>
-			<div class="controls">
-				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
-					value="<fmt:formatDate value="${psMatch.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">更新时间：</label>
-			<div class="controls">
-				<input name="updateTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
-					value="<fmt:formatDate value="${psMatch.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">关键字：</label>
-			<div class="controls">
-				<form:input path="matchKey" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input path="reward" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -85,20 +57,6 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">关联项目：</label>
-			<div class="controls">
-				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">比赛奖金：</label>
-			<div class="controls">
-				<form:input path="reward" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
 			<label class="control-label">报名人数：</label>
 			<div class="controls">
 				<form:input path="signupCount" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
@@ -106,9 +64,9 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">标签：</label>
+			<label class="control-label">关联项目：</label>
 			<div class="controls">
-				<form:input path="tags" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -131,9 +89,43 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">是否为常规赛：</label>
+			<div class="controls">
+				<form:select path="routine" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('ps_match_routine')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">状态：</label>
+			<div class="controls">
+				<form:select path="statusCode" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('ps_match_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">简介：</label>
 			<div class="controls">
 				<form:textarea path="matchAbs" htmlEscape="false" rows="4" maxlength="1000" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">标签：</label>
+			<div class="controls">
+				<form:input path="tags" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">关键字：</label>
+			<div class="controls">
+				<form:input path="matchKey" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -152,12 +144,20 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">是否为常规赛：</label>
+			<label class="control-label">创建时间：</label>
 			<div class="controls">
-				<form:select path="routine" class="input-xlarge required">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('routine')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
+				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
+					value="<fmt:formatDate value="${psMatch.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">更新时间：</label>
+			<div class="controls">
+				<input name="updateTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate required"
+					value="<fmt:formatDate value="${psMatch.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

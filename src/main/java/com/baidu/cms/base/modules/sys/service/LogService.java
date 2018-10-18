@@ -11,7 +11,7 @@ import com.baidu.cms.base.modules.sys.dao.LogDao;
 
 /**
  * 日志Service
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Service

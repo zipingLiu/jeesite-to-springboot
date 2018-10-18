@@ -22,11 +22,11 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     druid:
       base:
-        url: jdbc:mysql://10.99.198.188:8411/d_ai_studio_cms?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://10.99.198.188:8411/d_ai_studio_cms?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: MhxzKhl
       studio:
-        url: jdbc:mysql://10.99.198.188:8411/d_ai_studio?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://10.99.198.188:8411/d_ai_studio?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: MhxzKhl
       initial-size: 10

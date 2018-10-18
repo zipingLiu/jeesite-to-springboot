@@ -25,7 +25,7 @@ import java.util.Map.Entry;
 /**
  * Http与Servlet工具类.
  *
- * @author calvin/thinkgem
+ * @author Idea
  * @version 2014-8-19
  */
 public class Servlets {

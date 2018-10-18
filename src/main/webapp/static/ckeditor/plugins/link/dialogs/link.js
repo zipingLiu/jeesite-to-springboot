@@ -1,7 +1,7 @@
 ﻿/*
 Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
-@thinkgem 2013-8-1 添加标题，编辑链接名称。
+@Idea 2013-8-1 添加标题，编辑链接名称。
 */
 
 CKEDITOR.dialog.add( 'link', function( editor )

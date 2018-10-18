@@ -28,7 +28,7 @@ import java.util.Scanner;
 /**
  * CKFinder配置
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2014-06-25
  */
 public class CKFinderConfig extends Configuration {

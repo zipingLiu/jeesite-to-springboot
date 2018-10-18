@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service基类
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Transactional(readOnly = true)

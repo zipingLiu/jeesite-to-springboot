@@ -19,7 +19,7 @@ import com.baidu.cms.common.utils.excel.fieldtype.RoleListType;
 
 /**
  * 用户Entity
- * @author ThinkGem
+ * @author Idea
  * @version 2013-12-05
  */
 public class User extends DataEntity<User> {

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 数据Entity类
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 public abstract class DataEntity<T> extends BaseEntity<T> {

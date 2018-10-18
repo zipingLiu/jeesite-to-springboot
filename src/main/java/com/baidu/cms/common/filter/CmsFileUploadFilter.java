@@ -9,5 +9,5 @@ import javax.servlet.annotation.WebInitParam;
         @WebInitParam(name = "sessionCookieName", value = "JSESSIONID"),
         @WebInitParam(name = "sessionParameterName", value = "jsessionid")
 })
-public class JeesiteFileUploadFilter extends FileUploadFilter {
+public class CmsFileUploadFilter extends FileUploadFilter {
 }

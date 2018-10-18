@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 代码模板Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2013-10-15
  */
 @Controller

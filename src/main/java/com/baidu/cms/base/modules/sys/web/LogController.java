@@ -16,7 +16,7 @@ import com.baidu.cms.base.modules.sys.entity.Log;
 
 /**
  * 日志Controller
- * @author ThinkGem
+ * @author Idea
  * @version 2013-6-2
  */
 @Controller

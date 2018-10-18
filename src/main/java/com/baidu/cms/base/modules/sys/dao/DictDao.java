@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 字典DAO接口
  *
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Mapper

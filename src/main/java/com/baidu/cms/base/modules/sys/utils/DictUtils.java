@@ -15,7 +15,7 @@ import com.baidu.cms.base.modules.sys.entity.Dict;
 
 /**
  * 字典工具类
- * @author ThinkGem
+ * @author Idea
  * @version 2013-5-29
  */
 public class DictUtils {

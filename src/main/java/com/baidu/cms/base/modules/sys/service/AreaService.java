@@ -12,7 +12,7 @@ import com.baidu.cms.common.service.TreeService;
 
 /**
  * 区域Service
- * @author ThinkGem
+ * @author Idea
  * @version 2014-05-16
  */
 @Service
