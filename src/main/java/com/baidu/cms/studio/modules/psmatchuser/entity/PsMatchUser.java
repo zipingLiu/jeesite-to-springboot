@@ -12,7 +12,7 @@ import com.baidu.cms.common.persistence.DataEntity;
 /**
  * 报名用户Entity
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-18
  */
 public class PsMatchUser extends DataEntity<PsMatchUser> {
 	

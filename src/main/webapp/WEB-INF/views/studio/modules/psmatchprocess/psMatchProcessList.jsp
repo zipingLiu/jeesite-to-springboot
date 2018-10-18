@@ -8,7 +8,22 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			//$("#name").focus();
+			$("#searchForm").validate({
+				submitHandler: function(form){
+					loading('正在查询，请稍等...');
+					form.submit();
+				},
+				errorContainer: "#messageBox",
+				errorPlacement: function(error, element) {
+					$("#messageBox").text("输入有误，请先更正。");
+					if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
+						error.appendTo(element.parent().parent());
+					} else {
+						error.insertAfter(element);
+					}
+				}
+			});
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
@@ -26,6 +41,7 @@
 	<form:form id="searchForm" modelAttribute="psMatchProcess" action="${ctx}/psmatchprocess/psMatchProcess/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<ul class="ul-form">
 			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
@@ -34,7 +50,10 @@
 				<form:input path="processName" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
 			<li><label>比赛ID：</label>
-				<form:input path="matchId" htmlEscape="false" maxlength="10" class="input-medium"/>
+				<form:select path="matchId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>开始时间：</label>
 				<input name="startTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
@@ -47,7 +66,10 @@
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
 			<li><label>关联项目：</label>
-				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-medium"/>
+				<form:select path="projectId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>是否可自己报名：</label>
 				<form:select path="selfSignup" class="input-medium">
@@ -64,6 +86,15 @@
 			<li><label>执行脚本：</label>
 				<form:input path="evalDockerImage" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
+			<li><label>处理类：</label>
+				<form:input path="evalService" htmlEscape="false" maxlength="255" class="input-medium"/>
+			</li>
+			<li><label>Docker命令：</label>
+				<form:input path="evalDockerCommand" htmlEscape="false" maxlength="255" class="input-medium"/>
+			</li>
+			<li><label>列JSON：</label>
+				<form:input path="columns" htmlEscape="false" maxlength="255" class="input-medium"/>
+			</li>
 			<li><label>获取Token开始时间：</label>
 				<input name="tokenStartTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${psMatchProcess.tokenStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -77,15 +108,19 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed table-nowrap">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>阶段名称</th>
-				<th>比赛ID</th>
-				<th>开始时间</th>
-				<th>结束时间</th>
-				<th>关联项目</th>
-				<th>是否可自己报名</th>
-				<th>是否有排行版</th>
-				<th>获取Token开始时间</th>
+				<th class="sort-column id">ID</th>
+				<th class="sort-column processName">阶段名称</th>
+				<th class="sort-column matchId">比赛ID</th>
+				<th class="sort-column startTime">开始时间</th>
+				<th class="sort-column endTime">结束时间</th>
+				<th class="sort-column projectId">关联项目</th>
+				<th class="sort-column selfSignup">是否可自己报名</th>
+				<th class="sort-column hasLeaderboard">是否有排行版</th>
+				<th class="sort-column evalDockerImage">执行脚本</th>
+				<th class="sort-column evalService">处理类</th>
+				<th class="sort-column evalDockerCommand">Docker命令</th>
+				<th class="sort-column columns">列JSON</th>
+				<th class="sort-column tokenStartTime">获取Token开始时间</th>
 				<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -99,7 +134,7 @@
 					${psMatchProcess.processName}
 				</td>
 				<td>
-					${psMatchProcess.matchId}
+					${fns:getDictLabel(psMatchProcess.matchId, '', '')}
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatchProcess.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -108,13 +143,25 @@
 					<fmt:formatDate value="${psMatchProcess.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-					${psMatchProcess.projectId}
+					${fns:getDictLabel(psMatchProcess.projectId, '', '')}
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchProcess.selfSignup, 'self_signup', '')}
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchProcess.hasLeaderboard, 'has_leaderboard', '')}
+				</td>
+				<td>
+					${psMatchProcess.evalDockerImage}
+				</td>
+				<td>
+					${psMatchProcess.evalService}
+				</td>
+				<td>
+					${psMatchProcess.evalDockerCommand}
+				</td>
+				<td>
+					${psMatchProcess.columns}
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatchProcess.tokenStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

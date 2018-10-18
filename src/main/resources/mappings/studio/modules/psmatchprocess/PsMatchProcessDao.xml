@@ -69,6 +69,24 @@
 					<if test="dbName == 'mssql'">'%'+#{evalDockerImage}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{evalDockerImage},'%')</if>
 			</if>
+			<if test="evalService != null and evalService != ''">
+				AND a.eval_service LIKE 
+					<if test="dbName == 'oracle'">'%'||#{evalService}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{evalService}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{evalService},'%')</if>
+			</if>
+			<if test="evalDockerCommand != null and evalDockerCommand != ''">
+				AND a.eval_docker_command LIKE 
+					<if test="dbName == 'oracle'">'%'||#{evalDockerCommand}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{evalDockerCommand}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{evalDockerCommand},'%')</if>
+			</if>
+			<if test="columns != null and columns != ''">
+				AND a.columns LIKE 
+					<if test="dbName == 'oracle'">'%'||#{columns}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{columns}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{columns},'%')</if>
+			</if>
 			<if test="tokenStartTime != null and tokenStartTime != ''">
 				AND a.token_start_time &gt;= #{tokenStartTime}
 			</if>

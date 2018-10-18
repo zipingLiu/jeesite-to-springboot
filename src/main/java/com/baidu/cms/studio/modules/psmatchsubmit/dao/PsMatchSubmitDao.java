@@ -10,7 +10,7 @@ import com.baidu.cms.studio.modules.psmatchsubmit.entity.PsMatchSubmit;
 /**
  * 提交管理DAO接口
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-18
  */
 @Mapper
 public interface PsMatchSubmitDao extends CrudDao<PsMatchSubmit> {

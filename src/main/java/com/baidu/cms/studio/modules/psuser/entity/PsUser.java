@@ -13,7 +13,7 @@ import com.baidu.cms.common.persistence.DataEntity;
 /**
  * 用户管理Entity
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-18
  */
 public class PsUser extends DataEntity<PsUser> {
 	

@@ -38,13 +38,15 @@
 		<div class="control-group">
 			<label class="control-label">提交名称：</label>
 			<div class="controls">
-				<form:input path="submitName" htmlEscape="false" maxlength="200" class="input-xlarge "/>
+				<form:input path="submitName" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">版本：</label>
 			<div class="controls">
-				<form:input path="version" htmlEscape="false" maxlength="20" class="input-xlarge "/>
+				<form:input path="version" htmlEscape="false" maxlength="20" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
@@ -61,7 +63,7 @@
 			<div class="controls">
 				<form:select path="statusCode" class="input-xlarge required">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${fns:getDictList('ps_match_submit_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
@@ -78,7 +80,7 @@
 		<div class="control-group">
 			<label class="control-label">提交人：</label>
 			<div class="controls">
-				<form:input path="userName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -92,41 +94,45 @@
 		<div class="control-group">
 			<label class="control-label">结果json：</label>
 			<div class="controls">
-				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-xlarge "/>
+				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">bos的key值：</label>
 			<div class="controls">
-				<form:input path="bosKey" htmlEscape="false" maxlength="500" class="input-xlarge"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="bosKey" htmlEscape="false" maxlength="500" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">bos的url：</label>
 			<div class="controls">
-				<form:input path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-xlarge"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">任务开始时间：</label>
 			<div class="controls">
-				<form:input path="startTime" htmlEscape="false" maxlength="20" class="input-xlarge"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="startTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">任务结束时间：</label>
 			<div class="controls">
-				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-xlarge"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">阶段ID：</label>
 			<div class="controls">
-				<form:input path="processId" htmlEscape="false" maxlength="11" class="input-xlarge required digits"/>
+				<form:select path="processId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -143,26 +149,34 @@
 		<div class="control-group">
 			<label class="control-label">参考文献：</label>
 			<div class="controls">
-				<form:textarea path="reference" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge "/>
+				<form:textarea path="reference" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">简介：</label>
 			<div class="controls">
-				<form:textarea path="introduction" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge "/>
+				<form:textarea path="introduction" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">项目ID：</label>
 			<div class="controls">
-				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="projectId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">比赛ID：</label>
 			<div class="controls">
-				<form:input path="matchId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="matchId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ import com.baidu.cms.studio.modules.psmatchuser.dao.PsMatchUserDao;
 /**
  * 报名用户Service
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-18
  */
 @Service
 @Transactional(readOnly = true)

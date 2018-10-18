@@ -13,7 +13,7 @@ import com.baidu.cms.common.persistence.DataEntity;
 /**
  * 阶段管理Entity
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-18
  */
 public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 	
@@ -104,7 +104,7 @@ public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 		this.hasLeaderboard = hasLeaderboard;
 	}
 	
-	@Length(min=0, max=255, message="执行脚本长度必须介于 0 和 255 之间")
+	@Length(min=1, max=255, message="执行脚本长度必须介于 1 和 255 之间")
 	public String getEvalDockerImage() {
 		return evalDockerImage;
 	}
@@ -113,7 +113,7 @@ public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 		this.evalDockerImage = evalDockerImage;
 	}
 	
-	@Length(min=0, max=255, message="处理类长度必须介于 0 和 255 之间")
+	@Length(min=1, max=255, message="处理类长度必须介于 1 和 255 之间")
 	public String getEvalService() {
 		return evalService;
 	}
@@ -122,7 +122,7 @@ public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 		this.evalService = evalService;
 	}
 	
-	@Length(min=0, max=255, message="Docker命令长度必须介于 0 和 255 之间")
+	@Length(min=1, max=255, message="Docker命令长度必须介于 1 和 255 之间")
 	public String getEvalDockerCommand() {
 		return evalDockerCommand;
 	}
@@ -131,7 +131,7 @@ public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 		this.evalDockerCommand = evalDockerCommand;
 	}
 	
-	@Length(min=0, max=255, message="列JSON长度必须介于 0 和 255 之间")
+	@Length(min=1, max=255, message="列JSON长度必须介于 1 和 255 之间")
 	public String getColumns() {
 		return columns;
 	}

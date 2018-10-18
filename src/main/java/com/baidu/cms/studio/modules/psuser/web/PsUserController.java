@@ -25,7 +25,7 @@ import com.baidu.cms.studio.modules.psuser.service.PsUserService;
 /**
  * 用户管理Controller
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-18
  */
 @Controller
 @RequestMapping(value = "${adminPath}/psuser/psUser")

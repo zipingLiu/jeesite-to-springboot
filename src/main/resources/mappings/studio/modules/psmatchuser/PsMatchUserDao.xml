@@ -83,11 +83,15 @@
 			match_id,
 			user_id,
 			process_id,
+			create_time,
+			update_time,
 			routine_pass
 		) VALUES (
 			#{matchId},
 			#{userId},
 			#{processId},
+			#{createTime},
+			#{updateTime},
 			#{routinePass}
 		)
 	</insert>

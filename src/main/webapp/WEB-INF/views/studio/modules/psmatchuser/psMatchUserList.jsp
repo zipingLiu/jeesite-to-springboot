@@ -8,7 +8,22 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			//$("#name").focus();
+			$("#searchForm").validate({
+				submitHandler: function(form){
+					loading('正在查询，请稍等...');
+					form.submit();
+				},
+				errorContainer: "#messageBox",
+				errorPlacement: function(error, element) {
+					$("#messageBox").text("输入有误，请先更正。");
+					if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
+						error.appendTo(element.parent().parent());
+					} else {
+						error.insertAfter(element);
+					}
+				}
+			});
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
@@ -26,18 +41,28 @@
 	<form:form id="searchForm" modelAttribute="psMatchUser" action="${ctx}/psmatchuser/psMatchUser/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<ul class="ul-form">
 			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
 			</li>
 			<li><label>比赛ID：</label>
-				<form:input path="matchId" htmlEscape="false" maxlength="10" class="input-medium"/>
+				<form:select path="matchId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>用户ID：</label>
-				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-medium"/>
+				<form:select path="userId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>阶段ID：</label>
-				<form:input path="processId" htmlEscape="false" maxlength="10" class="input-medium"/>
+				<form:select path="processId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>创建时间：</label>
 				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
@@ -63,13 +88,13 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed table-nowrap">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>比赛ID</th>
-				<th>用户ID</th>
-				<th>阶段ID</th>
-				<th>创建时间</th>
-				<th>更新时间</th>
-				<th>常规赛是否通过</th>
+				<th class="sort-column id">ID</th>
+				<th class="sort-column matchId">比赛ID</th>
+				<th class="sort-column userId">用户ID</th>
+				<th class="sort-column processId">阶段ID</th>
+				<th class="sort-column createTime">创建时间</th>
+				<th class="sort-column updateTime">更新时间</th>
+				<th class="sort-column routinePass">常规赛是否通过</th>
 				<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -80,13 +105,13 @@
 					${psMatchUser.id}
 				</a></td>
 				<td>
-					${psMatchUser.matchId}
+					${fns:getDictLabel(psMatchUser.matchId, '', '')}
 				</td>
 				<td>
-					${psMatchUser.userId}
+					${fns:getDictLabel(psMatchUser.userId, '', '')}
 				</td>
 				<td>
-					${psMatchUser.processId}
+					${fns:getDictLabel(psMatchUser.processId, '', '')}
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatchUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

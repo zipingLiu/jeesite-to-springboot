@@ -58,7 +58,7 @@
 			<li><label>状态：</label>
 				<form:select path="statusCode" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('ps_project_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>创建时间：</label>
@@ -75,7 +75,10 @@
 				<form:input path="projectFileId" htmlEscape="false" maxlength="10" class="input-medium"/>
 			</li>
 			<li><label>项目类型：</label>
-				<form:input path="projectType" htmlEscape="false" maxlength="2" class="input-medium"/>
+				<form:select path="projectType" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('ps_project_project_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>办公项目：</label>
 				<form:input path="officeProject" htmlEscape="false" maxlength="2" class="input-medium"/>
@@ -173,7 +176,7 @@
 					${psProject.userId}
 				</td>
 				<td>
-					${fns:getDictLabel(psProject.statusCode, 'ps_project_status_code', '')}
+					${fns:getDictLabel(psProject.statusCode, 'studio_status_code', '')}
 				</td>
 				<td>
 					<fmt:formatDate value="${psProject.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -185,7 +188,7 @@
 					${psProject.projectFileId}
 				</td>
 				<td>
-					${psProject.projectType}
+					${fns:getDictLabel(psProject.projectType, 'ps_project_project_type', '')}
 				</td>
 				<td>
 					${psProject.officeProject}

@@ -45,7 +45,10 @@
 		<div class="control-group">
 			<label class="control-label">比赛ID：</label>
 			<div class="controls">
-				<form:input path="matchId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="matchId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -70,7 +73,10 @@
 		<div class="control-group">
 			<label class="control-label">关联项目：</label>
 			<div class="controls">
-				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="projectId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -97,25 +103,29 @@
 		<div class="control-group">
 			<label class="control-label">执行脚本：</label>
 			<div class="controls">
-				<form:textarea path="evalDockerImage" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+				<form:textarea path="evalDockerImage" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">处理类：</label>
 			<div class="controls">
-				<form:input path="evalService" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:textarea path="evalService" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">Docker命令：</label>
 			<div class="controls">
-				<form:textarea path="evalDockerCommand" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+				<form:textarea path="evalDockerCommand" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">列JSON：</label>
 			<div class="controls">
-				<form:textarea path="columns" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+				<form:textarea path="columns" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">

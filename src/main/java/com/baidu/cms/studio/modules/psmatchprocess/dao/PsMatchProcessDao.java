@@ -10,7 +10,7 @@ import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
 /**
  * 阶段管理DAO接口
  * @author shiyanjun
- * @version 2018-10-16
+ * @version 2018-10-18
  */
 @Mapper
 public interface PsMatchProcessDao extends CrudDao<PsMatchProcess> {

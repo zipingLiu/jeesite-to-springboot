@@ -8,7 +8,22 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			//$("#name").focus();
+			$("#searchForm").validate({
+				submitHandler: function(form){
+					loading('正在查询，请稍等...');
+					form.submit();
+				},
+				errorContainer: "#messageBox",
+				errorPlacement: function(error, element) {
+					$("#messageBox").text("输入有误，请先更正。");
+					if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
+						error.appendTo(element.parent().parent());
+					} else {
+						error.insertAfter(element);
+					}
+				}
+			});
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
@@ -31,6 +46,12 @@
 			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
 			</li>
+			<li><label>提交名称：</label>
+				<form:input path="submitName" htmlEscape="false" maxlength="200" class="input-medium"/>
+			</li>
+			<li><label>版本：</label>
+				<form:input path="version" htmlEscape="false" maxlength="20" class="input-medium"/>
+			</li>
 			<li><label>创建时间：</label>
 				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${psMatchSubmit.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -39,7 +60,7 @@
 			<li><label>提交状态：</label>
 				<form:select path="statusCode" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${fns:getDictList('ps_match_submit_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>最后更新时间：</label>
@@ -52,6 +73,9 @@
 			</li>
 			<li><label>分数：</label>
 				<form:input path="score" htmlEscape="false" class="input-medium"/>
+			</li>
+			<li><label>结果json：</label>
+				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-medium"/>
 			</li>
 			<li><label>bos的key值：</label>
 				<form:input path="bosKey" htmlEscape="false" maxlength="500" class="input-medium"/>
@@ -66,7 +90,10 @@
 				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-medium"/>
 			</li>
 			<li><label>阶段ID：</label>
-				<form:input path="processId" htmlEscape="false" maxlength="11" class="input-medium"/>
+				<form:select path="processId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>是否匿名：</label>
 				<form:select path="anonymous" class="input-medium">
@@ -74,11 +101,26 @@
 					<form:options items="${fns:getDictList('anonymous')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
+			<li><label>参考文献：</label>
+				<form:input path="reference" htmlEscape="false" maxlength="500" class="input-medium"/>
+			</li>
+			<li><label>简介：</label>
+				<form:input path="introduction" htmlEscape="false" maxlength="500" class="input-medium"/>
+			</li>
 			<li><label>项目ID：</label>
-				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-medium"/>
+				<form:select path="projectId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</li>
 			<li><label>比赛ID：</label>
-				<form:input path="matchId" htmlEscape="false" maxlength="10" class="input-medium"/>
+				<form:select path="matchId" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
+			<li><label>对比结果：</label>
+				<form:input path="errorMsg" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -88,16 +130,26 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed table-nowrap">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>提交状态</th>
-				<th>提交人</th>
+				<th class="sort-column id">ID</th>
+				<th class="sort-column submitName">提交名称</th>
+				<th class="sort-column version">版本</th>
+				<th class="sort-column createTime">创建时间</th>
+				<th class="sort-column statusCode">提交状态</th>
+				<th class="sort-column lastUpdateTime">最后更新时间</th>
+				<th class="sort-column userId">提交人</th>
 				<th class="sort-column score">分数</th>
-				<th>任务开始时间</th>
-				<th>任务结束时间</th>
-				<th>阶段ID</th>
-				<th>是否匿名</th>
-				<th>项目ID</th>
-				<th>比赛ID</th>
+				<th class="sort-column resultContent">结果json</th>
+				<th class="sort-column bosKey">bos的key值</th>
+				<th class="sort-column bosFileUrl">bos的url</th>
+				<th class="sort-column startTime">任务开始时间</th>
+				<th class="sort-column endTime">任务结束时间</th>
+				<th class="sort-column processId">阶段ID</th>
+				<th class="sort-column anonymous">是否匿名</th>
+				<th class="sort-column reference">参考文献</th>
+				<th class="sort-column introduction">简介</th>
+				<th class="sort-column projectId">项目ID</th>
+				<th class="sort-column matchId">比赛ID</th>
+				<th class="sort-column errorMsg">对比结果</th>
 				<shiro:hasPermission name="psmatchsubmit:psMatchSubmit:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -108,13 +160,34 @@
 					${psMatchSubmit.id}
 				</a></td>
 				<td>
-					${fns:getDictLabel(psMatchSubmit.statusCode, 'status_code', '')}
+					${psMatchSubmit.submitName}
 				</td>
 				<td>
-					${psMatchSubmit.userName}
+					${psMatchSubmit.version}
+				</td>
+				<td>
+					<fmt:formatDate value="${psMatchSubmit.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					${fns:getDictLabel(psMatchSubmit.statusCode, 'ps_match_submit_status_code', '')}
+				</td>
+				<td>
+					<fmt:formatDate value="${psMatchSubmit.lastUpdateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					${psMatchSubmit.userId}
 				</td>
 				<td>
 					${psMatchSubmit.score}
+				</td>
+				<td>
+					${psMatchSubmit.resultContent}
+				</td>
+				<td>
+					${psMatchSubmit.bosKey}
+				</td>
+				<td>
+					${psMatchSubmit.bosFileUrl}
 				</td>
 				<td>
 					${psMatchSubmit.startTime}
@@ -123,16 +196,25 @@
 					${psMatchSubmit.endTime}
 				</td>
 				<td>
-					${psMatchSubmit.processId}
+					${fns:getDictLabel(psMatchSubmit.processId, '', '')}
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchSubmit.anonymous, 'anonymous', '')}
 				</td>
 				<td>
-					${psMatchSubmit.projectId}
+					${psMatchSubmit.reference}
 				</td>
 				<td>
-					${psMatchSubmit.matchId}
+					${psMatchSubmit.introduction}
+				</td>
+				<td>
+					${fns:getDictLabel(psMatchSubmit.projectId, '', '')}
+				</td>
+				<td>
+					${fns:getDictLabel(psMatchSubmit.matchId, '', '')}
+				</td>
+				<td>
+					${psMatchSubmit.errorMsg}
 				</td>
 				<shiro:hasPermission name="psmatchsubmit:psMatchSubmit:edit"><td>
     				<a href="${ctx}/psmatchsubmit/psMatchSubmit/form?id=${psMatchSubmit.id}">修改</a>

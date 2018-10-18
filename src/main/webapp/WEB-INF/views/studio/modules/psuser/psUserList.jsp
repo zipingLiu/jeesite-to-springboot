@@ -8,7 +8,22 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			//$("#name").focus();
+			$("#searchForm").validate({
+				submitHandler: function(form){
+					loading('正在查询，请稍等...');
+					form.submit();
+				},
+				errorContainer: "#messageBox",
+				errorPlacement: function(error, element) {
+					$("#messageBox").text("输入有误，请先更正。");
+					if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
+						error.appendTo(element.parent().parent());
+					} else {
+						error.insertAfter(element);
+					}
+				}
+			});
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
@@ -26,8 +41,9 @@
 	<form:form id="searchForm" modelAttribute="psUser" action="${ctx}/psuser/psUser/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<ul class="ul-form">
-			<li><label>id：</label>
+			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
 			</li>
 			<li><label>用户名：</label>
@@ -55,7 +71,7 @@
 			<li><label>可用状态：</label>
 				<form:select path="statusCode" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${fns:getDictList('ps_user_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>是否为员工：</label>
@@ -105,14 +121,14 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed table-nowrap">
 		<thead>
 			<tr>
-				<th>id</th>
-				<th>用户名</th>
-				<th>姓名</th>
-				<th>身份证</th>
-				<th>手机号</th>
-				<th>工作地点</th>
-				<th>公司名称</th>
-				<th>邮箱</th>
+				<th class="sort-column id">ID</th>
+				<th class="sort-column userName">用户名</th>
+				<th class="sort-column trueName">姓名</th>
+				<th class="sort-column idcard">身份证</th>
+				<th class="sort-column mobile">手机号</th>
+				<th class="sort-column workPlace">工作地点</th>
+				<th class="sort-column companyName">公司名称</th>
+				<th class="sort-column email">邮箱</th>
 				<shiro:hasPermission name="psuser:psUser:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>

@@ -192,6 +192,8 @@
     				<a href="${ctx}/psmatch/psMatch/form?id=${psMatch.id}">修改</a>
 					<a href="${ctx}/psmatch/psMatch/delete?id=${psMatch.id}" onclick="return confirmx('确认要删除该比赛吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
+				<td><a href="${ctx}/psmatchsubmit/psMatchSubmit/toSubmitList/${psMatch.id}">提交列表</a></td>
+				<td><a href="${ctx}/psmatchuser/psMatchUser/toMatchUserList/${psMatch.id}">报名列表</a></td>
 			</tr>
 		</c:forEach>
 		</tbody>

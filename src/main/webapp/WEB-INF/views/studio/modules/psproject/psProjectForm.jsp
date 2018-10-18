@@ -61,7 +61,7 @@
 			<div class="controls">
 				<form:select path="statusCode" class="input-xlarge required">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('ps_project_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
@@ -94,7 +94,10 @@
 		<div class="control-group">
 			<label class="control-label">项目类型：</label>
 			<div class="controls">
-				<form:input path="projectType" htmlEscape="false" maxlength="2" class="input-xlarge required digits"/>
+				<form:select path="projectType" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('ps_project_project_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

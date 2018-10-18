@@ -38,21 +38,30 @@
 		<div class="control-group">
 			<label class="control-label">比赛ID：</label>
 			<div class="controls">
-				<form:input path="matchId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="matchId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">用户ID：</label>
 			<div class="controls">
-				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="userId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">阶段ID：</label>
 			<div class="controls">
-				<form:input path="processId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:select path="processId" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
