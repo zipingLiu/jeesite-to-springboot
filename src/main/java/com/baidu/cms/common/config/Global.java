@@ -1,9 +1,9 @@
 package com.baidu.cms.common.config;
 
-import com.ckfinder.connector.ServletContextFactory;
-import com.google.common.collect.Maps;
 import com.baidu.cms.common.utils.PropertiesLoader;
 import com.baidu.cms.common.utils.StringUtils;
+import com.ckfinder.connector.ServletContextFactory;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
@@ -13,8 +13,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 全局配置类
@@ -27,6 +30,8 @@ public class Global {
     private static Logger logger = LoggerFactory.getLogger(Global.class);
 
     public static String SPRING_DATASOURCE_URL = "spring.datasource.druid.base.url";
+    public static String SPRING_DATASOURCE_KEY_PREFIX = "spring.datasource.";
+    public static String SPRING_DATASOURCE_DRUID_KEY_PREFIX = "spring.datasource.druid.";
 
     static RelaxedPropertyResolver resolver;
     /**
@@ -155,6 +160,126 @@ public class Global {
         return "mysql";
     }
 
+    /**
+     * 根据数据库名获取数据库路由键
+     * @Author shiyanjun
+     * @Date 2018/10/18 上午11:34
+     * @Param
+     * @Return
+     * @Exception
+     */
+    public static String getDatasourceKeyByDbName(String dbName) {
+        return Global.getDatasourceKeyAndName().get(dbName);
+    }
+
+    /**
+     * 根据数据库路由键获取数据库名称
+     * @Author shiyanjun
+     * @Date 2018/10/18 上午11:36
+     * @Param
+     * @Return
+     * @Exception
+     */
+    public static String getDbNameByDatasourceKey(String datasourceKey) {
+        return Global.getDatasourceKeyAndName().get(datasourceKey);
+    }
+
+    /**
+     * 获取所有数据库名称
+     * @Author shiyanjun
+     * @Date 2018/10/18 上午11:18
+     * @Param
+     * @Return
+     * @Exception
+     */
+    public static Map<String, String> getDatasourceKeyAndName() {
+        Map<String, String> map = Global.getJdbcUrlConfig();
+        Iterator<String> it = map.keySet().iterator();
+        Map<String, String> newMap = new HashMap<>();
+        while (it.hasNext()) {
+            String key = it.next();
+            newMap.put(Global.getDatasourceKeyByJdbcUrlKey(key), Global.getDbName(map.get(key)));
+        }
+        return newMap;
+    }
+
+    /**
+     * 获取数据库的路由键
+     * @Author shiyanjun
+     * @Date 2018/10/18 上午11:24
+     * @Param
+     * @Return
+     * @Exception
+     */
+    private static String getDatasourceKeyByJdbcUrlKey(String jdbcUrlKey) {
+        if (jdbcUrlKey.startsWith(Global.SPRING_DATASOURCE_DRUID_KEY_PREFIX) && jdbcUrlKey.endsWith(".url")) {
+            String[] split = jdbcUrlKey.split("\\.");
+            if (split != null && split.length > 3) {
+                return split[3];
+            }
+        }
+        return null;
+    }
+
+    /**
+     *  从jdbcUrl中解析出数据库名
+     *  @author: shiyanjun
+     *  @Date: 2018/10/11 上午10:35
+     */
+    private static String getDbName(String jdbcUrl) {
+        if (StringUtils.isNotBlank(jdbcUrl) && jdbcUrl.startsWith("jdbc:mysql:")) {
+            String[] split = jdbcUrl.split(":");
+            String len = split[split.length - 1];
+            int last = len.lastIndexOf("?") == -1 ? len.length() : len.lastIndexOf("?");
+            String dbName = len.substring(len.indexOf("/") + 1, last);
+            return dbName;
+        }
+        return null;
+    }
+
+    /**
+     * 获取所有jdbcUrl配置
+     * @Author shiyanjun
+     * @Date 2018/10/18 上午11:12
+     * @Param
+     * @Return
+     * @Exception
+     */
+    private static Map<String, String> getJdbcUrlConfig() {
+        Map<String, Object> map = Global.getSpringDatasourceConfig();
+        Iterator<String> it = map.keySet().iterator();
+        Map<String, String> jdbcUrlMap = new HashMap<>();
+        while (it.hasNext()) {
+            String next = it.next();
+            if (next.startsWith(Global.SPRING_DATASOURCE_KEY_PREFIX) && next.endsWith(".url")) {
+                String value = (String) map.get(next);
+                if (StringUtils.isNotBlank(value) && value.startsWith("jdbc:mysql:")) {
+                    jdbcUrlMap.put(next, value);
+                }
+            }
+        }
+        return jdbcUrlMap;
+    }
+
+    /**
+     * 获取所有spring数据源配置
+     * @Author shiyanjun
+     * @Date 2018/10/18 上午10:59
+     * @Param
+     * @Return
+     * @Exception
+     */
+    private static Map<String, Object> getSpringDatasourceConfig() {
+        Map<String, Object> newMap = new HashMap<>();
+        Map<String, Object> map = Global.resolver.getSubProperties(SPRING_DATASOURCE_KEY_PREFIX);
+        Iterator<String> it = map.keySet().iterator();
+        while (it.hasNext()) {
+            String next = it.next();
+            newMap.put(Global.SPRING_DATASOURCE_KEY_PREFIX + next, map.get(next));
+        }
+        return newMap;
+    }
+
     private static String getDbType(String rawUrl) {
         return rawUrl == null ? null : (!rawUrl.startsWith("jdbc:derby:") && !rawUrl.startsWith("jdbc:log4jdbc:derby:") ? (!rawUrl.startsWith("jdbc:mysql:") && !rawUrl.startsWith("jdbc:cobar:") && !rawUrl.startsWith("jdbc:log4jdbc:mysql:") ? (rawUrl.startsWith("jdbc:mariadb:") ? "mariadb" : (!rawUrl.startsWith("jdbc:oracle:") && !rawUrl.startsWith("jdbc:log4jdbc:oracle:") ? (rawUrl.startsWith("jdbc:alibaba:oracle:") ? "AliOracle" : (!rawUrl.startsWith("jdbc:microsoft:") && !rawUrl.startsWith("jdbc:log4jdbc:microsoft:") ? (!rawUrl.startsWith("jdbc:sqlserver:") && !rawUrl.startsWith("jdbc:log4jdbc:sqlserver:") ? (!rawUrl.startsWith("jdbc:sybase:Tds:") && !rawUrl.startsWith("jdbc:log4jdbc:sybase:") ? (!rawUrl.startsWith("jdbc:jtds:") && !rawUrl.startsWith("jdbc:log4jdbc:jtds:") ? (!rawUrl.startsWith("jdbc:fake:") && !rawUrl.startsWith("jdbc:mock:") ? (!rawUrl.startsWith("jdbc:postgresql:") && !rawUrl.startsWith("jdbc:log4jdbc:postgresql:") ? (rawUrl.startsWith("jdbc:edb:") ? "edb" : (!rawUrl.startsWith("jdbc:hsqldb:") && !rawUrl.startsWith("jdbc:log4jdbc:hsqldb:") ? (rawUrl.startsWith("jdbc:odps:") ? "odps" : (rawUrl.startsWith("jdbc:db2:") ? "db2" : (rawUrl.startsWith("jdbc:sqlite:") ? "sqlite" : (rawUrl.startsWith("jdbc:ingres:") ? "ingres" : (!rawUrl.startsWith("jdbc:h2:") && !rawUrl.startsWith("jdbc:log4jdbc:h2:") ? (rawUrl.startsWith("jdbc:mckoi:") ? "mckoi" : (rawUrl.startsWith("jdbc:cloudscape:") ? "cloudscape" : (!rawUrl.startsWith("jdbc:informix-sqli:") && !rawUrl.startsWith("jdbc:log4jdbc:informix-sqli:") ? (rawUrl.startsWith("jdbc:timesten:") ? "timesten" : (rawUrl.startsWith("jdbc:as400:") ? "as400" : (rawUrl.startsWith("jdbc:sapdb:") ? "sapdb" : (rawUrl.startsWith("jdbc:JSQLConnect:") ? "JSQLConnect" : (rawUrl.startsWith("jdbc:JTurbo:") ? "JTurbo" : (rawUrl.startsWith("jdbc:firebirdsql:") ? "firebirdsql" : (rawUrl.startsWith("jdbc:interbase:") ? "interbase" : (rawUrl.startsWith("jdbc:pointbase:") ? "pointbase" : (rawUrl.startsWith("jdbc:edbc:") ? "edbc" : (rawUrl.startsWith("jdbc:mimer:multi1:") ? "mimer" : (rawUrl.startsWith("jdbc:dm:") ? "dm" : (rawUrl.startsWith("jdbc:kingbase:") ? "kingbase" : (rawUrl.startsWith("jdbc:log4jdbc:") ? "log4jdbc" : (rawUrl.startsWith("jdbc:hive:") ? "hive" : (rawUrl.startsWith("jdbc:hive2:") ? "hive" : (rawUrl.startsWith("jdbc:phoenix:") ? "phoenix" : null)))))))))))))))) : "informix"))) : "h2"))))) : "hsql")) : "postgresql") : "mock") : "jtds") : "sybase") : "sqlserver") : "sqlserver")) : "oracle")) : "mysql") : "derby");
     }
@@ -189,6 +314,16 @@ public class Global {
             e.printStackTrace();
         }
         return projectPath;
+    }
+
+    public static void main(String[] args) {
+        Map<String, String> map = Global.getDatasourceKeyAndName();
+        Set<String> keySet = map.keySet();
+        Iterator<String> it = keySet.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            System.out.println(key + "=" + map.get(key));
+        }
     }
 
 }

@@ -11,7 +11,6 @@ import com.baidu.cms.base.modules.gen.entity.GenTableColumn;
 import com.baidu.cms.base.modules.gen.util.GenUtils;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.service.BaseService;
-import com.baidu.cms.common.utils.DbUtil;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.datasources.DataSourceNames;
 import com.baidu.cms.datasources.DynamicDataSource;
@@ -119,14 +118,6 @@ public class GenTableService extends BaseService {
 					}
 					genTable.setClassName(StringUtils.toCapitalizeCamelCase(genTable.getName()));
 				}
-
-				// 根据数据库名取得数据库的路由key
-//				String tableSchema = genTable.getTableSchema();
-//				String dataSourceKey = DbUtil.getDataSourceKey(tableSchema);
-//				// 根据数据库路由key切换数据源
-//				DynamicDataSource.setDataSource(dataSourceKey);
-//				List<GenTableColumn> columnList = genDataBaseDictDao.findTableColumnList(genTable);
-//				DynamicDataSource.clearDataSource();
 
 				List<GenTableColumn> columnList = null;
 				for (DataSourceNames e : enums) {
