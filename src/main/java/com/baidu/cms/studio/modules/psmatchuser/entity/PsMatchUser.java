@@ -20,9 +20,12 @@ public class PsMatchUser extends DataEntity<PsMatchUser> {
 	private Long matchId;		// 比赛ID
 	private Long userId;		// 用户ID
 	private Long processId;		// 阶段ID
-	private Date createTime;		// 创建时间
-	private Date updateTime;		// 更新时间
-	private Integer routinePass;		// 常规赛是否通过
+	private Date createTime;	// 创建时间
+	private Date updateTime;	// 更新时间
+	private Integer routinePass;// 常规赛是否通过
+	private String matchName;	// 比赛名称
+	private String processName; // 比赛阶段名称
+	private String userName;	// 用户名
 	
 	public PsMatchUser() {
 		super();
@@ -87,5 +90,28 @@ public class PsMatchUser extends DataEntity<PsMatchUser> {
 	public void setRoutinePass(Integer routinePass) {
 		this.routinePass = routinePass;
 	}
-	
+
+	public String getMatchName() {
+		return matchName;
+	}
+
+	public void setMatchName(String matchName) {
+		this.matchName = matchName;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 }

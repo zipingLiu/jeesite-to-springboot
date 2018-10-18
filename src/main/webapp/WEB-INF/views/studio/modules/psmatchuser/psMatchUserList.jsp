@@ -49,21 +49,27 @@
 			<li><label>比赛ID：</label>
 				<form:select path="matchId" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
-			<li><label>用户ID：</label>
+			<li><label>常规赛是否通过：</label>
+				<form:select path="routinePass" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('routine_pass')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
+			<%--<li><label>用户ID：</label>
 				<form:select path="userId" class="input-medium">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
-			</li>
-			<li><label>阶段ID：</label>
+			</li>--%>
+			<%--<li><label>阶段ID：</label>
 				<form:select path="processId" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
 				</form:select>
-			</li>
+			</li>--%>
 			<li><label>创建时间：</label>
 				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${psMatchUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -73,12 +79,6 @@
 				<input name="updateTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${psMatchUser.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-			</li>
-			<li><label>常规赛是否通过：</label>
-				<form:select path="routinePass" class="input-medium">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('routine_pass')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -105,13 +105,13 @@
 					${psMatchUser.id}
 				</a></td>
 				<td>
-					${fns:getDictLabel(psMatchUser.matchId, '', '')}
+					${psMatchUser.matchName}
 				</td>
 				<td>
-					${fns:getDictLabel(psMatchUser.userId, '', '')}
+					${psMatchUser.userName}
 				</td>
 				<td>
-					${fns:getDictLabel(psMatchUser.processId, '', '')}
+					${psMatchUser.processName}
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatchUser.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

@@ -9,10 +9,16 @@
 		a.process_id AS "processId",
 		a.create_time AS "createTime",
 		a.update_time AS "updateTime",
-		a.routine_pass AS "routinePass"
+		a.routine_pass AS "routinePass",
+		pm.match_name AS "matchName",
+		pmp.process_name AS "processName",
+		pu.user_name AS "userName"
 	</sql>
 	
 	<sql id="psMatchUserJoins">
+		LEFT JOIN ps_match pm ON pm.id = a.match_id
+		LEFT JOIN ps_match_process pmp ON pmp.id = a.process_id
+		LEFT JOIN ps_user pu ON pu.id = a.user_id
 	</sql>
     
 	<select id="get" resultType="PsMatchUser">
@@ -42,10 +48,10 @@
 			<if test="processId != null and processId != ''">
 				AND a.process_id = #{processId}
 			</if>
-			<if test="createTime != null and createTime != ''">
+			<if test="createTime != null">
 				AND a.create_time &gt;= #{createTime}
 			</if>
-			<if test="updateTime != null and updateTime != ''">
+			<if test="updateTime != null">
 				AND a.update_time &gt;= #{updateTime}
 			</if>
 			<if test="routinePass != null and routinePass != ''">

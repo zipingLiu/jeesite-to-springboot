@@ -6,6 +6,10 @@ package com.baidu.cms.studio.modules.psmatchuser.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
+import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
+import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
+import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,8 @@ import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.studio.modules.psmatchuser.entity.PsMatchUser;
 import com.baidu.cms.studio.modules.psmatchuser.service.PsMatchUserService;
 
+import java.util.List;
+
 /**
  * 报名用户Controller
  * @author shiyanjun
@@ -30,6 +36,9 @@ import com.baidu.cms.studio.modules.psmatchuser.service.PsMatchUserService;
 @Controller
 @RequestMapping(value = "${adminPath}/psmatchuser/psMatchUser")
 public class PsMatchUserController extends BaseController {
+
+	@Autowired
+	private PsMatchService psMatchService;
 
 	@Autowired
 	private PsMatchUserService psMatchUserService;
@@ -51,6 +60,8 @@ public class PsMatchUserController extends BaseController {
 	public String list(PsMatchUser psMatchUser, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<PsMatchUser> page = psMatchUserService.findPage(new Page<PsMatchUser>(request, response), psMatchUser); 
 		model.addAttribute("page", page);
+		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
+		model.addAttribute("matchList", matchList);
 		return "studio/modules/psmatchuser/psMatchUserList";
 	}
 
