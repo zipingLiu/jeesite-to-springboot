@@ -3,13 +3,14 @@
  */
 package com.baidu.cms.studio.modules.psmatchuser.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.StringUtils;
+import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
 import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
-import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
-import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
+import com.baidu.cms.studio.modules.psmatchuser.entity.PsMatchUser;
+import com.baidu.cms.studio.modules.psmatchuser.service.PsMatchUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.studio.modules.psmatchuser.entity.PsMatchUser;
-import com.baidu.cms.studio.modules.psmatchuser.service.PsMatchUserService;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

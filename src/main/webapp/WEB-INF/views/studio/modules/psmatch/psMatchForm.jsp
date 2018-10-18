@@ -49,19 +49,21 @@
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">当前比赛阶段：</label>
-			<%--<div class="controls">
-				<form:input path="processId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>--%>
-			<div class="controls">
-				<form:select path="processId" class="required input-xlarge">
-					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
-				</form:select>
-				<span class="help-inline"><font color="red">*</font> </span>
+		<c:if test="${not empty psMatch.id}">
+			<div class="control-group">
+				<label class="control-label">当前比赛阶段：</label>
+				<%--<div class="controls">
+					<form:input path="processId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+					<span class="help-inline"><font color="red">*</font> </span>
+				</div>--%>
+				<div class="controls">
+					<form:select path="processId" class="required input-xlarge">
+						<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
+					</form:select>
+					<span class="help-inline"><font color="red">*</font> </span>
+				</div>
 			</div>
-		</div>
+		</c:if>
 		<div class="control-group">
 			<label class="control-label">报名人数：</label>
 			<div class="controls">
@@ -77,6 +79,7 @@
 			</div>--%>
 			<div class="controls">
 				<form:select path="projectId" class="required input-xlarge">
+					<form:option value="" label=""/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
