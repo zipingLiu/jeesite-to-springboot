@@ -46,8 +46,8 @@
 			<label class="control-label">比赛ID：</label>
 			<div class="controls">
 				<form:select path="matchId" class="input-xlarge required">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<%--<form:option value="" label=""/>--%>
+					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
@@ -74,8 +74,8 @@
 			<label class="control-label">关联项目：</label>
 			<div class="controls">
 				<form:select path="projectId" class="input-xlarge required">
-					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<%--<form:option value="" label=""/>--%>
+					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>

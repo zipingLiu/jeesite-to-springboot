@@ -52,7 +52,7 @@
 			<li><label>比赛ID：</label>
 				<form:select path="matchId" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>开始时间：</label>
@@ -68,7 +68,7 @@
 			<li><label>关联项目：</label>
 				<form:select path="projectId" class="input-medium">
 					<form:option value="" label=""/>
-					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>是否可自己报名：</label>
@@ -134,7 +134,7 @@
 					${psMatchProcess.processName}
 				</td>
 				<td>
-					${fns:getDictLabel(psMatchProcess.matchId, '', '')}
+					${psMatchProcess.matchName}
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatchProcess.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -143,7 +143,7 @@
 					<fmt:formatDate value="${psMatchProcess.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-					${fns:getDictLabel(psMatchProcess.projectId, '', '')}
+					${psMatchProcess.projectName}
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchProcess.selfSignup, 'self_signup', '')}

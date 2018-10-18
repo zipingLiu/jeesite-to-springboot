@@ -6,6 +6,10 @@ package com.baidu.cms.studio.modules.psmatchprocess.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
+import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
+import com.baidu.cms.studio.modules.psproject.entity.PsProject;
+import com.baidu.cms.studio.modules.psproject.service.PsProjectService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,8 @@ import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
 import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
 
+import java.util.List;
+
 /**
  * 阶段管理Controller
  * @author shiyanjun
@@ -30,6 +36,12 @@ import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService
 @Controller
 @RequestMapping(value = "${adminPath}/psmatchprocess/psMatchProcess")
 public class PsMatchProcessController extends BaseController {
+
+	@Autowired
+	private PsMatchService psMatchService;
+
+	@Autowired
+	private PsProjectService psProjectService;
 
 	@Autowired
 	private PsMatchProcessService psMatchProcessService;
@@ -51,6 +63,10 @@ public class PsMatchProcessController extends BaseController {
 	public String list(PsMatchProcess psMatchProcess, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<PsMatchProcess> page = psMatchProcessService.findPage(new Page<PsMatchProcess>(request, response), psMatchProcess); 
 		model.addAttribute("page", page);
+		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
+		model.addAttribute("matchList", matchList);
+		List<PsProject> projectList = psProjectService.findList(new PsProject());
+		model.addAttribute("projectList", projectList);
 		return "studio/modules/psmatchprocess/psMatchProcessList";
 	}
 
@@ -58,6 +74,10 @@ public class PsMatchProcessController extends BaseController {
 	@RequestMapping(value = "form")
 	public String form(PsMatchProcess psMatchProcess, Model model) {
 		model.addAttribute("psMatchProcess", psMatchProcess);
+		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
+		model.addAttribute("matchList", matchList);
+		List<PsProject> projectList = psProjectService.findList(new PsProject());
+		model.addAttribute("projectList", projectList);
 		return "studio/modules/psmatchprocess/psMatchProcessForm";
 	}
 

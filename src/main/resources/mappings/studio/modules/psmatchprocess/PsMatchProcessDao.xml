@@ -15,10 +15,14 @@
 		a.eval_service AS "evalService",
 		a.eval_docker_command AS "evalDockerCommand",
 		a.columns AS "columns",
-		a.token_start_time AS "tokenStartTime"
+		a.token_start_time AS "tokenStartTime",
+		pm.match_name AS "matchName",
+		pp.project_name AS "projectName"
 	</sql>
 	
 	<sql id="psMatchProcessJoins">
+		LEFT JOIN ps_match pm ON pm.id = a.match_id
+		LEFT JOIN ps_project pp ON pp.id = a.project_id
 	</sql>
     
 	<select id="get" resultType="PsMatchProcess">
@@ -48,19 +52,19 @@
 			<if test="matchId != null and matchId != ''">
 				AND a.match_id = #{matchId}
 			</if>
-			<if test="startTime != null and startTime != ''">
+			<if test="startTime != null">
 				AND a.start_time &gt;= #{startTime}
 			</if>
-			<if test="endTime != null and endTime != ''">
+			<if test="endTime != null">
 				AND a.end_time &lt;= #{endTime}
 			</if>
 			<if test="projectId != null and projectId != ''">
 				AND a.project_id = #{projectId}
 			</if>
-			<if test="selfSignup != null and selfSignup != ''">
+			<if test="selfSignup != null">
 				AND a.self_signup = #{selfSignup}
 			</if>
-			<if test="hasLeaderboard != null and hasLeaderboard != ''">
+			<if test="hasLeaderboard != null">
 				AND a.has_leaderboard = #{hasLeaderboard}
 			</if>
 			<if test="evalDockerImage != null and evalDockerImage != ''">
@@ -87,7 +91,7 @@
 					<if test="dbName == 'mssql'">'%'+#{columns}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{columns},'%')</if>
 			</if>
-			<if test="tokenStartTime != null and tokenStartTime != ''">
+			<if test="tokenStartTime != null">
 				AND a.token_start_time &gt;= #{tokenStartTime}
 			</if>
 		</where>

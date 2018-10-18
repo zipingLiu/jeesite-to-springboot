@@ -30,6 +30,8 @@ public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 	private String evalDockerCommand;		// Docker命令
 	private String columns;		// 列JSON
 	private Date tokenStartTime;		// 获取Token开始时间
+	private String matchName;	//比赛名称
+	private String projectName;	//关联项目名称
 	
 	public PsMatchProcess() {
 		super();
@@ -149,5 +151,20 @@ public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 	public void setTokenStartTime(Date tokenStartTime) {
 		this.tokenStartTime = tokenStartTime;
 	}
-	
+
+	public String getMatchName() {
+		return matchName;
+	}
+
+	public void setMatchName(String matchName) {
+		this.matchName = matchName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 }
