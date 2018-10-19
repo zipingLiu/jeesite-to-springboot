@@ -46,7 +46,7 @@
 			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
 			</li>
-			<li><label>比赛ID：</label>
+			<li><label>比赛名称：</label>
 				<form:select path="matchId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
@@ -58,13 +58,13 @@
 					<form:options items="${fns:getDictList('routine_pass')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
-			<%--<li><label>用户ID：</label>
+			<%--<li><label>用户名称：</label>
 				<form:select path="userId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>--%>
-			<%--<li><label>阶段ID：</label>
+			<%--<li><label>阶段名称：</label>
 				<form:select path="processId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
@@ -89,9 +89,9 @@
 		<thead>
 			<tr>
 				<th class="sort-column id">ID</th>
-				<th class="sort-column matchId">比赛ID</th>
-				<th class="sort-column userId">用户ID</th>
-				<th class="sort-column processId">阶段ID</th>
+				<th class="sort-column matchId">比赛名称</th>
+				<th class="sort-column userId">用户名称</th>
+				<th class="sort-column processId">阶段名称</th>
 				<th class="sort-column createTime">创建时间</th>
 				<th class="sort-column updateTime">更新时间</th>
 				<th class="sort-column routinePass">常规赛是否通过</th>

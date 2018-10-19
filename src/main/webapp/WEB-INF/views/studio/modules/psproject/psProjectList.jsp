@@ -136,7 +136,7 @@
 				<th class="sort-column id">ID</th>
 				<th class="sort-column projectName">项目名称</th>
 				<th class="sort-column projectAbs">项目简介</th>
-				<th class="sort-column userId">用户ID</th>
+				<th class="sort-column userId">用户名称</th>
 				<th class="sort-column statusCode">状态</th>
 				<th class="sort-column createTime">创建时间</th>
 				<th class="sort-column updateTime">更新时间</th>

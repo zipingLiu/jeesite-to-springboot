@@ -36,7 +36,7 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">比赛ID：</label>
+			<label class="control-label">比赛名称：</label>
 			<div class="controls">
 				<%--<form:select path="matchId" class="input-xlarge required">
 					<form:option value="" label="请选择"/>
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">用户ID：</label>
+			<label class="control-label">用户名称：</label>
 			<div class="controls">
 				<%--<form:select path="userId" class="input-xlarge required">
 					<form:option value="" label="请选择"/>
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">阶段ID：</label>
+			<label class="control-label">阶段名称：</label>
 			<div class="controls">
 				<%--<form:select path="processId" class="input-xlarge required">
 					<form:option value="" label="请选择"/>

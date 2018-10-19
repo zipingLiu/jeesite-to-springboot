@@ -36,7 +36,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/psmatchprocess/psMatchProcess/">比赛阶段列表</a></li>
-		<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><li><a href="${ctx}/psmatchprocess/psMatchProcess/form">比赛阶段添加</a></li></shiro:hasPermission>
+		<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><li><a href="${ctx}/psmatchprocess/psMatchProcess/form">添加比赛阶段</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="psMatchProcess" action="${ctx}/psmatchprocess/psMatchProcess/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -49,7 +49,7 @@
 			<li><label>阶段名称：</label>
 				<form:input path="processName" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>比赛ID：</label>
+			<li><label>比赛名称：</label>
 				<form:select path="matchId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
@@ -110,7 +110,7 @@
 			<tr>
 				<th class="sort-column id">ID</th>
 				<th class="sort-column processName">阶段名称</th>
-				<th class="sort-column matchId">比赛ID</th>
+				<th class="sort-column matchId">比赛名称</th>
 				<th class="sort-column startTime">开始时间</th>
 				<th class="sort-column endTime">结束时间</th>
 				<th class="sort-column projectId">关联项目</th>

@@ -89,7 +89,7 @@
 			<li><label>任务结束时间：</label>
 				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-medium"/>
 			</li>
-			<%--<li><label>阶段ID：</label>
+			<%--<li><label>阶段名称：</label>
 				<form:select path="processId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
@@ -113,7 +113,7 @@
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
-			<li><label>比赛ID：</label>
+			<li><label>比赛：</label>
 				<form:select path="matchId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
@@ -157,12 +157,12 @@
 				<th class="sort-column bosFileUrl">bos的url</th>
 				<th class="sort-column startTime">任务开始时间</th>
 				<th class="sort-column endTime">任务结束时间</th>
-				<th class="sort-column processId">阶段ID</th>
+				<th class="sort-column processId">阶段名称</th>
 				<th class="sort-column anonymous">是否匿名</th>
 				<th class="sort-column reference">参考文献</th>
 				<th class="sort-column introduction">简介</th>
 				<th class="sort-column projectId">项目ID</th>
-				<th class="sort-column matchId">比赛ID</th>
+				<th class="sort-column matchId">比赛名称</th>
 				<th class="sort-column errorMsg">对比结果</th>
 				<shiro:hasPermission name="psmatchsubmit:psMatchSubmit:edit"><th>操作</th></shiro:hasPermission>
 			</tr>

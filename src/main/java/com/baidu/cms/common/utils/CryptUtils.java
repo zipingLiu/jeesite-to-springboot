@@ -137,7 +137,7 @@ public class CryptUtils {
 
             return new String(result, "utf-8");
         } catch (Exception ex) {
-            logger.error("error", ex);
+            logger.error("error", ex.getMessage());
         }
 
         return null;

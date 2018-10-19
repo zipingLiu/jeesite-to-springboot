@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">用户ID：</label>
+			<label class="control-label">用户名称：</label>
 			<div class="controls">
 				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
 				<span class="help-inline"><font color="red">*</font> </span>

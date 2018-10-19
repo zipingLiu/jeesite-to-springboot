@@ -15,7 +15,7 @@ import com.baidu.cms.common.persistence.DataEntity;
 public class PsMatchProcess extends DataEntity<PsMatchProcess> {
 	
 	private static final long serialVersionUID = 1L;
-	private String processName;		// 阶段名称
+	private String processName;		// 比赛阶段名称
 	private Long matchId;		// 比赛ID
 	private Date startTime;		// 开始时间
 	private Date endTime;		// 结束时间

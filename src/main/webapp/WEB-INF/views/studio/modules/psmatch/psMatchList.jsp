@@ -36,7 +36,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/psmatch/psMatch/">比赛列表</a></li>
-		<shiro:hasPermission name="psmatch:psMatch:edit"><li><a href="${ctx}/psmatch/psMatch/form">比赛添加</a></li></shiro:hasPermission>
+		<shiro:hasPermission name="psmatch:psMatch:edit"><li><a href="${ctx}/psmatch/psMatch/form">添加比赛</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="psMatch" action="${ctx}/psmatch/psMatch/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
