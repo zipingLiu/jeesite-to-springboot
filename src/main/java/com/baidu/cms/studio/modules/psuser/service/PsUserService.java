@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psuser.service;
 
 import com.baidu.cms.common.persistence.Page;

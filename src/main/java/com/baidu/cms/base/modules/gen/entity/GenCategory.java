@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.gen.entity;
 
 import com.baidu.cms.base.modules.sys.entity.Dict;

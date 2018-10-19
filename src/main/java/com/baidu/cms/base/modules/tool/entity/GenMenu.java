@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.tool.entity;
 
 import com.baidu.cms.common.persistence.DataEntity;

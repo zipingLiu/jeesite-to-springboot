@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.gen.util;
 
 import com.baidu.cms.base.modules.gen.entity.GenCategory;

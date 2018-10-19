@@ -4,9 +4,6 @@
 	<filePath>src/main/java/${packageName}/${moduleName}/dao/${subModuleName}</filePath>
 	<fileName>${ClassName}Dao.java</fileName>
 	<content><![CDATA[
-/**
- *
- */
 package ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>;
 
 import com.baidu.cms.common.persistence.CrudDao;

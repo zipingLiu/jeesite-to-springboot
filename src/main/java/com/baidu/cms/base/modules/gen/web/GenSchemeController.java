@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.gen.web;
 
 import com.baidu.cms.base.modules.gen.entity.GenScheme;

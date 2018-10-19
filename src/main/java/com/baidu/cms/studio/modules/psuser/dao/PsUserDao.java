@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psuser.dao;
 
 import com.baidu.cms.common.persistence.CrudDao;

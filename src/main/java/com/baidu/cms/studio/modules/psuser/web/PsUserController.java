@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psuser.web;
 
 import javax.servlet.http.HttpServletRequest;

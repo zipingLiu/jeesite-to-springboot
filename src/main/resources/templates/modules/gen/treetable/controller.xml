@@ -4,9 +4,6 @@
 	<filePath>src/main/java/${packageName}/${moduleName}/web/${subModuleName}</filePath>
 	<fileName>${ClassName}Controller.java</fileName>
 	<content><![CDATA[
-/**
- *
- */
 package ${packageName}.${moduleName}.web<#if subModuleName != "">.${subModuleName}</#if>;
 
 import java.util.List;

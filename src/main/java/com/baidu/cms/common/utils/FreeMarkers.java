@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.common.utils;
 
 import freemarker.template.Configuration;

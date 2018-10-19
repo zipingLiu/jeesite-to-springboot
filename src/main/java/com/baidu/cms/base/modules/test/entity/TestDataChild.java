@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.test.entity;
 
 import javax.validation.constraints.NotNull;

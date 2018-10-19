@@ -192,7 +192,7 @@
 					${psMatchSubmit.userName}
 				</td>
 				<td>
-					${psMatchSubmit.userType}
+					${fns:getDictLabel(psMatchSubmit.userType, 'user_type', '')}
 				</td>
 				<td>
 					${psMatchSubmit.trueName}
@@ -213,7 +213,7 @@
 					${psMatchSubmit.region}
 				</td>
 				<td>
-					${psMatchSubmit.capacity}
+					${fns:getDictLabel(psMatchSubmit.capacity, 'capacity', '')}
 				</td>
 				<td>
 					${psMatchSubmit.workPlace}
@@ -228,7 +228,7 @@
 					${psMatchSubmit.userAbs}
 				</td>
 				<td>
-					${psMatchSubmit.isEmployee}
+					${fns:getDictLabel(psMatchSubmit.isEmployee, 'is_employee', '')}
 				</td>
 				<td>
 					${psMatchSubmit.displayName}

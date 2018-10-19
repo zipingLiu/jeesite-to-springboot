@@ -95,6 +95,20 @@
 				<th class="sort-column createTime">创建时间</th>
 				<th class="sort-column updateTime">更新时间</th>
 				<th class="sort-column routinePass">常规赛是否通过</th>
+				<th>用户类型</th>
+				<th>姓名</th>
+				<th>身份证</th>
+				<th>手机号</th>
+				<th>邮箱</th>
+				<th>公司名称</th>
+				<th>地区</th>
+				<th>身份</th>
+				<th>工作地点</th>
+				<th>职位</th>
+				<th>头像</th>
+				<th>介绍</th>
+				<th>是否为员工</th>
+				<th>显示名称</th>
 				<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -121,6 +135,48 @@
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchUser.routinePass, 'routine_pass', '')}
+				</td>
+				<td>
+					${fns:getDictLabel(psMatchUser.userType, 'user_type', '')}
+				</td>
+				<td>
+					${psMatchUser.trueName}
+				</td>
+				<td>
+					${psMatchUser.idcard}
+				</td>
+				<td>
+					${psMatchUser.mobile}
+				</td>
+				<td>
+					${psMatchUser.email}
+				</td>
+				<td>
+					${psMatchUser.companyName}
+				</td>
+				<td>
+					${psMatchUser.region}
+				</td>
+				<td>
+					${fns:getDictLabel(psMatchUser.capacity, 'capacity', '')}
+				</td>
+				<td>
+					${psMatchUser.workPlace}
+				</td>
+				<td>
+					${psMatchUser.position}
+				</td>
+				<td>
+					${psMatchUser.portrait}
+				</td>
+				<td>
+					${psMatchUser.userAbs}
+				</td>
+				<td>
+					${fns:getDictLabel(psMatchUser.isEmployee, 'is_employee', '')}
+				</td>
+				<td>
+					${psMatchUser.displayName}
 				</td>
 				<shiro:hasPermission name="psmatchuser:psMatchUser:edit"><td>
     				<a href="${ctx}/psmatchuser/psMatchUser/form?id=${psMatchUser.id}">修改</a>

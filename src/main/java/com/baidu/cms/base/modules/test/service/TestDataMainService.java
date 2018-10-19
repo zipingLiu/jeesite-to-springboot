@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.test.service;
 
 import java.util.List;

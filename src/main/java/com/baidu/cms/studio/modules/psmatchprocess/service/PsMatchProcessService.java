@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psmatchprocess.service;
 
 import java.util.List;

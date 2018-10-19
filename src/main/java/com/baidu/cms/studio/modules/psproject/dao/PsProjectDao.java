@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psproject.dao;
 
 import com.baidu.cms.common.persistence.CrudDao;

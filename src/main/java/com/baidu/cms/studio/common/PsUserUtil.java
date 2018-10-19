@@ -2,6 +2,7 @@ package com.baidu.cms.studio.common;
 
 import com.baidu.cms.common.utils.CryptUtils;
 import com.baidu.cms.studio.modules.psmatchsubmit.entity.PsMatchSubmit;
+import com.baidu.cms.studio.modules.psmatchuser.entity.PsMatchUser;
 import com.baidu.cms.studio.modules.psuser.entity.PsUser;
 
 /**
@@ -33,5 +34,14 @@ public class PsUserUtil {
             submit.setEmail(CryptUtils.decrypt(submit.getEmail()));
         }
         return submit;
+    }
+
+    public static PsMatchUser decrypt(PsMatchUser matchUser) {
+        if (matchUser != null) {
+            matchUser.setTrueName(CryptUtils.decrypt(matchUser.getTrueName()));
+            matchUser.setMobile(CryptUtils.decrypt(matchUser.getMobile()));
+            matchUser.setEmail(CryptUtils.decrypt(matchUser.getEmail()));
+        }
+        return matchUser;
     }
 }

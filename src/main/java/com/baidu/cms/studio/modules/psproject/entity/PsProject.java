@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psproject.entity;
 
 import org.hibernate.validator.constraints.Length;

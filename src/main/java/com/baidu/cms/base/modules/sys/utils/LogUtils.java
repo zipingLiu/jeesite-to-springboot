@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.sys.utils;
 
 import java.lang.reflect.Method;

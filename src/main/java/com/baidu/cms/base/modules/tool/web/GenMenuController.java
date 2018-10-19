@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.tool.web;
 
 import com.baidu.cms.base.modules.tool.entity.GenMenu;

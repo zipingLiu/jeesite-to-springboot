@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.test.entity;
 
 import com.baidu.cms.base.modules.sys.entity.User;

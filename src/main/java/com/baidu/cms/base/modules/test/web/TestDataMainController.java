@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.test.web;
 
 import javax.servlet.http.HttpServletRequest;

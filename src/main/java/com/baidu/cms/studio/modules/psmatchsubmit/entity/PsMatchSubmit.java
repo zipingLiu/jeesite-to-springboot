@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psmatchsubmit.entity;
 
 import com.baidu.cms.common.persistence.DataEntity;

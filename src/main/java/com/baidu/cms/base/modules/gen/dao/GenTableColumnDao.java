@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.gen.dao;
 
 import com.baidu.cms.base.modules.gen.entity.GenTableColumn;

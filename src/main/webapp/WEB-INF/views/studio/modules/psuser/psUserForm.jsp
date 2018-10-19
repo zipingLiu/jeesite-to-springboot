@@ -38,7 +38,7 @@
 		<div class="control-group">
 			<label class="control-label">用户名：</label>
 			<div class="controls">
-				<form:input path="userName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<form:input readonly="true" path="userName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -55,42 +55,42 @@
 		<div class="control-group">
 			<label class="control-label">姓名：</label>
 			<div class="controls">
-				<form:input path="trueName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<form:input readonly="true" path="trueName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">身份证：</label>
 			<div class="controls">
-				<form:input path="idcard" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
+				<form:input readonly="true" path="idcard" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">手机号：</label>
 			<div class="controls">
-				<form:input path="mobile" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
+				<form:input readonly="true" path="mobile" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">邮箱：</label>
 			<div class="controls">
-				<form:input path="email" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input readonly="true" path="email" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">公司名称：</label>
 			<div class="controls">
-				<form:input path="companyName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input readonly="true" path="companyName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">地区：</label>
 			<div class="controls">
-				<form:input path="region" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input readonly="true" path="region" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -107,28 +107,28 @@
 		<div class="control-group">
 			<label class="control-label">工作地点：</label>
 			<div class="controls">
-				<form:textarea path="workPlace" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
+				<form:textarea readonly="true" path="workPlace" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">职位：</label>
 			<div class="controls">
-				<form:input path="position" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input readonly="true" path="position" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">头像：</label>
 			<div class="controls">
-				<form:input path="portrait" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input readonly="true" path="portrait" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">介绍：</label>
 			<div class="controls">
-				<form:textarea path="userAbs" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
+				<form:textarea readonly="true" path="userAbs" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -145,14 +145,14 @@
 		<div class="control-group">
 			<label class="control-label">显示名称：</label>
 			<div class="controls">
-				<form:input path="displayName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<form:input readonly="true" path="displayName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">源ID：</label>
 			<div class="controls">
-				<form:input path="userSourceId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:input readonly="true" path="userSourceId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

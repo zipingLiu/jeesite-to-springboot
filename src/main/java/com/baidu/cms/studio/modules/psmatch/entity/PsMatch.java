@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psmatch.entity;
 
 import org.hibernate.validator.constraints.Length;

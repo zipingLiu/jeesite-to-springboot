@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.test.dao;
 
 import com.baidu.cms.common.persistence.CrudDao;

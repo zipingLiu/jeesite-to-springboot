@@ -38,14 +38,14 @@
 		<div class="control-group">
 			<label class="control-label">提交名称：</label>
 			<div class="controls">
-				<form:input path="submitName" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
+				<form:input readonly="true" path="submitName" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">版本：</label>
 			<div class="controls">
-				<form:input path="version" htmlEscape="false" maxlength="20" class="input-xlarge required"/>
+				<form:input readonly="true" path="version" htmlEscape="false" maxlength="20" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -80,49 +80,158 @@
 		<div class="control-group">
 			<label class="control-label">提交人：</label>
 			<div class="controls">
-				<form:input path="userId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<form:input readonly="true" path="userName" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">用户类型：</label>
+			<div class="controls">
+				<form:select path="userType" class="input-xlarge required">
+					<form:option value="" label="请选择"/>
+					<form:options items="${fns:getDictList('user_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">姓名：</label>
+			<div class="controls">
+				<form:input readonly="true" path="trueName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">身份证：</label>
+			<div class="controls">
+				<form:input readonly="true" path="idcard" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">手机号：</label>
+			<div class="controls">
+				<form:input readonly="true" path="mobile" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">邮箱：</label>
+			<div class="controls">
+				<form:input readonly="true" path="email" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">公司名称：</label>
+			<div class="controls">
+				<form:input readonly="true" path="companyName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">地区：</label>
+			<div class="controls">
+				<form:input readonly="true" path="region" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">身份：</label>
+			<div class="controls">
+				<form:select path="capacity" class="input-xlarge required">
+					<form:option value="" label="请选择"/>
+					<form:options items="${fns:getDictList('capacity')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">工作地点：</label>
+			<div class="controls">
+				<form:textarea readonly="true" path="workPlace" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">职位：</label>
+			<div class="controls">
+				<form:input readonly="true" path="position" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">头像：</label>
+			<div class="controls">
+				<form:input readonly="true" path="portrait" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">介绍：</label>
+			<div class="controls">
+				<form:textarea readonly="true" path="userAbs" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">是否为员工：</label>
+			<div class="controls">
+				<form:select path="isEmployee" class="input-xlarge required">
+					<form:option value="" label="请选择"/>
+					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">显示名称：</label>
+			<div class="controls">
+				<form:input readonly="true" path="displayName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+
+		<div class="control-group">
 			<label class="control-label">分数：</label>
 			<div class="controls">
-				<form:input path="score" htmlEscape="false" class="input-xlarge required number"/>
+				<form:input readonly="true" path="score" htmlEscape="false" class="input-xlarge required number"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">结果json：</label>
 			<div class="controls">
-				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-xlarge required"/>
+				<form:input readonly="true" path="resultContent" htmlEscape="false" maxlength="2000" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">bos的key值：</label>
 			<div class="controls">
-				<form:input path="bosKey" htmlEscape="false" maxlength="500" class="input-xlarge required"/>
+				<form:input readonly="true" path="bosKey" htmlEscape="false" maxlength="500" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">bos的url：</label>
 			<div class="controls">
-				<form:input path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-xlarge required"/>
+				<form:input readonly="true" path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">任务开始时间：</label>
 			<div class="controls">
-				<form:input path="startTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
+				<form:input readonly="true" path="startTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">任务结束时间：</label>
 			<div class="controls">
-				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
+				<form:input readonly="true" path="endTime" htmlEscape="false" maxlength="20" class="input-xlarge required digits"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -149,14 +258,14 @@
 		<div class="control-group">
 			<label class="control-label">参考文献：</label>
 			<div class="controls">
-				<form:textarea path="reference" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
+				<form:textarea readonly="true" path="reference" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">简介：</label>
 			<div class="controls">
-				<form:textarea path="introduction" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
+				<form:textarea readonly="true" path="introduction" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -183,7 +292,7 @@
 		<div class="control-group">
 			<label class="control-label">对比结果：</label>
 			<div class="controls">
-				<form:input path="errorMsg" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input readonly="true" path="errorMsg" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

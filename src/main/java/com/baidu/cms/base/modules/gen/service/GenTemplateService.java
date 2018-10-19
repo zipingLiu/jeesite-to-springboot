@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.gen.service;
 
 import com.baidu.cms.base.modules.gen.dao.GenTemplateDao;

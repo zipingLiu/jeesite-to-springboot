@@ -1,12 +1,10 @@
-/**
- *
- */
 package com.baidu.cms.studio.modules.psmatchuser.web;
 
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
+import com.baidu.cms.studio.common.PsUserUtil;
 import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
 import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
 import com.baidu.cms.studio.modules.psmatchuser.entity.PsMatchUser;
@@ -47,6 +45,8 @@ public class PsMatchUserController extends BaseController {
 		}
 		if (entity == null){
 			entity = new PsMatchUser();
+		} else {
+			PsUserUtil.decrypt(entity);
 		}
 		return entity;
 	}

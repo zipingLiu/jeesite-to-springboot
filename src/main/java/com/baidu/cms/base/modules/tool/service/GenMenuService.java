@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.baidu.cms.base.modules.tool.service;
 
 import com.baidu.cms.base.modules.sys.entity.Menu;
