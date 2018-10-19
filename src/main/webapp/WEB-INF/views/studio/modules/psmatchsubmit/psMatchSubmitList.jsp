@@ -222,10 +222,10 @@
 					${psMatchSubmit.position}
 				</td>
 				<td>
-					${psMatchSubmit.portrait}
+					<a href="${psMatchSubmit.portrait}" target="_blank">${psMatchSubmit.portrait}</a>
 				</td>
 				<td>
-					${psMatchSubmit.userAbs}
+					<span class="tooltip-show" title="${psMatchSubmit.userAbs}">${psMatchSubmit.userAbs}</span>
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchSubmit.isEmployee, 'is_employee', '')}

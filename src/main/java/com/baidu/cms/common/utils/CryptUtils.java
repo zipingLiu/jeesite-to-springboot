@@ -128,14 +128,13 @@ public class CryptUtils {
         try {
             // 实例化
             Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
-
             // 使用密钥初始化，设置为解密模式
             cipher.init(Cipher.DECRYPT_MODE, getSecretKey(password));
-
-            // 执行操作
-            byte[] result = cipher.doFinal(Base64.getDecoder().decode(content));
-
-            return new String(result, "utf-8");
+            if (StringUtils.isNotBlank(content)) {
+                // 执行操作
+                byte[] result = cipher.doFinal(Base64.getDecoder().decode(content));
+                return new String(result, "utf-8");
+            }
         } catch (Exception ex) {
             logger.error("error", ex.getMessage());
         }

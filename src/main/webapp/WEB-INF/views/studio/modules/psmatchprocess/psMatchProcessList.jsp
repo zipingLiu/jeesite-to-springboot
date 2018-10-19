@@ -152,16 +152,16 @@
 					${fns:getDictLabel(psMatchProcess.hasLeaderboard, 'has_leaderboard', '')}
 				</td>
 				<td>
-					${psMatchProcess.evalDockerImage}
+					<span class="tooltip-show" title="${psMatchProcess.evalDockerImage}">${psMatchProcess.evalDockerImage}</span>
 				</td>
 				<td>
-					${psMatchProcess.evalService}
+					<span class="tooltip-show" title="${psMatchProcess.evalService}">${psMatchProcess.evalService}</span>
 				</td>
 				<td>
-					${psMatchProcess.evalDockerCommand}
+					<span class="tooltip-show" title="${psMatchProcess.evalDockerCommand}">${psMatchProcess.evalDockerCommand}</span>
 				</td>
 				<td>
-					${psMatchProcess.columns}
+					<span class="tooltip-show" title="${psMatchProcess.columns}">${psMatchProcess.columns}</span>
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatchProcess.tokenStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

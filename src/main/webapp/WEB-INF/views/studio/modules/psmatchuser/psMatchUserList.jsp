@@ -167,10 +167,10 @@
 					${psMatchUser.position}
 				</td>
 				<td>
-					${psMatchUser.portrait}
+					<a href="${psMatchUser.portrait}" target="_blank">${psMatchUser.portrait}</a>
 				</td>
 				<td>
-					${psMatchUser.userAbs}
+					<span class="tooltip-show" title="${psMatchUser.userAbs}">${psMatchUser.userAbs}</span>
 				</td>
 				<td>
 					${fns:getDictLabel(psMatchUser.isEmployee, 'is_employee', '')}

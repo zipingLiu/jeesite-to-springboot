@@ -169,7 +169,7 @@
 					${fns:getDictLabel(psMatch.statusCode, 'ps_match_status_code', '')}
 				</td>
 				<td>
-					${psMatch.matchAbs}
+					<span class="tooltip-show" title="${psMatch.matchAbs}">${psMatch.matchAbs}</span>
 				</td>
 				<td>
 					${psMatch.tags}
@@ -178,10 +178,10 @@
 					${psMatch.matchKey}
 				</td>
 				<td>
-					<a href="${psMatch.logo}" target="_blank">${psMatch.logo}</a>
+					<a href="${psMatch.logo}" target="_blank" class="tooltip-show" title="${psMatch.logo}">${psMatch.logo}</a>
 				</td>
 				<td>
-					<a href="${psMatch.forumUrl}" target="_blank">${psMatch.forumUrl}</a>
+					<a href="${psMatch.forumUrl}" target="_blank" class="tooltip-show" title="${psMatch.forumUrl}">${psMatch.forumUrl}</a>
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatch.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
