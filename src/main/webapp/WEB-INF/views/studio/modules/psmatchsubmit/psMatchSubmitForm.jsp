@@ -270,7 +270,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">项目ID：</label>
+			<label class="control-label">关联项目：</label>
 			<div class="controls">
 				<form:select path="projectId" class="input-xlarge required">
 					<form:option value="" label="请选择"/>

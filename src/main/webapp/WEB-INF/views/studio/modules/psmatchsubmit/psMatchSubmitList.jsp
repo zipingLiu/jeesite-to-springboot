@@ -107,7 +107,7 @@
 			<li><label>简介：</label>
 				<form:input path="introduction" htmlEscape="false" maxlength="500" class="input-medium"/>
 			</li>
-			<li><label>项目ID：</label>
+			<li><label>关联项目：</label>
 				<form:select path="projectId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
@@ -161,7 +161,7 @@
 				<th class="sort-column anonymous">是否匿名</th>
 				<th class="sort-column reference">参考文献</th>
 				<th class="sort-column introduction">简介</th>
-				<th class="sort-column projectId">项目ID</th>
+				<th class="sort-column projectId">关联项目</th>
 				<th class="sort-column matchId">比赛名称</th>
 				<th class="sort-column errorMsg">对比结果</th>
 				<shiro:hasPermission name="psmatchsubmit:psMatchSubmit:edit"><th>操作</th></shiro:hasPermission>

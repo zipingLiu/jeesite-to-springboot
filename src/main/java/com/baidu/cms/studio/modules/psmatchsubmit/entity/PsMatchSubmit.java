@@ -31,7 +31,7 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 	private Integer anonymous;	// 是否匿名
 	private String reference;	// 参考文献
 	private String introduction;// 简介
-	private Long projectId;		// 项目ID
+	private Long projectId;		// 关联项目
 	private Long matchId;		// 比赛ID
 	private String errorMsg;	// 对比结果
 	private String matchName;	// 比赛名称
