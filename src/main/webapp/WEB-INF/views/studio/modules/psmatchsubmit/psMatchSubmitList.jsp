@@ -137,6 +137,20 @@
 				<th class="sort-column statusCode">提交状态</th>
 				<th class="sort-column lastUpdateTime">最后更新时间</th>
 				<th class="sort-column userId">提交人</th>
+				<th>用户类型</th>
+				<th>姓名</th>
+				<th>身份证</th>
+				<th>手机号</th>
+				<th>邮箱</th>
+				<th>公司名称</th>
+				<th>地区</th>
+				<th>身份</th>
+				<th>工作地点</th>
+				<th>职位</th>
+				<th>头像</th>
+				<th>介绍</th>
+				<th>是否为员工</th>
+				<th>显示名称</th>
 				<th class="sort-column score">分数</th>
 				<th class="sort-column resultContent">结果json</th>
 				<th class="sort-column bosKey">bos的key值</th>
@@ -176,6 +190,48 @@
 				</td>
 				<td>
 					${psMatchSubmit.userName}
+				</td>
+				<td>
+					${psMatchSubmit.userType}
+				</td>
+				<td>
+					${psMatchSubmit.trueName}
+				</td>
+				<td>
+					${psMatchSubmit.idcard}
+				</td>
+				<td>
+					${psMatchSubmit.mobile}
+				</td>
+				<td>
+					${psMatchSubmit.email}
+				</td>
+				<td>
+					${psMatchSubmit.companyName}
+				</td>
+				<td>
+					${psMatchSubmit.region}
+				</td>
+				<td>
+					${psMatchSubmit.capacity}
+				</td>
+				<td>
+					${psMatchSubmit.workPlace}
+				</td>
+				<td>
+					${psMatchSubmit.position}
+				</td>
+				<td>
+					${psMatchSubmit.portrait}
+				</td>
+				<td>
+					${psMatchSubmit.userAbs}
+				</td>
+				<td>
+					${psMatchSubmit.isEmployee}
+				</td>
+				<td>
+					${psMatchSubmit.displayName}
 				</td>
 				<td>
 					${psMatchSubmit.score}

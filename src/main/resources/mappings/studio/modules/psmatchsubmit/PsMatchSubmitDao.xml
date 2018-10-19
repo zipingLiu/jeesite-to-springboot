@@ -26,7 +26,22 @@
 		pm.match_name AS "matchName",
 		pmp.process_name AS "processName",
 		pp.project_name AS "projectName",
-		pu.user_name AS "userName"
+		pu.user_name AS "userName",
+		pu.user_type AS "userType",
+		pu.true_name AS "trueName",
+		pu.idcard AS "idcard",
+		pu.mobile AS "mobile",
+		pu.email AS "email",
+		pu.company_name AS "companyName",
+		pu.region AS "region",
+		pu.capacity AS "capacity",
+		pu.work_place AS "workPlace",
+		pu.position AS "position",
+		pu.portrait AS "portrait",
+		pu.user_abs AS "userAbs",
+		pu.is_employee AS "isEmployee",
+		pu.display_name AS "displayName",
+		pu.user_source_id AS "userSourceId"
 	</sql>
 	
 	<sql id="psMatchSubmitJoins">

@@ -6,6 +6,7 @@ package com.baidu.cms.studio.modules.psuser.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baidu.cms.studio.common.PsUserUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class PsUserController extends BaseController {
 			entity = new PsUser();
 		} else {
 			// 用户敏感信息解密
-			decrypt(entity);
+			PsUserUtil.decrypt(entity);
 		}
 		return entity;
 	}

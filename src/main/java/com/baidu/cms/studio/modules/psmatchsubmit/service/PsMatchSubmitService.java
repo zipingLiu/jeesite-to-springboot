@@ -5,6 +5,7 @@ package com.baidu.cms.studio.modules.psmatchsubmit.service;
 
 import java.util.List;
 
+import com.baidu.cms.studio.common.PsUserUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.service.CrudService;
 import com.baidu.cms.studio.modules.psmatchsubmit.entity.PsMatchSubmit;
 import com.baidu.cms.studio.modules.psmatchsubmit.dao.PsMatchSubmitDao;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 提交管理Service
@@ -31,7 +33,13 @@ public class PsMatchSubmitService extends CrudService<PsMatchSubmitDao, PsMatchS
 	}
 	
 	public Page<PsMatchSubmit> findPage(Page<PsMatchSubmit> page, PsMatchSubmit psMatchSubmit) {
-		return super.findPage(page, psMatchSubmit);
+		Page<PsMatchSubmit> pageResutl = super.findPage(page, psMatchSubmit);
+		if (!CollectionUtils.isEmpty(pageResutl.getList())) {
+			for (PsMatchSubmit submit : pageResutl.getList()) {
+				PsUserUtil.decrypt(submit);
+			}
+		}
+		return pageResutl;
 	}
 	
 	@Transactional(readOnly = false)

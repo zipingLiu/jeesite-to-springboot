@@ -1,10 +1,8 @@
 package com.baidu.cms.common.web;
 
 import com.baidu.cms.common.mapper.JsonMapper;
-import com.baidu.cms.common.utils.CryptUtils;
 import com.baidu.cms.common.utils.DateUtils;
 import com.baidu.cms.common.validator.BeanValidators;
-import com.baidu.cms.studio.modules.psuser.entity.PsUser;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;
@@ -203,18 +201,6 @@ public abstract class BaseController {
 //				return value != null ? DateUtils.formatDateTime((Date)value) : "";
 //			}
         });
-    }
-
-    /**
-     * 用户敏感信息解密
-     * @Author shiyanjun
-     * @Date 2018/10/19 下午2:12
-     */
-    public PsUser decrypt(PsUser psUser) {
-        psUser.setTrueName(CryptUtils.decrypt(psUser.getTrueName()));
-        psUser.setMobile(CryptUtils.decrypt(psUser.getMobile()));
-        psUser.setEmail(CryptUtils.decrypt(psUser.getEmail()));
-        return psUser;
     }
 
 }
