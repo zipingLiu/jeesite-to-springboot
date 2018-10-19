@@ -189,9 +189,11 @@
 			update_time = #{updateTime}
 		WHERE id = #{id}
 	</update>
-	
+
+	<!-- 逻辑删除比赛 -->
 	<update id="delete">
-		DELETE FROM ps_match
+		UPDATE ps_match SET
+			status_code = #{statusCode}
 		WHERE id = #{id}
 	</update>
 	

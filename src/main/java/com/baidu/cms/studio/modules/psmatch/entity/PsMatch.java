@@ -23,7 +23,7 @@ public class PsMatch extends DataEntity<PsMatch> {
 	private Date startTime;		// 开始时间
 	private Date endTime;		// 结束时间
 	private Integer routine;		// 是否为常规赛
-	private Integer statusCode;		// 状态
+	private Integer statusCode;		// 状态1可用
 	private String matchAbs;		// 简介
 	private String tags;		// 标签
 	private String matchKey;		// 关键字
@@ -69,7 +69,7 @@ public class PsMatch extends DataEntity<PsMatch> {
 		this.processId = processId;
 	}
 	
-	@NotNull(message="报名人数不能为空")
+	//@NotNull(message="报名人数不能为空")
 	public Long getSignupCount() {
 		return signupCount;
 	}
@@ -118,7 +118,7 @@ public class PsMatch extends DataEntity<PsMatch> {
 	
 	@NotNull(message="状态不能为空")
 	public Integer getStatusCode() {
-		return statusCode;
+		return this.statusCode;
 	}
 
 	public void setStatusCode(Integer statusCode) {

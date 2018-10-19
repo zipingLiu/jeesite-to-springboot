@@ -2,6 +2,9 @@ package com.baidu.cms.studio.modules.psmatchprocess.service;
 
 import java.util.List;
 
+import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
+import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +22,9 @@ import com.baidu.cms.studio.modules.psmatchprocess.dao.PsMatchProcessDao;
 @Transactional(readOnly = true)
 public class PsMatchProcessService extends CrudService<PsMatchProcessDao, PsMatchProcess> {
 
+	@Autowired
+	private PsMatchService psMatchService;
+
 	public PsMatchProcess get(String id) {
 		return super.get(id);
 	}
@@ -34,6 +40,12 @@ public class PsMatchProcessService extends CrudService<PsMatchProcessDao, PsMatc
 	@Transactional(readOnly = false)
 	public void save(PsMatchProcess psMatchProcess) {
 		super.save(psMatchProcess);
+		// 更新比赛表中的阶段ID
+		PsMatch psMatch = psMatchService.get(String.valueOf(psMatchProcess.getMatchId()));
+		if (psMatch != null && psMatch.getProcessId() == 0) {
+			psMatch.setProcessId(Long.valueOf(psMatchProcess.getId()));
+			psMatchService.save(psMatch);
+		}
 	}
 	
 	@Transactional(readOnly = false)

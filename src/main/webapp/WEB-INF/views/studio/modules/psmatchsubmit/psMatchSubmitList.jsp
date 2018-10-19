@@ -240,7 +240,7 @@
 					${psMatchSubmit.resultContent}
 				</td>
 				<td>
-					${psMatchSubmit.bosKey}
+					<span class="tooltip-show" title="${psMatchSubmit.bosKey}">${psMatchSubmit.bosKey}</span>
 				</td>
 				<td>
 					<a href="${psMatchSubmit.bosFileUrl}" target="_blank">${psMatchSubmit.bosFileUrl}</a>

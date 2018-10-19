@@ -49,7 +49,7 @@
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
-		<c:if test="${not empty psMatch.id}">
+		<c:if test="${(not empty psMatch.id) && (not empty psMatch.processId) && (psMatch.processId != 0)}">
 			<div class="control-group">
 				<label class="control-label">当前比赛阶段：</label>
 				<%--<div class="controls">
@@ -64,13 +64,15 @@
 				</div>
 			</div>
 		</c:if>
-		<div class="control-group">
-			<label class="control-label">报名人数：</label>
-			<div class="controls">
-				<form:input path="signupCount" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+		<c:if test="${not empty psMatch.id}">
+			<div class="control-group">
+				<label class="control-label">报名人数：</label>
+				<div class="controls">
+					<form:input path="signupCount" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
+					<span class="help-inline"><font color="red">*</font> </span>
+				</div>
 			</div>
-		</div>
+		</c:if>
 		<div class="control-group">
 			<label class="control-label">关联项目：</label>
 			<%--<div class="controls">

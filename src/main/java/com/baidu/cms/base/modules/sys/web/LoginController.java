@@ -44,10 +44,10 @@ public class LoginController extends BaseController {
     public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
         SystemAuthorizingRealm.Principal principal = UserUtils.getPrincipal();
 
-        String theme = CookieUtils.getCookie(request, "theme");
+        /*String theme = CookieUtils.getCookie(request, "theme");
         if (theme == null) {
             CookieUtils.setCookie(response, "theme", "flat");
-        }
+        }*/
         // 默认页签模式
         String tabmode = CookieUtils.getCookie(request, "tabmode");
         if (tabmode == null) {

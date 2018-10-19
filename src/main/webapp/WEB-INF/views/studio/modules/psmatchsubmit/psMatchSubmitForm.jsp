@@ -203,7 +203,7 @@
 		<div class="control-group">
 			<label class="control-label">结果json：</label>
 			<div class="controls">
-				<form:input readonly="true" path="resultContent" htmlEscape="false" maxlength="2000" class="input-xlarge required"/>
+				<form:textarea readonly="true" path="resultContent" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -211,7 +211,6 @@
 			<label class="control-label">bos的key值：</label>
 			<div class="controls">
 				<form:textarea readonly="true" path="bosKey" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
-				<%--<form:input readonly="true" path="bosKey" htmlEscape="false" maxlength="500" class="input-xlarge required"/>--%>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -219,7 +218,6 @@
 			<label class="control-label">bos的url：</label>
 			<div class="controls">
 				<form:textarea readonly="true" path="bosFileUrl" htmlEscape="false" rows="4" maxlength="500" class="input-xxlarge required"/>
-				<%--<form:input readonly="true" path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-xlarge required"/>--%>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

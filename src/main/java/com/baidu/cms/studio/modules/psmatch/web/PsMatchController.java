@@ -85,6 +85,11 @@ public class PsMatchController extends BaseController {
 	@RequiresPermissions("psmatch:psMatch:edit")
 	@RequestMapping(value = "save")
 	public String save(PsMatch psMatch, Model model, RedirectAttributes redirectAttributes) {
+		// 新建比赛时,设置默认值
+		if (psMatch.getIsNewRecord()) {
+			psMatch.setProcessId(0L);
+			psMatch.setSignupCount(0L);
+		}
 		if (!beanValidator(model, psMatch)){
 			return form(psMatch, model);
 		}
