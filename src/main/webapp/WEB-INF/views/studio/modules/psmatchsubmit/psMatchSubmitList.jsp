@@ -59,7 +59,7 @@
 			</li>
 			<li><label>提交状态：</label>
 				<form:select path="statusCode" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_match_submit_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -91,13 +91,13 @@
 			</li>
 			<%--<li><label>阶段ID：</label>
 				<form:select path="processId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>--%>
 			<li><label>是否匿名：</label>
 				<form:select path="anonymous" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('anonymous')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -109,13 +109,13 @@
 			</li>
 			<li><label>项目ID：</label>
 				<form:select path="projectId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>比赛ID：</label>
 				<form:select path="matchId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>

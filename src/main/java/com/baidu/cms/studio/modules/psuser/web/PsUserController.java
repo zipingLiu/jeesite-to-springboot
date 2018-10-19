@@ -42,6 +42,9 @@ public class PsUserController extends BaseController {
 		}
 		if (entity == null){
 			entity = new PsUser();
+		} else {
+			// 用户敏感信息解密
+			decrypt(entity);
 		}
 		return entity;
 	}

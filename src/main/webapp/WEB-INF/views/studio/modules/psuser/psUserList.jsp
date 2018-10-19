@@ -51,7 +51,7 @@
 			</li>
 			<li><label>用户类型：</label>
 				<form:select path="userType" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('user_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -75,7 +75,7 @@
 			</li>
 			<li><label>身份：</label>
 				<form:select path="capacity" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('capacity')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -93,7 +93,7 @@
 			</li>
 			<li><label>是否为员工：</label>
 				<form:select path="isEmployee" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -105,7 +105,7 @@
 			</li>
 			<li><label>可用状态：</label>
 				<form:select path="statusCode" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>

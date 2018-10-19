@@ -39,7 +39,7 @@
 			<label class="control-label">比赛ID：</label>
 			<div class="controls">
 				<%--<form:select path="matchId" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>--%>
 					<form:input path="matchName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
@@ -50,7 +50,7 @@
 			<label class="control-label">用户ID：</label>
 			<div class="controls">
 				<%--<form:select path="userId" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>--%>
 					<form:input path="userName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
@@ -61,7 +61,7 @@
 			<label class="control-label">阶段ID：</label>
 			<div class="controls">
 				<%--<form:select path="processId" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>--%>
 					<form:input path="processName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
@@ -90,7 +90,7 @@
 			<label class="control-label">常规赛是否通过：</label>
 			<div class="controls">
 				<form:select path="routinePass" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('routine_pass')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>

@@ -48,25 +48,25 @@
 			</li>
 			<li><label>比赛ID：</label>
 				<form:select path="matchId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>常规赛是否通过：</label>
 				<form:select path="routinePass" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('routine_pass')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<%--<li><label>用户ID：</label>
 				<form:select path="userId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>--%>
 			<%--<li><label>阶段ID：</label>
 				<form:select path="processId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>--%>

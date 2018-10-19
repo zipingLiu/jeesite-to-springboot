@@ -62,7 +62,7 @@
 			<label class="control-label">提交状态：</label>
 			<div class="controls">
 				<form:select path="statusCode" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_match_submit_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -130,7 +130,7 @@
 			<label class="control-label">阶段ID：</label>
 			<div class="controls">
 				<form:select path="processId" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -140,7 +140,7 @@
 			<label class="control-label">是否匿名：</label>
 			<div class="controls">
 				<form:select path="anonymous" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('anonymous')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -164,7 +164,7 @@
 			<label class="control-label">项目ID：</label>
 			<div class="controls">
 				<form:select path="projectId" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -174,7 +174,7 @@
 			<label class="control-label">比赛ID：</label>
 			<div class="controls">
 				<form:select path="matchId" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>

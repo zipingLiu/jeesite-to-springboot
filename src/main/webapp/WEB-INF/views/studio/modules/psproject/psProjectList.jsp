@@ -57,7 +57,7 @@
 			</li>
 			<li><label>状态：</label>
 				<form:select path="statusCode" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -76,7 +76,7 @@
 			</li>
 			<li><label>项目类型：</label>
 				<form:select path="projectType" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_project_project_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -118,7 +118,7 @@
 			</li>
 			<li><label>0cpu集群：</label>
 				<form:select path="activeNotebookCluster" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('active_notebook_cluster')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>

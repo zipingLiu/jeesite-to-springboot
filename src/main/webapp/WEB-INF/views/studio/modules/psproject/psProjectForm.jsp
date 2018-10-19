@@ -60,7 +60,7 @@
 			<label class="control-label">状态：</label>
 			<div class="controls">
 				<form:select path="statusCode" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -95,7 +95,7 @@
 			<label class="control-label">项目类型：</label>
 			<div class="controls">
 				<form:select path="projectType" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_project_project_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -189,7 +189,7 @@
 			<label class="control-label">0cpu集群：</label>
 			<div class="controls">
 				<form:select path="activeNotebookCluster" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('active_notebook_cluster')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>

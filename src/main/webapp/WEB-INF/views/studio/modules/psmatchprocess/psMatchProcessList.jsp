@@ -51,7 +51,7 @@
 			</li>
 			<li><label>比赛ID：</label>
 				<form:select path="matchId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -67,19 +67,19 @@
 			</li>
 			<li><label>关联项目：</label>
 				<form:select path="projectId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>是否可自己报名：</label>
 				<form:select path="selfSignup" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('self_signup')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>是否有排行版：</label>
 				<form:select path="hasLeaderboard" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('has_leaderboard')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>

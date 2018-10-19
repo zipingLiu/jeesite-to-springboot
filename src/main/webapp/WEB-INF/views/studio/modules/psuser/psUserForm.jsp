@@ -46,7 +46,7 @@
 			<label class="control-label">用户类型：</label>
 			<div class="controls">
 				<form:select path="userType" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('user_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -98,7 +98,7 @@
 			<label class="control-label">身份：</label>
 			<div class="controls">
 				<form:select path="capacity" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('capacity')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -136,7 +136,7 @@
 			<label class="control-label">是否为员工：</label>
 			<div class="controls">
 				<form:select path="isEmployee" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('is_employee')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -160,7 +160,7 @@
 			<label class="control-label">可用状态：</label>
 			<div class="controls">
 				<form:select path="statusCode" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('studio_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>

@@ -69,13 +69,13 @@
 			</li>
 			<li><label>是否为常规赛：</label>
 				<form:select path="routine" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_match_routine')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>状态：</label>
 				<form:select path="statusCode" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_match_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -103,7 +103,7 @@
 			<li><label>关联项目：</label>
 					<%--<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-medium"/>--%>
 				<form:select path="projectId" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -189,12 +189,12 @@
 				<td>
 					<fmt:formatDate value="${psMatch.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
+				<td><a href="${ctx}/psmatchsubmit/psMatchSubmit/list?matchId=${psMatch.id}">提交列表</a></td>
+				<td><a href="${ctx}/psmatchuser/psMatchUser/list?matchId=${psMatch.id}">报名列表</a></td>
 				<shiro:hasPermission name="psmatch:psMatch:edit"><td>
     				<a href="${ctx}/psmatch/psMatch/form?id=${psMatch.id}">修改</a>
 					<a href="${ctx}/psmatch/psMatch/delete?id=${psMatch.id}" onclick="return confirmx('确认要删除该比赛吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
-				<td><a href="${ctx}/psmatchsubmit/psMatchSubmit/toSubmitList/${psMatch.id}">提交列表</a></td>
-				<td><a href="${ctx}/psmatchuser/psMatchUser/toMatchUserList/${psMatch.id}">报名列表</a></td>
 			</tr>
 		</c:forEach>
 		</tbody>

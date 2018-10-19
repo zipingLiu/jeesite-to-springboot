@@ -79,7 +79,7 @@
 			</div>--%>
 			<div class="controls">
 				<form:select path="projectId" class="required input-xlarge">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -107,7 +107,7 @@
 			<label class="control-label">是否为常规赛：</label>
 			<div class="controls">
 				<form:select path="routine" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_match_routine')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -117,7 +117,7 @@
 			<label class="control-label">状态：</label>
 			<div class="controls">
 				<form:select path="statusCode" class="input-xlarge required">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('ps_match_status_code')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>

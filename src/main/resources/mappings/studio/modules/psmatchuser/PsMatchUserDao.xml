@@ -54,7 +54,7 @@
 			<if test="updateTime != null">
 				AND a.update_time &gt;= #{updateTime}
 			</if>
-			<if test="routinePass != null and routinePass != ''">
+			<if test="routinePass != null">
 				AND a.routine_pass = #{routinePass}
 			</if>
 		</where>

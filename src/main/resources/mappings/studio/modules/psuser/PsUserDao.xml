@@ -52,7 +52,7 @@
 					<if test="dbName == 'mssql'">'%'+#{userName}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{userName},'%')</if>
 			</if>
-			<if test="userType != null and userType != ''">
+			<if test="userType != null">
 				AND a.user_type = #{userType}
 			</if>
 			<if test="trueName != null and trueName != ''">
@@ -91,7 +91,7 @@
 					<if test="dbName == 'mssql'">'%'+#{region}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{region},'%')</if>
 			</if>
-			<if test="capacity != null and capacity != ''">
+			<if test="capacity != null">
 				AND a.capacity = #{capacity}
 			</if>
 			<if test="workPlace != null and workPlace != ''">
@@ -118,7 +118,7 @@
 					<if test="dbName == 'mssql'">'%'+#{userAbs}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{userAbs},'%')</if>
 			</if>
-			<if test="isEmployee != null and isEmployee != ''">
+			<if test="isEmployee != null">
 				AND a.is_employee = #{isEmployee}
 			</if>
 			<if test="displayName != null and displayName != ''">
