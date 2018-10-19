@@ -243,7 +243,7 @@
 					${psMatchSubmit.bosKey}
 				</td>
 				<td>
-					${psMatchSubmit.bosFileUrl}
+					<a href="${psMatchSubmit.bosFileUrl}" target="_blank">${psMatchSubmit.bosFileUrl}</a>
 				</td>
 				<td>
 					${psMatchSubmit.startTime}

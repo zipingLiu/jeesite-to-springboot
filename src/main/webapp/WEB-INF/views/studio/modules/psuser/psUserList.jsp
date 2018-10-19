@@ -190,7 +190,7 @@
 					${psUser.position}
 				</td>
 				<td>
-					${psUser.portrait}
+					<a href="${psUser.portrait}" target="_blank">${psUser.portrait}</a>
 				</td>
 				<td>
 					${psUser.userAbs}

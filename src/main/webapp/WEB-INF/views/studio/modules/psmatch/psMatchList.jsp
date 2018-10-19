@@ -178,10 +178,10 @@
 					${psMatch.matchKey}
 				</td>
 				<td>
-					${psMatch.logo}
+					<a href="${psMatch.logo}" target="_blank">${psMatch.logo}</a>
 				</td>
 				<td>
-					${psMatch.forumUrl}
+					<a href="${psMatch.forumUrl}" target="_blank">${psMatch.forumUrl}</a>
 				</td>
 				<td>
 					<fmt:formatDate value="${psMatch.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

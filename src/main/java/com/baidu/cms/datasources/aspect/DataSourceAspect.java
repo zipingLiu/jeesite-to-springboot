@@ -44,17 +44,17 @@ public class DataSourceAspect implements Ordered {
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
             DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
-            logger.debug("设置数据源: set datasource is " + DataSourceNames.BASE.getKey());
+            logger.debug(">>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
         }else {
             DynamicDataSource.setDataSource(ds.name().getKey());
-            logger.debug("设置数据源: set datasource is " + ds.name());
+            logger.debug(">>>>>>>> set datasource is " + ds.name());
         }
 
         try {
             return point.proceed();
         } finally {
             DynamicDataSource.clearDataSource();
-            logger.debug("清理数据源: clean datasource");
+            logger.debug(">>>>>>>> clean datasource");
         }
     }
 
