@@ -39,6 +39,9 @@
 		<shiro:hasPermission name="redis:sysRedis:edit"><li><a href="${ctx}/redis/sysRedis/form">添加缓存</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/" method="post" class="breadcrumb form-search">
+		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<ul class="ul-form">
 			<li><label>缓存键：</label>
 				<form:input path="redisKey" htmlEscape="false" maxlength="200" class="input-medium"/>
@@ -51,17 +54,18 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed table-nowrap">
 		<thead>
 			<tr>
-				<%--<th class="sort-column redisKey">缓存键</th>--%>
+				<th class="sort-column redisKey">缓存键</th>
 				<th class="sort-column redisValue">缓存值</th>
 				<shiro:hasPermission name="redis:sysRedis:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
 		<tbody>
-		<c:if test="${not empty sysRedis.redisValue}">
+		<c:forEach items="${page.list}" var="sysRedis">
+		<%--<c:if test="${not empty redisValue}">--%>
 			<tr>
-				<%--<td>
+				<td>
 					${sysRedis.redisKey}
-				</td>--%>
+				</td>
 				<td>
 					${sysRedis.redisValue}
 				</td>
@@ -72,7 +76,8 @@
 					</td>
 				</shiro:hasPermission>
 			</tr>
-		</c:if>
+		<%--</c:if>--%>
+		</c:forEach>
 		</tbody>
 	</table>
 	<div class="pagination">${page}</div>

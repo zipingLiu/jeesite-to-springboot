@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -74,6 +75,11 @@ public class RedisUtils {
 
     public String get(String key) {
         return get(key, NOT_EXPIRE);
+    }
+
+    public Set<String> keys(String pattern) {
+        Set<String> set = redisTemplate.keys(pattern);
+        return set;
     }
 
     public void delete(String key) {

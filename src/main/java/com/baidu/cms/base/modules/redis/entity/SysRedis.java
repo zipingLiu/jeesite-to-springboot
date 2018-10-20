@@ -1,15 +1,14 @@
 package com.baidu.cms.base.modules.redis.entity;
 
+import com.baidu.cms.common.persistence.DataEntity;
 import org.hibernate.validator.constraints.Length;
-
-import java.io.Serializable;
 
 /**
  * 缓存管理Entity
  * @author shiyanjun
  * @version 2018-10-20
  */
-public class SysRedis implements Serializable {
+public class SysRedis extends DataEntity<SysRedis>{
 	
 	private static final long serialVersionUID = 1L;
 	private String redisKey;		// 缓存键

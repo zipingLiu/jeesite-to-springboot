@@ -89,7 +89,7 @@ mybatis:
 adminPath: /admin
 #分页配置
 page:
-  pageSize: 20
+  pageSize: 10
 #文件上传的路径
 userfiles:
   basedir: /Users/v_shiyanjun/studio/upload2

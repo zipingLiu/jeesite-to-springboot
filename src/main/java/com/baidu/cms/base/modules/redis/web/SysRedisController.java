@@ -3,6 +3,7 @@ package com.baidu.cms.base.modules.redis.web;
 import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.base.modules.redis.service.SysRedisService;
 import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 缓存管理Controller
@@ -40,8 +44,9 @@ public class SysRedisController extends BaseController {
 	
 	@RequiresPermissions("redis:sysRedis:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(SysRedis sysRedis, Model model) {
-		model.addAttribute("sysRedis", sysRedis);
+	public String list(SysRedis sysRedis, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<SysRedis> page = sysRedisService.findPage(new Page<>(request, response), sysRedis);
+		model.addAttribute("page", page);
 		return "base/modules/redis/sysRedisList";
 	}
 
