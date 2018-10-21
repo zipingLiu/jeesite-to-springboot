@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,6 +44,8 @@ public class SysRedisService {
 		} else {
 			keyList = new ArrayList<>(redisUtils.keys("*"));
 		}
+		// 对key排序
+		Collections.sort(keyList);
 		page.setCount(keyList.size());
 		List<SysRedis> list = new ArrayList<>();
 		if (!CollectionUtils.isEmpty(keyList)) {

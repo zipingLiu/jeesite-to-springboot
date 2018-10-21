@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
  * @author shiyanjun
  * @version 2018-10-20
  */
-public class SysRedis extends DataEntity<SysRedis>{
+public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedis>{
 	
 	private static final long serialVersionUID = 1L;
 	private String redisKey;		// 缓存键
@@ -39,5 +39,12 @@ public class SysRedis extends DataEntity<SysRedis>{
 	public void setRedisValue(String redisValue) {
 		this.redisValue = redisValue;
 	}
-	
+
+	/**
+	 * 按key排序
+	 */
+	@Override
+	public int compareTo(SysRedis sysRedis) {
+		return this.redisKey.compareTo(sysRedis.getRedisKey());
+	}
 }
