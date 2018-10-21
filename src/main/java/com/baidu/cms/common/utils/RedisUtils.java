@@ -66,15 +66,21 @@ public class RedisUtils {
     }
 
     public String get(String key, long expire) {
-        String value = valueOperations.get(key);
-        if(expire != NOT_EXPIRE){
-            redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+        String value = null;
+        try {
+            value = valueOperations.get(key);
+            if(expire != NOT_EXPIRE){
+                redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return value;
     }
 
     public String get(String key) {
-        return get(key, NOT_EXPIRE);
+        String value = get(key, NOT_EXPIRE);
+        return value;
     }
 
     public Set<String> keys(String pattern) {
@@ -83,7 +89,11 @@ public class RedisUtils {
     }
 
     public void delete(String key) {
-        redisTemplate.delete(key);
+        try {
+            redisTemplate.delete(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
