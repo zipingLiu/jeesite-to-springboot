@@ -4,6 +4,7 @@ import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.base.modules.redis.service.SysRedisService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -63,11 +64,23 @@ public class SysRedisController extends BaseController {
 		if (!beanValidator(model, sysRedis)){
 			return form(sysRedis, model);
 		}
+		// key名称校验
+		if (!checkKey(model, sysRedis.getRedisKey())) {
+			return form(sysRedis, model);
+		}
 		sysRedisService.save(sysRedis);
 		addMessage(redirectAttributes, "保存缓存管理成功");
 		return "redirect:"+Global.getAdminPath()+"/redis/sysRedis/?repage";
 	}
-	
+
+	private boolean checkKey(Model model, String redisKey) {
+		if (StringUtils.isNotBlank(redisKey) && redisKey.startsWith(RedisUtils.DEFAULT_CACHE_PREFIX)) {
+			addMessage(model, "非法的key名称!");
+			return false;
+		}
+		return true;
+	}
+
 	@RequiresPermissions("redis:sysRedis:edit")
 	@RequestMapping(value = "delete")
 	public String delete(SysRedis sysRedis, RedirectAttributes redirectAttributes) {

@@ -1,5 +1,6 @@
 package com.baidu.cms.common.utils;
 
+import com.baidu.cms.common.config.Global;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -36,6 +37,9 @@ public class RedisUtils {
     private SetOperations<String, Object> setOperations;
     @Autowired
     private ZSetOperations<String, Object> zSetOperations;
+    /** 缓存key默认前缀 */
+    public static String DEFAULT_CACHE_PREFIX = "STUDIO-CMS:";
+    public static boolean useDefaultPrefix = useDefaultKeyPrefix();
     /**  默认过期时长，单位：秒 */
     public final static long DEFAULT_EXPIRE = 60 * 60 * 24;
     /**  不设置过期时长 */
@@ -43,9 +47,9 @@ public class RedisUtils {
     private final static Gson gson = new Gson();
 
     public void set(String key, Object value, long expire){
-        valueOperations.set(key, toJson(value));
+        valueOperations.set(prefix(key), toJson(value));
         if(expire != NOT_EXPIRE){
-            redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+            redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
         }
     }
 
@@ -54,9 +58,9 @@ public class RedisUtils {
     }
 
     public <T> T get(String key, Class<T> clazz, long expire) {
-        String value = valueOperations.get(key);
+        String value = valueOperations.get(prefix(key));
         if(expire != NOT_EXPIRE){
-            redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+            redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
         }
         return value == null ? null : fromJson(value, clazz);
     }
@@ -68,9 +72,9 @@ public class RedisUtils {
     public String get(String key, long expire) {
         String value = null;
         try {
-            value = valueOperations.get(key);
+            value = valueOperations.get(prefix(key));
             if(expire != NOT_EXPIRE){
-                redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+                redisTemplate.expire(prefix(key), expire, TimeUnit.SECONDS);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,13 +88,13 @@ public class RedisUtils {
     }
 
     public Set<String> keys(String pattern) {
-        Set<String> set = redisTemplate.keys(pattern);
+        Set<String> set = redisTemplate.keys(prefix(pattern));
         return set;
     }
 
     public void delete(String key) {
         try {
-            redisTemplate.delete(key);
+            redisTemplate.delete(prefix(key));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,5 +116,37 @@ public class RedisUtils {
      */
     private <T> T fromJson(String json, Class<T> clazz){
         return gson.fromJson(json, clazz);
+    }
+
+    /**
+     * 给key添加默认前缀
+     */
+    private static String prefix(String key) {
+        if (useDefaultPrefix && !key.startsWith(DEFAULT_CACHE_PREFIX)) {
+            key = DEFAULT_CACHE_PREFIX + key;
+        }
+        return key;
+    }
+
+    /**
+     * 去掉key的前缀
+     */
+    public static String delPrefix(String key) {
+        if (useDefaultPrefix && key.startsWith(DEFAULT_CACHE_PREFIX)) {
+            String[] split = key.split(DEFAULT_CACHE_PREFIX);
+            if (split.length > 1) {
+             return split[1];
+            }
+        }
+        return key;
+    }
+
+    /**
+     * 从配置中读取是否使用缓存key默认前缀
+     */
+    public static boolean useDefaultKeyPrefix() {
+        String value = Global.getConfig("useDefaultKeyPrefix");
+        boolean boo = Global.FALSE.equalsIgnoreCase(value);
+        return StringUtils.isNotBlank(value) && boo ? false : true;
     }
 }

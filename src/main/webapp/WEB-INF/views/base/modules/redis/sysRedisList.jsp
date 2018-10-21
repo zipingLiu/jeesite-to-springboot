@@ -47,6 +47,7 @@
 				<form:input path="redisKey" htmlEscape="false" maxlength="200" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
+			<li><span class="help-inline">支持使用*号进行匹配查询</span></li>
 			<li class="clearfix"></li>
 		</ul>
 	</form:form>

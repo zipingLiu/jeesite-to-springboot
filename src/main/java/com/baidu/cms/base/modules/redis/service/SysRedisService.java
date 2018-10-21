@@ -50,7 +50,7 @@ public class SysRedisService {
 			for (int i = start, j = 0; i < keyList.size() && j < pageSize; i++, j++) {
 				String key = keyList.get(i);
 				String value = redisUtils.get(key);
-				list.add(new SysRedis(key, value));
+				list.add(new SysRedis(RedisUtils.delPrefix(key), value));
 			}
 		}
 		page.setList(list);
