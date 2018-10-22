@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 缓存管理Service
@@ -38,12 +39,18 @@ public class SysRedisService {
 		sysRedis.setPage(page);
 
 		String redisKey = sysRedis.getRedisKey();
-		List<String> keyList;
+		Set<String> keySet;
 		if (StringUtils.isNotBlank(redisKey)) {
-			keyList = new ArrayList<>(redisUtils.keys(redisKey));
+			keySet = redisUtils.keys(redisKey);
 		} else {
-			keyList = new ArrayList<>(redisUtils.keys("*"));
+			keySet = redisUtils.keys("*");
 		}
+		if (keySet == null || keySet.size() == 0) {
+			page.setCount(0);
+			page.setList(new ArrayList<>());
+			return page;
+		}
+		List<String> keyList = new ArrayList<>(keySet);
 		// 对key排序
 		Collections.sort(keyList);
 		page.setCount(keyList.size());
