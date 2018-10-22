@@ -25,6 +25,10 @@ import com.baidu.cms.common.utils.StringUtils;
 import ${packageName}.${moduleName}.entity<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
 import ${packageName}.${moduleName}.service<#if subModuleName != "">.${subModuleName}</#if>.${ClassName}Service;
 
+import com.baidu.cms.base.modules.column.entity.SysColumnHide;
+import com.baidu.cms.base.modules.column.service.SysColumnHideService;
+import java.util.List;
+
 /**
  * ${functionName}Controller
  * @author ${functionAuthor}
@@ -33,6 +37,9 @@ import ${packageName}.${moduleName}.service<#if subModuleName != "">.${subModule
 @Controller
 @RequestMapping(value = "${r"${adminPath}"}/${urlPrefix}")
 public class ${ClassName}Controller extends BaseController {
+
+	@Autowired
+	private SysColumnHideService sysColumnHideService;
 
 	@Autowired
 	private ${ClassName}Service ${className}Service;
@@ -54,6 +61,13 @@ public class ${ClassName}Controller extends BaseController {
 	public String list(${ClassName} ${className}, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<${ClassName}> page = ${className}Service.findPage(new Page<${ClassName}>(request, response), ${className}); 
 		model.addAttribute("page", page);
+		// 读取列隐藏配置
+		SysColumnHide columnHide = new SysColumnHide();
+		columnHide.setClassName("${ClassName}");
+		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
+		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
+			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
+		}
 		return "${lastPackageName?replace('.', '/')}/${viewPrefix}List";
 	}
 
