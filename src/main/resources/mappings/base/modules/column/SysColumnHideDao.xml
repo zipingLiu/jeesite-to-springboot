@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.base.modules.column.dao.SysColumnHideDao">
+    
+	<sql id="sysColumnHideColumns">
+		a.id AS "id",
+		a.page_name AS "pageName",
+		a.class_name AS "className",
+		a.column_hide_arr AS "columnHideArr"
+	</sql>
+	
+	<sql id="sysColumnHideJoins">
+	</sql>
+    
+	<select id="get" resultType="SysColumnHide">
+		SELECT 
+			<include refid="sysColumnHideColumns"/>
+		FROM sys_column_hide a
+		<include refid="sysColumnHideJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysColumnHide">
+		SELECT 
+			<include refid="sysColumnHideColumns"/>
+		FROM sys_column_hide a
+		<include refid="sysColumnHideJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="pageName != null and pageName != ''">
+				AND a.page_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{pageName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{pageName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{pageName},'%')</if>
+			</if>
+			<if test="className != null and className != ''">
+				AND a.class_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{className}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{className}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{className},'%')</if>
+			</if>
+			<if test="columnHideArr != null and columnHideArr != ''">
+				AND a.column_hide_arr LIKE 
+					<if test="dbName == 'oracle'">'%'||#{columnHideArr}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{columnHideArr}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{columnHideArr},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysColumnHide">
+		SELECT 
+			<include refid="sysColumnHideColumns"/>
+		FROM sys_column_hide a
+		<include refid="sysColumnHideJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO sys_column_hide(
+			page_name,
+			class_name,
+			column_hide_arr
+		) VALUES (
+			#{pageName},
+			#{className},
+			#{columnHideArr}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_column_hide SET 	
+			page_name = #{pageName},
+			class_name = #{className},
+			column_hide_arr = #{columnHideArr}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_column_hide
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
