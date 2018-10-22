@@ -37,13 +37,10 @@
 					<if test="dbName == 'mysql'">concat('%',#{pageName},'%')</if>
 			</if>
 			<if test="className != null and className != ''">
-				AND a.class_name LIKE 
-					<if test="dbName == 'oracle'">'%'||#{className}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{className}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{className},'%')</if>
+				AND a.class_name = #{className}
 			</if>
 			<if test="columnHideArr != null and columnHideArr != ''">
-				AND a.column_hide_arr LIKE 
+				AND a.column_hide_arr LIKE
 					<if test="dbName == 'oracle'">'%'||#{columnHideArr}||'%'</if>
 					<if test="dbName == 'mssql'">'%'+#{columnHideArr}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{columnHideArr},'%')</if>

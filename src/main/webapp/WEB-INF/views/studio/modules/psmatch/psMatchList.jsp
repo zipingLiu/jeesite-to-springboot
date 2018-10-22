@@ -120,13 +120,13 @@
 					value="<fmt:formatDate value="${psMatch.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
-			<li><label>关联项目：</label>
+			<%--<li><label>关联项目：</label>--%>
 					<%--<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-medium"/>--%>
-				<form:select path="projectId" class="input-medium">
-					<form:option value="" label="请选择"/>
-					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
-				</form:select>
-			</li>
+				<%--<form:select path="projectId" class="input-medium">--%>
+					<%--<form:option value="" label="请选择"/>--%>
+					<%--<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>--%>
+				<%--</form:select>--%>
+			<%--</li>--%>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>

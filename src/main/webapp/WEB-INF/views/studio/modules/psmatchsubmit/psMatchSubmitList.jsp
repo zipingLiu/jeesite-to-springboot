@@ -66,12 +66,12 @@
 			<li><label>ID：</label>
 				<form:input path="id" htmlEscape="false" maxlength="10" class="input-medium"/>
 			</li>
-			<li><label>提交名称：</label>
+			<%--<li><label>提交名称：</label>
 				<form:input path="submitName" htmlEscape="false" maxlength="200" class="input-medium"/>
 			</li>
 			<li><label>版本：</label>
 				<form:input path="version" htmlEscape="false" maxlength="20" class="input-medium"/>
-			</li>
+			</li>--%>
 			<li><label>创建时间：</label>
 				<input name="createTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${psMatchSubmit.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -94,28 +94,28 @@
 			<li><label>分数：</label>
 				<form:input path="score" htmlEscape="false" class="input-medium number"/>
 			</li>
-			<li><label>结果json：</label>
+			<%--<li><label>结果json：</label>
 				<form:input path="resultContent" htmlEscape="false" maxlength="2000" class="input-medium"/>
 			</li>
 			<li><label>bos的key值：</label>
 				<form:input path="bosKey" htmlEscape="false" maxlength="500" class="input-medium"/>
-			</li>
+			</li>--%>
 			<li><label>bos的url：</label>
 				<form:input path="bosFileUrl" htmlEscape="false" maxlength="1000" class="input-medium"/>
 			</li>
-			<li><label>任务开始时间：</label>
+			<%--<li><label>任务开始时间：</label>
 				<form:input path="startTime" htmlEscape="false" maxlength="20" class="input-medium"/>
 			</li>
 			<li><label>任务结束时间：</label>
 				<form:input path="endTime" htmlEscape="false" maxlength="20" class="input-medium"/>
-			</li>
+			</li>--%>
 			<%--<li><label>阶段名称：</label>
 				<form:select path="processId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${processList}" itemLabel="processName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>--%>
-			<li><label>是否匿名：</label>
+			<%--<li><label>是否匿名：</label>
 				<form:select path="anonymous" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('anonymous')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
@@ -123,25 +123,25 @@
 			</li>
 			<li><label>参考文献：</label>
 				<form:input path="reference" htmlEscape="false" maxlength="500" class="input-medium"/>
-			</li>
+			</li>--%>
 			<li><label>简介：</label>
 				<form:input path="introduction" htmlEscape="false" maxlength="500" class="input-medium"/>
 			</li>
-			<li><label>关联项目：</label>
+			<%--<li><label>关联项目：</label>
 				<form:select path="projectId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
-			</li>
+			</li>--%>
 			<li><label>比赛：</label>
 				<form:select path="matchId" class="input-medium">
 					<form:option value="" label="请选择"/>
 					<form:options items="${matchList}" itemLabel="matchName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 			</li>
-			<li><label>对比结果：</label>
+			<%--<li><label>对比结果：</label>
 				<form:input path="errorMsg" htmlEscape="false" maxlength="255" class="input-medium"/>
-			</li>
+			</li>--%>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>

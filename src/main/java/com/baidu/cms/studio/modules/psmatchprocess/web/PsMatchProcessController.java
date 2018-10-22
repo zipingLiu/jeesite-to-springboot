@@ -67,8 +67,8 @@ public class PsMatchProcessController extends BaseController {
 		model.addAttribute("page", page);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		List<PsProject> projectList = psProjectService.findList(new PsProject());
-		model.addAttribute("projectList", projectList);
+		/*List<PsProject> projectList = psProjectService.findList(new PsProject());
+		model.addAttribute("projectList", projectList);*/
 		// 读取列隐藏配置
 		SysColumnHide columnHide = new SysColumnHide();
 		columnHide.setClassName("PsMatchProcess");
@@ -85,8 +85,8 @@ public class PsMatchProcessController extends BaseController {
 		model.addAttribute("psMatchProcess", psMatchProcess);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		List<PsProject> projectList = psProjectService.findList(new PsProject());
-		model.addAttribute("projectList", projectList);
+		/*List<PsProject> projectList = psProjectService.findList(new PsProject());
+		model.addAttribute("projectList", projectList);*/
 		return "studio/modules/psmatchprocess/psMatchProcessForm";
 	}
 

@@ -75,17 +75,17 @@
 		</c:if>
 		<div class="control-group">
 			<label class="control-label">关联项目：</label>
-			<%--<div class="controls">
+			<div class="controls">
 				<form:input path="projectId" htmlEscape="false" maxlength="10" class="input-xlarge required digits"/>
 				<span class="help-inline"><font color="red">*</font> </span>
-			</div>--%>
-			<div class="controls">
+			</div>
+			<%--<div class="controls">
 				<form:select path="projectId" class="required input-xlarge">
 					<form:option value="" label="请选择"/>
 					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
 				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
+			</div>--%>
 		</div>
 		<div class="control-group">
 			<label class="control-label">开始时间：</label>

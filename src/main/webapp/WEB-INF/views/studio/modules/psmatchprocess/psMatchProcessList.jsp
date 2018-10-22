@@ -85,37 +85,37 @@
 					value="<fmt:formatDate value="${psMatchProcess.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
-			<li><label>关联项目：</label>
-				<form:select path="projectId" class="input-medium">
-					<form:option value="" label="请选择"/>
-					<form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
-				</form:select>
-			</li>
-			<li><label>是否可自己报名：</label>
-				<form:select path="selfSignup" class="input-medium">
-					<form:option value="" label="请选择"/>
-					<form:options items="${fns:getDictList('self_signup')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
-			</li>
-			<li><label>是否有排行版：</label>
-				<form:select path="hasLeaderboard" class="input-medium">
-					<form:option value="" label="请选择"/>
-					<form:options items="${fns:getDictList('has_leaderboard')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select>
-			</li>
-			<li><label>执行脚本：</label>
-				<form:input path="evalDockerImage" htmlEscape="false" maxlength="255" class="input-medium"/>
-			</li>
-			<li><label>处理类：</label>
-				<form:input path="evalService" htmlEscape="false" maxlength="255" class="input-medium"/>
-			</li>
-			<li><label>Docker命令：</label>
-				<form:input path="evalDockerCommand" htmlEscape="false" maxlength="255" class="input-medium"/>
-			</li>
-			<li><label>列JSON：</label>
-				<form:input path="columns" htmlEscape="false" maxlength="255" class="input-medium"/>
-			</li>
-			<li><label>获取Token开始时间：</label>
+				<%--<li><label>关联项目：</label>
+                    <form:select path="projectId" class="input-medium">
+                        <form:option value="" label="请选择"/>
+                        <form:options items="${projectList}" itemLabel="projectName" itemValue="id" htmlEscape="false"/>
+                    </form:select>
+                </li>
+                <li><label>是否可自己报名：</label>
+                    <form:select path="selfSignup" class="input-medium">
+                        <form:option value="" label="请选择"/>
+                        <form:options items="${fns:getDictList('self_signup')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                    </form:select>
+                </li>
+                <li><label>是否有排行版：</label>
+                    <form:select path="hasLeaderboard" class="input-medium">
+                        <form:option value="" label="请选择"/>
+                        <form:options items="${fns:getDictList('has_leaderboard')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                    </form:select>
+                </li>
+                <li><label>执行脚本：</label>
+                    <form:input path="evalDockerImage" htmlEscape="false" maxlength="255" class="input-medium"/>
+                </li>
+                <li><label>处理类：</label>
+                    <form:input path="evalService" htmlEscape="false" maxlength="255" class="input-medium"/>
+                </li>
+                <li><label>Docker命令：</label>
+                    <form:input path="evalDockerCommand" htmlEscape="false" maxlength="255" class="input-medium"/>
+                </li>
+                <li><label>列JSON：</label>
+                    <form:input path="columns" htmlEscape="false" maxlength="255" class="input-medium"/>
+                </li>--%>
+			<li><label>Token开始时间：</label>
 				<input name="tokenStartTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${psMatchProcess.tokenStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
