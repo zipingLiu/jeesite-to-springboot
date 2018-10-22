@@ -145,7 +145,7 @@ public class RedisUtils {
      * 从配置中读取是否使用缓存key默认前缀
      */
     public static boolean useDefaultKeyPrefix() {
-        String value = Global.getConfig("useDefaultKeyPrefix");
+        String value = Global.getConfig("useDefaultCacheKeyPrefix");
         boolean boo = Global.FALSE.equalsIgnoreCase(value);
         return StringUtils.isNotBlank(value) && boo ? false : true;
     }
