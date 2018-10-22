@@ -48,7 +48,7 @@
 			<div class="controls">
 				<form:input path="className" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
-				<span class="help-inline">使用所属类名称作为唯一标识,例如:SysUser</span>
+				<span class="help-inline">使用所对应的实体类名称作为唯一标识,例如:SysUser</span>
 			</div>
 		</div>
 		<div class="control-group">

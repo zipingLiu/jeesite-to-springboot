@@ -3,6 +3,8 @@ package com.baidu.cms.studio.modules.psmatch.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baidu.cms.base.modules.column.entity.SysColumnHide;
+import com.baidu.cms.base.modules.column.service.SysColumnHideService;
 import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
 import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
 import com.baidu.cms.studio.modules.psproject.entity.PsProject;
@@ -35,6 +37,9 @@ import java.util.List;
 public class PsMatchController extends BaseController {
 
 	@Autowired
+	private SysColumnHideService sysColumnHideService;
+
+	@Autowired
 	private PsMatchService psMatchService;
 
 	@Autowired
@@ -62,6 +67,13 @@ public class PsMatchController extends BaseController {
 		model.addAttribute("page", page);
 		List<PsProject> projectList = psProjectService.findList(new PsProject());
 		model.addAttribute("projectList", projectList);
+		// 读取列隐藏配置
+		SysColumnHide columnHide = new SysColumnHide();
+		columnHide.setClassName("PsMatch");
+		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
+		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
+			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
+		}
 		return "studio/modules/psmatch/psMatchList";
 	}
 
