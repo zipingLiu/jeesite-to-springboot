@@ -1,5 +1,7 @@
 package com.baidu.cms.studio.modules.psmatchsubmit.web;
 
+import com.baidu.cms.base.modules.column.entity.SysColumnHide;
+import com.baidu.cms.base.modules.column.service.SysColumnHideService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.StringUtils;
@@ -34,6 +36,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "${adminPath}/psmatchsubmit/psMatchSubmit")
 public class PsMatchSubmitController extends BaseController {
+
+	@Autowired
+	private SysColumnHideService sysColumnHideService;
 
 	@Autowired
 	private PsMatchService psMatchService;
@@ -72,6 +77,13 @@ public class PsMatchSubmitController extends BaseController {
 		model.addAttribute("processList", processList);
 		List<PsProject> projectList = psProjectService.findList(new PsProject());
 		model.addAttribute("projectList", projectList);
+		// 读取列隐藏配置
+		SysColumnHide columnHide = new SysColumnHide();
+		columnHide.setClassName("PsMatchSubmit");
+		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
+		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
+			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
+		}
 		return "studio/modules/psmatchsubmit/psMatchSubmitList";
 	}
 

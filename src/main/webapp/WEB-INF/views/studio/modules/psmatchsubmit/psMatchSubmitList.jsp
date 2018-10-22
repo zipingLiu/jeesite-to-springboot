@@ -9,6 +9,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			//$("#name").focus();
+			// 设置隐藏列
+            hideShowTableTd('contentTable', '${columnHideArr}', 0);
 			$("#searchForm").validate({
 				submitHandler: function(form){
 					loading('正在查询，请稍等...');
@@ -30,6 +32,24 @@
 			$("#pageSize").val(s);
 			$("#searchForm").submit();
         	return false;
+        }
+        /**
+          * table列显示隐藏
+          * @param tableId
+          * @param columns table列索引 例： 0,1，2,3
+          * @param type 显示隐藏列 1.显示table列 2.隐藏table列
+          */
+        function hideShowTableTd(tableId, columns, type) {
+            var strs = new Array(); //定义一数组
+            strs = columns.split(","); //字符分割
+            var tableTd = "";
+            for (var i = 0; i < strs.length; i++) {
+                tableTd += "td:eq(" + strs[i] + "),th:eq(" + strs[i] + "),"
+            }
+            tableTd = tableTd.substring(0, tableTd.length - 1);
+            if (type == 0) {
+                $('#' + tableId + ' tr').find(tableTd).hide();
+            }
         }
 	</script>
 </head>
