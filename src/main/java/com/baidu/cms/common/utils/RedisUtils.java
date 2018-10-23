@@ -121,7 +121,7 @@ public class RedisUtils {
     /**
      * 给key添加默认前缀
      */
-    private static String prefix(String key) {
+    public static String prefix(String key) {
         if (useDefaultPrefix && !key.startsWith(DEFAULT_CACHE_PREFIX)) {
             key = DEFAULT_CACHE_PREFIX + key;
         }

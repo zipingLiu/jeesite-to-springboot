@@ -1,11 +1,12 @@
 package com.baidu.cms.studio.modules.psuser.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.baidu.cms.base.modules.column.entity.SysColumnHide;
-import com.baidu.cms.base.modules.column.service.SysColumnHideService;
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.StringUtils;
+import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.studio.common.PsUserUtil;
+import com.baidu.cms.studio.modules.psuser.entity.PsUser;
+import com.baidu.cms.studio.modules.psuser.service.PsUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.studio.modules.psuser.entity.PsUser;
-import com.baidu.cms.studio.modules.psuser.service.PsUserService;
-
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 用户管理Controller
@@ -32,9 +27,6 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "${adminPath}/psuser/psUser")
 public class PsUserController extends BaseController {
-
-	@Autowired
-	private SysColumnHideService sysColumnHideService;
 
 	@Autowired
 	private PsUserService psUserService;
@@ -59,13 +51,6 @@ public class PsUserController extends BaseController {
 	public String list(PsUser psUser, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<PsUser> page = psUserService.findPage(new Page<PsUser>(request, response), psUser); 
 		model.addAttribute("page", page);
-		// 读取列隐藏配置
-		SysColumnHide columnHide = new SysColumnHide();
-		columnHide.setClassName("PsUser");
-		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
-		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
-			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
-		}
 		return "studio/modules/psuser/psUserList";
 	}
 

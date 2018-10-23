@@ -55,6 +55,10 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
 	@Transactional(readOnly = false)
 	public void save(SysColumnHide sysColumnHide) {
 		super.save(sysColumnHide);
+		writeToCache(sysColumnHide);
+	}
+
+	private void writeToCache(SysColumnHide sysColumnHide) {
 		try {
 			// 写入缓存
 			String key = Global.getSysColumnHideKey(sysColumnHide.getClassName());
@@ -65,7 +69,7 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
 			logger.error("写入缓存异常:" + e.toString());
 		}
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void delete(SysColumnHide sysColumnHide) {
 		super.delete(sysColumnHide);

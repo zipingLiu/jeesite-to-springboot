@@ -60,12 +60,12 @@ public class SysConfigController extends BaseController {
 		Page<SysConfig> page = sysConfigService.findPage(new Page<SysConfig>(request, response), sysConfig); 
 		model.addAttribute("page", page);
 		// 读取列隐藏配置
-		SysColumnHide columnHide = new SysColumnHide();
-		columnHide.setClassName("SysConfig");
-		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
-		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
-			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
-		}
+//		SysColumnHide columnHide = new SysColumnHide();
+//		columnHide.setClassName("SysConfig");
+//		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
+//		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
+//			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
+//		}
 		return "base/modules/config/sysConfigList";
 	}
 

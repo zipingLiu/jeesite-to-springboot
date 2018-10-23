@@ -67,6 +67,7 @@ public class Global {
     public static final String USERFILES_BASE_URL = "/userfiles/";
 
     public static final String SYS_COLUMN_HIDE_KEY = "SYS-COLUMN-HIDE:";
+    public static final String SYS_COLUMN_HIDE_LIST_KEY = "SYS-COLUMN-HIDE-LIST:";
 
     /**
      * 获取当前对象实例

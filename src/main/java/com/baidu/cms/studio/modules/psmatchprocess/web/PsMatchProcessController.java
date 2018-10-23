@@ -1,7 +1,5 @@
 package com.baidu.cms.studio.modules.psmatchprocess.web;
 
-import com.baidu.cms.base.modules.column.entity.SysColumnHide;
-import com.baidu.cms.base.modules.column.service.SysColumnHideService;
 import com.baidu.cms.base.modules.config.entity.SysConfig;
 import com.baidu.cms.base.modules.config.service.SysConfigService;
 import com.baidu.cms.common.config.Global;
@@ -14,7 +12,6 @@ import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
 import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
 import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
 import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
-import com.baidu.cms.studio.modules.psproject.service.PsProjectService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,13 +38,7 @@ public class PsMatchProcessController extends BaseController {
 	private RedisUtils redisUtils;
 
 	@Autowired
-	private SysColumnHideService sysColumnHideService;
-
-	@Autowired
 	private PsMatchService psMatchService;
-
-	@Autowired
-	private PsProjectService psProjectService;
 
 	@Autowired
 	private PsMatchProcessService psMatchProcessService;
@@ -74,13 +65,6 @@ public class PsMatchProcessController extends BaseController {
 		model.addAttribute("page", page);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		// 读取列隐藏配置
-		SysColumnHide columnHide = new SysColumnHide();
-		columnHide.setClassName("PsMatchProcess");
-		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
-		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
-			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
-		}
 		// 排行榜
 		model.addAttribute("submitTopNum", getSubmitTopNum());
 		return "studio/modules/psmatchprocess/psMatchProcessList";

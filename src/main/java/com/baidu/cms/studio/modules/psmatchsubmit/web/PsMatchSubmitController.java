@@ -1,7 +1,5 @@
 package com.baidu.cms.studio.modules.psmatchsubmit.web;
 
-import com.baidu.cms.base.modules.column.entity.SysColumnHide;
-import com.baidu.cms.base.modules.column.service.SysColumnHideService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.Collections3;
@@ -14,8 +12,6 @@ import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
 import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
 import com.baidu.cms.studio.modules.psmatchsubmit.entity.PsMatchSubmit;
 import com.baidu.cms.studio.modules.psmatchsubmit.service.PsMatchSubmitService;
-import com.baidu.cms.studio.modules.psproject.entity.PsProject;
-import com.baidu.cms.studio.modules.psproject.service.PsProjectService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,16 +36,10 @@ import java.util.List;
 public class PsMatchSubmitController extends BaseController {
 
 	@Autowired
-	private SysColumnHideService sysColumnHideService;
-
-	@Autowired
 	private PsMatchService psMatchService;
 
 	@Autowired
 	private PsMatchProcessService psMatchProcessService;
-
-	@Autowired
-	private PsProjectService psProjectService;
 
 	@Autowired
 	private PsMatchSubmitService psMatchSubmitService;
@@ -84,14 +74,6 @@ public class PsMatchSubmitController extends BaseController {
         model.addAttribute("page", page);
         List<PsMatch> matchList = psMatchService.findList(new PsMatch());
         model.addAttribute("matchList", matchList);
-
-		// 读取列隐藏配置
-		SysColumnHide columnHide = new SysColumnHide();
-		columnHide.setClassName("PsMatchSubmit");
-		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
-		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
-			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
-		}
 		return "studio/modules/psmatchsubmit/psMatchSubmitList";
 	}
 
@@ -115,8 +97,8 @@ public class PsMatchSubmitController extends BaseController {
 		model.addAttribute("psMatchSubmit", psMatchSubmit);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		List<PsProject> projectList = psProjectService.findList(new PsProject());
-		model.addAttribute("projectList", projectList);
+		/*List<PsProject> projectList = psProjectService.findList(new PsProject());
+		model.addAttribute("projectList", projectList);*/
 		if (psMatchSubmit != null && psMatchSubmit.getMatchId() != null) {
 			PsMatchProcess process = new PsMatchProcess();
 			process.setMatchId(psMatchSubmit.getMatchId());

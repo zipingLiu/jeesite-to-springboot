@@ -1,7 +1,5 @@
 package com.baidu.cms.studio.modules.psmatchuser.web;
 
-import com.baidu.cms.base.modules.column.entity.SysColumnHide;
-import com.baidu.cms.base.modules.column.service.SysColumnHideService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.StringUtils;
@@ -34,9 +32,6 @@ import java.util.List;
 public class PsMatchUserController extends BaseController {
 
 	@Autowired
-	private SysColumnHideService sysColumnHideService;
-
-	@Autowired
 	private PsMatchService psMatchService;
 
 	@Autowired
@@ -63,13 +58,6 @@ public class PsMatchUserController extends BaseController {
 		model.addAttribute("page", page);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		// 读取列隐藏配置
-		SysColumnHide columnHide = new SysColumnHide();
-		columnHide.setClassName("PsMatchUser");
-		List<SysColumnHide> sysColumnHideList = sysColumnHideService.findList(columnHide);
-		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
-			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
-		}
 		return "studio/modules/psmatchuser/psMatchUserList";
 	}
 
