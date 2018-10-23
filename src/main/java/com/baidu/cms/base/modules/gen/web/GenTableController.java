@@ -66,30 +66,34 @@ public class GenTableController extends BaseController {
 	@RequiresPermissions("gen:genTable:view")
 	@RequestMapping(value = "form")
 	public String form(GenTable genTable, Model model) {
+		try {
+			// 获取物理表列表
+			List<GenTable> tableList = new ArrayList<GenTable>();
 
-		// 获取物理表列表
-		List<GenTable> tableList = new ArrayList<GenTable>();
+			// 从配置获取所有的数据库路由键和数据库名称
+			Map<String, String> map = Global.getDatasourceKeyAndName();
+			Iterator<String> it = map.keySet().iterator();
+			while (it.hasNext()) {
+				String datasourceKey = it.next();
+				DynamicDataSource.setDataSource(datasourceKey);
+				// 加载物理表
+				List<GenTable> subList = genTableService.findTableListFormDb(new GenTable());
+				tableList.addAll(subList);
+			}
+			model.addAttribute("tableList", tableList);
 
-		// 从配置获取所有的数据库路由键和数据库名称
-		Map<String, String> map = Global.getDatasourceKeyAndName();
-		Iterator<String> it = map.keySet().iterator();
-		while (it.hasNext()) {
-			String datasourceKey = it.next();
-			DynamicDataSource.setDataSource(datasourceKey);
-			// 加载物理表
-			List<GenTable> subList = genTableService.findTableListFormDb(new GenTable());
-			tableList.addAll(subList);
-		}
-		model.addAttribute("tableList", tableList);
-
-		// 验证表是否存在
-		if (StringUtils.isBlank(genTable.getId()) && !genTableService.checkTableName(genTable.getName())){
-			addMessage(model, "下一步失败！" + genTable.getName() + " 表已经添加！");
-			genTable.setName("");
-		}
-		// 获取物理表字段
-		else{
-			genTable = genTableService.getTableFormDb(genTable);
+			// 验证表是否存在
+			if (StringUtils.isBlank(genTable.getId()) && !genTableService.checkTableName(genTable.getName())){
+				addMessage(model, "下一步失败！" + genTable.getName() + " 表已经添加！");
+				genTable.setName("");
+			}
+			// 获取物理表字段
+			else{
+				genTable = genTableService.getTableFormDb(genTable);
+			}
+		} finally {
+			DynamicDataSource.clearDataSource();
+			logger.debug(">>>>>>>> clean datasource");
 		}
 		model.addAttribute("genTable", genTable);
 		model.addAttribute("config", GenUtils.getConfig());
