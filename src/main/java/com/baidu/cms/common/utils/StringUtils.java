@@ -236,6 +236,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	public static Integer toInteger(Object val){
 		return toLong(val).intValue();
 	}
+
+	/**
+	 * 转换为Integer类型,指定默认值
+	 */
+	public static Integer toInteger(Object val, int defVal){
+		return toLong(val).intValue() != 0 ? toLong(val).intValue() : defVal;
+	}
 	
 	/**
 	 * 获得i18n字符串

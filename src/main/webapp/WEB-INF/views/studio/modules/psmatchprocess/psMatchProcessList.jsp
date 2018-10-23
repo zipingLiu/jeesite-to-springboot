@@ -186,10 +186,15 @@
 				<td>
 					<fmt:formatDate value="${psMatchProcess.tokenStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-				<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><td>
-    				<a href="${ctx}/psmatchprocess/psMatchProcess/form?id=${psMatchProcess.id}">修改</a>
-					<a href="${ctx}/psmatchprocess/psMatchProcess/delete?id=${psMatchProcess.id}" onclick="return confirmx('确认要删除该比赛阶段吗？', this.href)">删除</a>
-				</td></shiro:hasPermission>
+				<td>
+					<a href="${ctx}/psmatchsubmit/psMatchSubmit/list?matchId=${psMatchProcess.matchId}&processId=${psMatchProcess.id}&orderBy=score DESC">排行榜</a>
+				</td>
+				<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit">
+					<td>
+						<a href="${ctx}/psmatchprocess/psMatchProcess/form?id=${psMatchProcess.id}">修改</a>
+						<a href="${ctx}/psmatchprocess/psMatchProcess/delete?id=${psMatchProcess.id}" onclick="return confirmx('确认要删除该比赛阶段吗？', this.href)">删除</a>
+					</td>
+				</shiro:hasPermission>
 			</tr>
 		</c:forEach>
 		</tbody>

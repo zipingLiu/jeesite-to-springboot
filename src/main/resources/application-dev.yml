@@ -97,3 +97,6 @@ userfiles:
 projectPath: /Users/v_shiyanjun/IdeaProjects/jeesite-to-springboot
 #是否使用缓存key默认前缀
 #useDefaultCacheKeyPrefix: false
+
+#比赛阶段列表页排行榜top数量
+submitTopNum: 1

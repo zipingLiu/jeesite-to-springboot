@@ -1,13 +1,15 @@
 package com.baidu.cms.studio.modules.psmatchprocess.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.baidu.cms.base.modules.column.entity.SysColumnHide;
 import com.baidu.cms.base.modules.column.service.SysColumnHideService;
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.StringUtils;
+import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
 import com.baidu.cms.studio.modules.psmatch.service.PsMatchService;
-import com.baidu.cms.studio.modules.psproject.entity.PsProject;
+import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
+import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
 import com.baidu.cms.studio.modules.psproject.service.PsProjectService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.studio.modules.psmatchprocess.entity.PsMatchProcess;
-import com.baidu.cms.studio.modules.psmatchprocess.service.PsMatchProcessService;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -67,8 +64,6 @@ public class PsMatchProcessController extends BaseController {
 		model.addAttribute("page", page);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		/*List<PsProject> projectList = psProjectService.findList(new PsProject());
-		model.addAttribute("projectList", projectList);*/
 		// 读取列隐藏配置
 		SysColumnHide columnHide = new SysColumnHide();
 		columnHide.setClassName("PsMatchProcess");
@@ -85,8 +80,6 @@ public class PsMatchProcessController extends BaseController {
 		model.addAttribute("psMatchProcess", psMatchProcess);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		/*List<PsProject> projectList = psProjectService.findList(new PsProject());
-		model.addAttribute("projectList", projectList);*/
 		return "studio/modules/psmatchprocess/psMatchProcessForm";
 	}
 

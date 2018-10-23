@@ -4,6 +4,7 @@ import com.baidu.cms.base.modules.column.entity.SysColumnHide;
 import com.baidu.cms.base.modules.column.service.SysColumnHideService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.Collections3;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.studio.common.PsUserUtil;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,14 +71,20 @@ public class PsMatchSubmitController extends BaseController {
 	@RequiresPermissions("psmatchsubmit:psMatchSubmit:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(PsMatchSubmit psMatchSubmit, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<PsMatchSubmit> page = psMatchSubmitService.findPage(new Page<PsMatchSubmit>(request, response), psMatchSubmit); 
-		model.addAttribute("page", page);
-		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
-		model.addAttribute("matchList", matchList);
-		List<PsMatchProcess> processList = psMatchProcessService.findList(new PsMatchProcess());
-		model.addAttribute("processList", processList);
-		List<PsProject> projectList = psProjectService.findList(new PsProject());
-		model.addAttribute("projectList", projectList);
+		Page<PsMatchSubmit> page = psMatchSubmitService.findPage(new Page<PsMatchSubmit>(request, response), psMatchSubmit);
+
+        // 读取排行榜配置
+        String submitTopNum = Global.getConfig("submitTopNum");
+        if (StringUtils.isNotBlank(submitTopNum)) {
+            Integer topNum = StringUtils.toInteger(submitTopNum, 1);
+            List<PsMatchSubmit> topList = getTopList(page.getList(), topNum);
+            page.setCount(topList.size());
+            page.setList(topList);
+        }
+        model.addAttribute("page", page);
+        List<PsMatch> matchList = psMatchService.findList(new PsMatch());
+        model.addAttribute("matchList", matchList);
+
 		// 读取列隐藏配置
 		SysColumnHide columnHide = new SysColumnHide();
 		columnHide.setClassName("PsMatchSubmit");
@@ -87,7 +95,21 @@ public class PsMatchSubmitController extends BaseController {
 		return "studio/modules/psmatchsubmit/psMatchSubmitList";
 	}
 
-	@RequiresPermissions("psmatchsubmit:psMatchSubmit:view")
+	/**
+	 * 求topList
+	 */
+    private List<PsMatchSubmit> getTopList(List<PsMatchSubmit> list, int topNum) {
+	    if (!Collections3.isEmpty(list)) {
+            List<PsMatchSubmit> topList = new ArrayList<>();
+            for (int i = 0; i < topNum; i++) {
+                topList.add(list.get(i));
+            }
+			return topList;
+        }
+        return list;
+    }
+
+    @RequiresPermissions("psmatchsubmit:psMatchSubmit:view")
 	@RequestMapping(value = "form")
 	public String form(PsMatchSubmit psMatchSubmit, Model model) {
 		model.addAttribute("psMatchSubmit", psMatchSubmit);
