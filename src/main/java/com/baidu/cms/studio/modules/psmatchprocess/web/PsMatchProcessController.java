@@ -6,6 +6,7 @@ import com.baidu.cms.base.modules.config.entity.SysConfig;
 import com.baidu.cms.base.modules.config.service.SysConfigService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.Collections3;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
@@ -77,12 +78,23 @@ public class PsMatchProcessController extends BaseController {
 			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
 		}
 		// 排行榜
+		model.addAttribute("submitTopNum", getSubmitTopNum());
+		return "studio/modules/psmatchprocess/psMatchProcessList";
+	}
+
+	/**
+	 * 查询排行榜展示数量
+	 */
+	private int getSubmitTopNum() {
 		SysConfig sysConfig = new SysConfig();
 		sysConfig.setConfigEnv(Global.getActiveEnv());
 		sysConfig.setConfigKey("submitTopNum");
 		List<SysConfig> configList = sysConfigService.findList(sysConfig);
-		model.addAttribute("submitTopNum", configList.get(0).getConfigValue());
-		return "studio/modules/psmatchprocess/psMatchProcessList";
+		String configValue = null;
+		if (!Collections3.isEmpty(configList)) {
+			configValue = configList.get(0).getConfigValue();
+		}
+		return StringUtils.toInteger(configValue, 1);
 	}
 
 	@RequiresPermissions("psmatchprocess:psMatchProcess:view")
