@@ -94,6 +94,15 @@ public class Global {
     }
 
     /**
+     *  当前激活环境
+     *  @author: shiyanjun
+     *  @Date: 2018/10/23 下午3:10
+     */
+    public static String getActiveEnv() {
+        return Global.getConfig("spring.profiles.active");
+    }
+
+    /**
      *  获取配置中的所有key
      *
      *  @author: shiyanjun

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.base.modules.config.dao.SysConfigDao">
+    
+	<sql id="sysConfigColumns">
+		a.id AS "id",
+		a.config_env AS "configEnv",
+		a.config_key AS "configKey",
+		a.config_value AS "configValue",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sysConfigJoins">
+	</sql>
+    
+	<select id="get" resultType="SysConfig">
+		SELECT 
+			<include refid="sysConfigColumns"/>
+		FROM sys_config a
+		<include refid="sysConfigJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysConfig">
+		SELECT 
+			<include refid="sysConfigColumns"/>
+		FROM sys_config a
+		<include refid="sysConfigJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="configEnv != null and configEnv != ''">
+				AND a.config_env = #{configEnv}
+			</if>
+			<if test="configKey != null and configKey != ''">
+				AND a.config_key LIKE 
+					<if test="dbName == 'oracle'">'%'||#{configKey}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{configKey}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{configKey},'%')</if>
+			</if>
+			<if test="configValue != null and configValue != ''">
+				AND a.config_value LIKE 
+					<if test="dbName == 'oracle'">'%'||#{configValue}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{configValue}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{configValue},'%')</if>
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date &gt;= #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date &gt;= #{updateDate}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks LIKE 
+					<if test="dbName == 'oracle'">'%'||#{remarks}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{remarks}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{remarks},'%')</if>
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysConfig">
+		SELECT 
+			<include refid="sysConfigColumns"/>
+		FROM sys_config a
+		<include refid="sysConfigJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO sys_config(
+			config_env,
+			config_key,
+			config_value,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{configEnv},
+			#{configKey},
+			#{configValue},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_config SET 	
+			config_env = #{configEnv},
+			config_key = #{configKey},
+			config_value = #{configValue},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_config SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

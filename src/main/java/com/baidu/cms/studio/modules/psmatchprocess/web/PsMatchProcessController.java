@@ -2,6 +2,8 @@ package com.baidu.cms.studio.modules.psmatchprocess.web;
 
 import com.baidu.cms.base.modules.column.entity.SysColumnHide;
 import com.baidu.cms.base.modules.column.service.SysColumnHideService;
+import com.baidu.cms.base.modules.config.entity.SysConfig;
+import com.baidu.cms.base.modules.config.service.SysConfigService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.StringUtils;
@@ -44,6 +46,9 @@ public class PsMatchProcessController extends BaseController {
 
 	@Autowired
 	private PsMatchProcessService psMatchProcessService;
+
+	@Autowired
+	private SysConfigService sysConfigService;
 	
 	@ModelAttribute
 	public PsMatchProcess get(@RequestParam(required=false) String id) {
@@ -72,7 +77,11 @@ public class PsMatchProcessController extends BaseController {
 			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
 		}
 		// 排行榜
-		model.addAttribute("submitTopNum", Global.getConfig("submitTopNum"));
+		SysConfig sysConfig = new SysConfig();
+		sysConfig.setConfigEnv(Global.getActiveEnv());
+		sysConfig.setConfigKey("submitTopNum");
+		List<SysConfig> configList = sysConfigService.findList(sysConfig);
+		model.addAttribute("submitTopNum", configList.get(0).getConfigValue());
 		return "studio/modules/psmatchprocess/psMatchProcessList";
 	}
 
