@@ -3,6 +3,7 @@ package com.baidu.cms.base.modules.config.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baidu.cms.common.utils.RedisUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "${adminPath}/config/sysConfig")
 public class SysConfigController extends BaseController {
+
+	@Autowired
+	private RedisUtils redisUtils;
 
 	@Autowired
 	private SysColumnHideService sysColumnHideService;
@@ -80,6 +84,8 @@ public class SysConfigController extends BaseController {
 		}
 		sysConfigService.save(sysConfig);
 		addMessage(redirectAttributes, "保存配置项成功");
+		// 写入缓存
+		redisUtils.set(sysConfig.getConfigKey(), sysConfig.getConfigValue());
 		return "redirect:"+Global.getAdminPath()+"/config/sysConfig/?repage";
 	}
 	

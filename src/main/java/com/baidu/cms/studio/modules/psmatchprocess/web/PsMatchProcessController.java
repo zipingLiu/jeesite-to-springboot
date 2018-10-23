@@ -7,6 +7,7 @@ import com.baidu.cms.base.modules.config.service.SysConfigService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.utils.Collections3;
+import com.baidu.cms.common.utils.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.studio.modules.psmatch.entity.PsMatch;
@@ -35,6 +36,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "${adminPath}/psmatchprocess/psMatchProcess")
 public class PsMatchProcessController extends BaseController {
+
+	@Autowired
+	private RedisUtils redisUtils;
 
 	@Autowired
 	private SysColumnHideService sysColumnHideService;
@@ -89,8 +93,13 @@ public class PsMatchProcessController extends BaseController {
 		SysConfig sysConfig = new SysConfig();
 		sysConfig.setConfigEnv(Global.getActiveEnv());
 		sysConfig.setConfigKey("submitTopNum");
+		// 查询缓存
+		String configValue = redisUtils.get(sysConfig.getConfigKey());
+		if (StringUtils.isNotBlank(configValue)) {
+			return StringUtils.toInteger(configValue, 1);
+		}
+		// 查询DB
 		List<SysConfig> configList = sysConfigService.findList(sysConfig);
-		String configValue = null;
 		if (!Collections3.isEmpty(configList)) {
 			configValue = configList.get(0).getConfigValue();
 		}
