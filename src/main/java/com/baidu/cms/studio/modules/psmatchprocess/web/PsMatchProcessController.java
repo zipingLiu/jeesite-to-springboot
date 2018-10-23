@@ -71,6 +71,8 @@ public class PsMatchProcessController extends BaseController {
 		if (sysColumnHideList != null && sysColumnHideList.size() > 0) {
 			model.addAttribute("columnHideArr", sysColumnHideList.get(0).getColumnHideArr());
 		}
+		// 排行榜
+		model.addAttribute("submitTopNum", Global.getConfig("submitTopNum"));
 		return "studio/modules/psmatchprocess/psMatchProcessList";
 	}
 

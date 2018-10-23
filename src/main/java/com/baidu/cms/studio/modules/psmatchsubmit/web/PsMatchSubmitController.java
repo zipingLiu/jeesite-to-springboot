@@ -74,7 +74,7 @@ public class PsMatchSubmitController extends BaseController {
 		Page<PsMatchSubmit> page = psMatchSubmitService.findPage(new Page<PsMatchSubmit>(request, response), psMatchSubmit);
 
         // 读取排行榜配置
-        String submitTopNum = Global.getConfig("submitTopNum");
+		String submitTopNum = request.getParameter("submitTopNum");
         if (StringUtils.isNotBlank(submitTopNum)) {
             Integer topNum = StringUtils.toInteger(submitTopNum, 1);
             List<PsMatchSubmit> topList = getTopList(page.getList(), topNum);

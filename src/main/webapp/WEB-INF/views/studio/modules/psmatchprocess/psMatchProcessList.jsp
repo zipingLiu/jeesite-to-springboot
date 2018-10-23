@@ -187,7 +187,7 @@
 					<fmt:formatDate value="${psMatchProcess.tokenStartTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-					<a href="${ctx}/psmatchsubmit/psMatchSubmit/list?matchId=${psMatchProcess.matchId}&processId=${psMatchProcess.id}&orderBy=score DESC">排行榜</a>
+					<a href="${ctx}/psmatchsubmit/psMatchSubmit/list?matchId=${psMatchProcess.matchId}&processId=${psMatchProcess.id}&orderBy=score DESC&submitTopNum=${submitTopNum}">排行榜</a>
 				</td>
 				<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit">
 					<td>
