@@ -1,15 +1,10 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
 package com.baidu.cms.common.web;
 
+import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
+import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.Encodes;
 import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
-import com.baidu.cms.base.modules.sys.utils.UserUtils;
 import com.google.common.net.HttpHeaders;
 import org.apache.commons.lang3.Validate;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -19,8 +14,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 /**
  * Http与Servlet工具类.

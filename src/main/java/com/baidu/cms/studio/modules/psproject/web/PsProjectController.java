@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 项目管理Controller
+ *
  * @author shiyanjun
  * @version 2018-10-18
  */
@@ -27,53 +28,53 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "${adminPath}/psproject/psProject")
 public class PsProjectController extends BaseController {
 
-	@Autowired
-	private PsProjectService psProjectService;
-	
-	@ModelAttribute
-	public PsProject get(@RequestParam(required=false) String id) {
-		PsProject entity = null;
-		if (StringUtils.isNotBlank(id)){
-			entity = psProjectService.get(id);
-		}
-		if (entity == null){
-			entity = new PsProject();
-		}
-		return entity;
-	}
-	
-	@RequiresPermissions("psproject:psProject:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(PsProject psProject, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<PsProject> page = psProjectService.findPage(new Page<PsProject>(request, response), psProject); 
-		model.addAttribute("page", page);
-		return "studio/modules/psproject/psProjectList";
-	}
+    @Autowired
+    private PsProjectService psProjectService;
 
-	@RequiresPermissions("psproject:psProject:view")
-	@RequestMapping(value = "form")
-	public String form(PsProject psProject, Model model) {
-		model.addAttribute("psProject", psProject);
-		return "studio/modules/psproject/psProjectForm";
-	}
+    @ModelAttribute
+    public PsProject get(@RequestParam(required = false) String id) {
+        PsProject entity = null;
+        if (StringUtils.isNotBlank(id)) {
+            entity = psProjectService.get(id);
+        }
+        if (entity == null) {
+            entity = new PsProject();
+        }
+        return entity;
+    }
 
-	@RequiresPermissions("psproject:psProject:edit")
-	@RequestMapping(value = "save")
-	public String save(PsProject psProject, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, psProject)){
-			return form(psProject, model);
-		}
-		psProjectService.save(psProject);
-		addMessage(redirectAttributes, "保存项目成功");
-		return "redirect:"+Global.getAdminPath()+"/psproject/psProject/?repage";
-	}
-	
-	@RequiresPermissions("psproject:psProject:edit")
-	@RequestMapping(value = "delete")
-	public String delete(PsProject psProject, RedirectAttributes redirectAttributes) {
-		psProjectService.delete(psProject);
-		addMessage(redirectAttributes, "删除项目成功");
-		return "redirect:"+Global.getAdminPath()+"/psproject/psProject/?repage";
-	}
+    @RequiresPermissions("psproject:psProject:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(PsProject psProject, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<PsProject> page = psProjectService.findPage(new Page<>(request, response), psProject);
+        model.addAttribute("page", page);
+        return "studio/modules/psproject/psProjectList";
+    }
+
+    @RequiresPermissions("psproject:psProject:view")
+    @RequestMapping(value = "form")
+    public String form(PsProject psProject, Model model) {
+        model.addAttribute("psProject", psProject);
+        return "studio/modules/psproject/psProjectForm";
+    }
+
+    @RequiresPermissions("psproject:psProject:edit")
+    @RequestMapping(value = "save")
+    public String save(PsProject psProject, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, psProject)) {
+            return form(psProject, model);
+        }
+        psProjectService.save(psProject);
+        addMessage(redirectAttributes, "保存项目成功");
+        return "redirect:" + Global.getAdminPath() + "/psproject/psProject/?repage";
+    }
+
+    @RequiresPermissions("psproject:psProject:edit")
+    @RequestMapping(value = "delete")
+    public String delete(PsProject psProject, RedirectAttributes redirectAttributes) {
+        psProjectService.delete(psProject);
+        addMessage(redirectAttributes, "删除项目成功");
+        return "redirect:" + Global.getAdminPath() + "/psproject/psProject/?repage";
+    }
 
 }

@@ -15,10 +15,10 @@
 	</appender>
 	
 	<appender name="sysDailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/Users/v_shiyanjun/studio/logs/sys.log</file>
+		<file>/data/logs/studio/sys.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>/Users/v_shiyanjun/studio/logs/sys-%d{yyyyMMdd}.log</fileNamePattern>
+			<fileNamePattern>/data/logs/studio/sys-%d{yyyyMMdd}.log</fileNamePattern>
 			<!-- 保留30天的日志 -->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
@@ -32,10 +32,10 @@
 	</appender>
 	
 	<appender name="infoDailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/Users/v_shiyanjun/studio/logs/studio-info.log</file>
+		<file>/data/logs/studio/studio-info.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>/Users/v_shiyanjun/studio/logs/jy-info-%d{yyyyMMdd}.log</fileNamePattern>
+			<fileNamePattern>/data/logs/studio/jy-info-%d{yyyyMMdd}.log</fileNamePattern>
 			<!-- 保留30天的日志 -->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
@@ -51,10 +51,10 @@
 	</appender>
 	
 	<appender name="severeDailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/Users/v_shiyanjun/studio/logs/studio-severe.log</file>
+		<file>/data/logs/studio/studio-severe.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>/Users/v_shiyanjun/studio/logs/studio-severe-%d{yyyyMMdd}.log</fileNamePattern>
+			<fileNamePattern>/data/logs/studio/studio-severe-%d{yyyyMMdd}.log</fileNamePattern>
 			<!-- 保留30天的日志 -->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>

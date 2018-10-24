@@ -38,14 +38,15 @@ public class ColumnHideInterceptor implements HandlerInterceptor {
     }
 
     /**
-     *  查询列隐藏配置写入视图对象
-     *  @author: shiyanjun
-     *  @Date: 2018/10/23 下午10:00
+     * 查询列隐藏配置写入视图对象
+     *
+     * @author: shiyanjun
+     * @Date: 2018/10/23 下午10:00
      */
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
-        if (ColumnHideView.hasKey(modelAndView.getViewName())) {
-            try {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) {
+        try {
+            if (modelAndView != null && ColumnHideView.hasKey(modelAndView.getViewName())) {
                 // 读缓存
                 List<Object> list = lo.range(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY), 0, -1);
                 if (!Collections3.isEmpty(list)) {
@@ -76,10 +77,11 @@ public class ColumnHideInterceptor implements HandlerInterceptor {
 
                     }
                 }
-            } catch (Exception e) {
-                logger.error("拦截器查询列隐藏配置异常:" + e.toString());
             }
+        } catch (Exception e) {
+            logger.error("拦截器查询列隐藏配置异常:" + e.toString());
         }
+
     }
 
     @Override

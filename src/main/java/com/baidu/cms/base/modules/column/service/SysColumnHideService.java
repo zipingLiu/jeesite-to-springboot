@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * 列隐藏配置Service
+ *
  * @author shiyanjun
  * @version 2018-10-22
  */
@@ -26,42 +27,42 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColumnHide> {
 
-	@Autowired
-	private RedisUtils redisUtils;
+    @Autowired
+    private RedisUtils redisUtils;
 
-	@Autowired
-	private ListOperations<String, Object> listOps;
+    @Autowired
+    private ListOperations<String, Object> listOps;
 
-	public SysColumnHide get(String id) {
-		return super.get(id);
-	}
-	
-	public List<SysColumnHide> findList(SysColumnHide sysColumnHide) {
-		try {
-			String key = Global.getSysColumnHideKey(sysColumnHide.getClassName());
-			String value = redisUtils.get(key);
-			logger.info("查询缓存:" + key + "=" + value);
-			if (StringUtils.isNotBlank(value)) {
-				List<SysColumnHide> hideList = new ArrayList<>();
-				sysColumnHide.setColumnHideArr(value);
-				hideList.add(sysColumnHide);
-				return hideList;
-			}
-		} catch (Exception e) {
-			logger.error("查询缓存异常:" + e.toString());
-		}
-		return super.findList(sysColumnHide);
-	}
-	
-	public Page<SysColumnHide> findPage(Page<SysColumnHide> page, SysColumnHide sysColumnHide) {
-		return super.findPage(page, sysColumnHide);
-	}
-	
-	@Transactional(readOnly = false)
-	public void save(SysColumnHide hide) {
-		super.save(hide);
-		this.updateCache();
-	}
+    public SysColumnHide get(String id) {
+        return super.get(id);
+    }
+
+    public List<SysColumnHide> findList(SysColumnHide sysColumnHide) {
+        try {
+            String key = Global.getSysColumnHideKey(sysColumnHide.getClassName());
+            String value = redisUtils.get(key);
+            logger.info("查询缓存:" + key + "=" + value);
+            if (StringUtils.isNotBlank(value)) {
+                List<SysColumnHide> hideList = new ArrayList<>();
+                sysColumnHide.setColumnHideArr(value);
+                hideList.add(sysColumnHide);
+                return hideList;
+            }
+        } catch (Exception e) {
+            logger.error("查询缓存异常:" + e.toString());
+        }
+        return super.findList(sysColumnHide);
+    }
+
+    public Page<SysColumnHide> findPage(Page<SysColumnHide> page, SysColumnHide sysColumnHide) {
+        return super.findPage(page, sysColumnHide);
+    }
+
+    @Transactional(readOnly = false)
+    public void save(SysColumnHide hide) {
+        super.save(hide);
+        this.updateCache();
+    }
 
 	/*private void writeToCache(SysColumnHide sysColumnHide) {
 		try {
@@ -75,35 +76,36 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
 		}
 	}*/
 
-	/**
-	 *  刷新缓存
-	 *  @author: shiyanjun
-	 *  @Date: 2018/10/24 上午9:59
-	 */
-	private void updateCache() {
-		try {
-			List<SysColumnHide> list = findAllList(new SysColumnHide());
-			String key = RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY);
-			// 先删除list,再写入
-			redisUtils.delete(key);
-			for (SysColumnHide hide : list) {
-				JSONObject jsonObject = new JSONObject();
-				jsonObject.put("pageName", hide.getPageName());
-				jsonObject.put("className", hide.getClassName());
-				jsonObject.put("columnHideArr", hide.getColumnHideArr());
-				String value = JSON.toJSONString(jsonObject);
-				listOps.leftPush(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY), value);
-				logger.info("写入缓存:" + key + "=" + value);
-			}
-		} catch (Exception e) {
-			logger.error("写入缓存异常:" + e.toString());
-		}
-	}
+    /**
+     * 刷新缓存
+     *
+     * @author: shiyanjun
+     * @Date: 2018/10/24 上午9:59
+     */
+    private void updateCache() {
+        try {
+            List<SysColumnHide> list = findAllList(new SysColumnHide());
+            String key = RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY);
+            // 先删除list,再写入
+            redisUtils.delete(key);
+            for (SysColumnHide hide : list) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("pageName", hide.getPageName());
+                jsonObject.put("className", hide.getClassName());
+                jsonObject.put("columnHideArr", hide.getColumnHideArr());
+                String value = JSON.toJSONString(jsonObject);
+                listOps.leftPush(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY), value);
+                logger.info("写入缓存:" + key + "=" + value);
+            }
+        } catch (Exception e) {
+            logger.error("写入缓存异常:" + e.toString());
+        }
+    }
 
-	@Transactional(readOnly = false)
-	public void delete(SysColumnHide sysColumnHide) {
-		super.delete(sysColumnHide);
-		this.updateCache();
-	}
-	
+    @Transactional(readOnly = false)
+    public void delete(SysColumnHide sysColumnHide) {
+        super.delete(sysColumnHide);
+        this.updateCache();
+    }
+
 }

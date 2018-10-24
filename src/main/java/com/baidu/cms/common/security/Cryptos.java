@@ -1,6 +1,3 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
- */
 package com.baidu.cms.common.security;
 
 import java.io.UnsupportedEncodingException;
@@ -23,7 +20,7 @@ import com.baidu.cms.common.utils.Exceptions;
  * 
  * 支持Hex与Base64两种编码方式.
  * 
- * @author calvin
+ * @author Idea
  */
 public class Cryptos {
 

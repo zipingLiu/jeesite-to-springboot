@@ -1,9 +1,9 @@
 package com.baidu.cms.common.web;
 
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.utils.FileUtils;
 import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
 import com.baidu.cms.base.modules.sys.utils.UserUtils;
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.utils.FileUtils;
 import com.ckfinder.connector.configuration.Configuration;
 import com.ckfinder.connector.configuration.Events;
 import com.ckfinder.connector.data.AccessControlLevel;

@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 用户管理Controller
+ *
  * @author shiyanjun
  * @version 2018-10-18
  */
@@ -28,56 +29,56 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "${adminPath}/psuser/psUser")
 public class PsUserController extends BaseController {
 
-	@Autowired
-	private PsUserService psUserService;
-	
-	@ModelAttribute
-	public PsUser get(@RequestParam(required=false) String id) {
-		PsUser entity = null;
-		if (StringUtils.isNotBlank(id)){
-			entity = psUserService.get(id);
-		}
-		if (entity == null){
-			entity = new PsUser();
-		} else {
-			// 用户敏感信息解密
-			PsUserUtil.decrypt(entity);
-		}
-		return entity;
-	}
-	
-	@RequiresPermissions("psuser:psUser:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(PsUser psUser, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<PsUser> page = psUserService.findPage(new Page<PsUser>(request, response), psUser); 
-		model.addAttribute("page", page);
-		return "studio/modules/psuser/psUserList";
-	}
+    @Autowired
+    private PsUserService psUserService;
 
-	@RequiresPermissions("psuser:psUser:view")
-	@RequestMapping(value = "form")
-	public String form(PsUser psUser, Model model) {
-		model.addAttribute("psUser", psUser);
-		return "studio/modules/psuser/psUserForm";
-	}
+    @ModelAttribute
+    public PsUser get(@RequestParam(required = false) String id) {
+        PsUser entity = null;
+        if (StringUtils.isNotBlank(id)) {
+            entity = psUserService.get(id);
+        }
+        if (entity == null) {
+            entity = new PsUser();
+        } else {
+            // 用户敏感信息解密
+            PsUserUtil.decrypt(entity);
+        }
+        return entity;
+    }
 
-	@RequiresPermissions("psuser:psUser:edit")
-	@RequestMapping(value = "save")
-	public String save(PsUser psUser, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, psUser)){
-			return form(psUser, model);
-		}
-		psUserService.save(psUser);
-		addMessage(redirectAttributes, "保存用户管理成功");
-		return "redirect:"+Global.getAdminPath()+"/psuser/psUser/?repage";
-	}
-	
-	@RequiresPermissions("psuser:psUser:edit")
-	@RequestMapping(value = "delete")
-	public String delete(PsUser psUser, RedirectAttributes redirectAttributes) {
-		psUserService.delete(psUser);
-		addMessage(redirectAttributes, "删除用户管理成功");
-		return "redirect:"+Global.getAdminPath()+"/psuser/psUser/?repage";
-	}
+    @RequiresPermissions("psuser:psUser:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(PsUser psUser, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<PsUser> page = psUserService.findPage(new Page<PsUser>(request, response), psUser);
+        model.addAttribute("page", page);
+        return "studio/modules/psuser/psUserList";
+    }
+
+    @RequiresPermissions("psuser:psUser:view")
+    @RequestMapping(value = "form")
+    public String form(PsUser psUser, Model model) {
+        model.addAttribute("psUser", psUser);
+        return "studio/modules/psuser/psUserForm";
+    }
+
+    @RequiresPermissions("psuser:psUser:edit")
+    @RequestMapping(value = "save")
+    public String save(PsUser psUser, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, psUser)) {
+            return form(psUser, model);
+        }
+        psUserService.save(psUser);
+        addMessage(redirectAttributes, "保存用户管理成功");
+        return "redirect:" + Global.getAdminPath() + "/psuser/psUser/?repage";
+    }
+
+    @RequiresPermissions("psuser:psUser:edit")
+    @RequestMapping(value = "delete")
+    public String delete(PsUser psUser, RedirectAttributes redirectAttributes) {
+        psUserService.delete(psUser);
+        addMessage(redirectAttributes, "删除用户管理成功");
+        return "redirect:" + Global.getAdminPath() + "/psuser/psUser/?repage";
+    }
 
 }

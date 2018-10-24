@@ -6,11 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 业务表字段DAO接口
+ *
  * @author Idea
  * @version 2013-10-15
  */
 @Mapper
 public interface GenTableColumnDao extends CrudDao<GenTableColumn> {
-	
-	public void deleteByGenTableId(String genTableId);
+
+    void deleteByGenTableId(String genTableId);
 }

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 生成菜单Controller
+ *
  * @author shiyanjun
  * @version 2018-10-12
  */
@@ -27,53 +28,53 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "${adminPath}/tool/genMenu")
 public class GenMenuController extends BaseController {
 
-	@Autowired
-	private GenMenuService genMenuService;
-	
-	@ModelAttribute
-	public GenMenu get(@RequestParam(required=false) String id) {
-		GenMenu entity = null;
-		if (StringUtils.isNotBlank(id)){
-			entity = genMenuService.get(id);
-		}
-		if (entity == null){
-			entity = new GenMenu();
-		}
-		return entity;
-	}
-	
-	@RequiresPermissions("tool:genMenu:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(GenMenu genMenu, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<GenMenu> page = genMenuService.findPage(new Page<GenMenu>(request, response), genMenu);
-		model.addAttribute("page", page);
-		return "base/modules/tool/genMenuList";
-	}
+    @Autowired
+    private GenMenuService genMenuService;
 
-	@RequiresPermissions("tool:genMenu:view")
-	@RequestMapping(value = "form")
-	public String form(GenMenu genMenu, Model model) {
-		model.addAttribute("genMenu", genMenu);
-		return "base/modules/tool/genMenuForm";
-	}
+    @ModelAttribute
+    public GenMenu get(@RequestParam(required = false) String id) {
+        GenMenu entity = null;
+        if (StringUtils.isNotBlank(id)) {
+            entity = genMenuService.get(id);
+        }
+        if (entity == null) {
+            entity = new GenMenu();
+        }
+        return entity;
+    }
 
-	@RequiresPermissions("tool:genMenu:edit")
-	@RequestMapping(value = "save")
-	public String save(GenMenu genMenu, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, genMenu)){
-			return form(genMenu, model);
-		}
-		genMenuService.save(genMenu);
-		addMessage(redirectAttributes, "保存生成菜单成功");
-		return "redirect:"+ Global.getAdminPath()+"/tool/genMenu/?repage";
-	}
-	
-	@RequiresPermissions("tool:genMenu:edit")
-	@RequestMapping(value = "delete")
-	public String delete(GenMenu genMenu, RedirectAttributes redirectAttributes) {
-		genMenuService.delete(genMenu);
-		addMessage(redirectAttributes, "删除生成菜单成功");
-		return "redirect:"+ Global.getAdminPath()+"/tool/genMenu/?repage";
-	}
+    @RequiresPermissions("tool:genMenu:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(GenMenu genMenu, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<GenMenu> page = genMenuService.findPage(new Page<>(request, response), genMenu);
+        model.addAttribute("page", page);
+        return "base/modules/tool/genMenuList";
+    }
+
+    @RequiresPermissions("tool:genMenu:view")
+    @RequestMapping(value = "form")
+    public String form(GenMenu genMenu, Model model) {
+        model.addAttribute("genMenu", genMenu);
+        return "base/modules/tool/genMenuForm";
+    }
+
+    @RequiresPermissions("tool:genMenu:edit")
+    @RequestMapping(value = "save")
+    public String save(GenMenu genMenu, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, genMenu)) {
+            return form(genMenu, model);
+        }
+        genMenuService.save(genMenu);
+        addMessage(redirectAttributes, "保存生成菜单成功");
+        return "redirect:" + Global.getAdminPath() + "/tool/genMenu/?repage";
+    }
+
+    @RequiresPermissions("tool:genMenu:edit")
+    @RequestMapping(value = "delete")
+    public String delete(GenMenu genMenu, RedirectAttributes redirectAttributes) {
+        genMenuService.delete(genMenu);
+        addMessage(redirectAttributes, "删除生成菜单成功");
+        return "redirect:" + Global.getAdminPath() + "/tool/genMenu/?repage";
+    }
 
 }

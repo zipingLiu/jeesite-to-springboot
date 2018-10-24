@@ -3,9 +3,8 @@ package com.baidu.cms.common.persistence.dialect;
 /**
  * Dialect for HSQLDB
  *
- * @author poplar.yfyang
+ * @author Idea
  * @version 1.0 2010-10-10 下午12:31
- * @since JDK 1.5
  */
 public class HSQLDialect implements Dialect {
     @Override

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexConteoller {
     @Value("${adminPath:/a}")
     private String adminpath;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "redirect:" + adminpath + "/login";

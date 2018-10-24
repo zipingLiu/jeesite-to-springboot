@@ -9,9 +9,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *  多数据源注解
- *  @author: shiyanjun
- *  @Date: 2018/10/14 下午8:30
+ * 动态数据源注解
+ *
+ * @author: shiyanjun
+ * @Date: 2018/10/14 下午8:30
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

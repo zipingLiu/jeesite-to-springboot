@@ -1,8 +1,3 @@
-/**
- * Copyright (c) 2005-2011 springside.org.cn
- * <p>
- * $Id: PropertiesLoader.java 1690 2012-02-22 13:42:00Z calvinxiu $
- */
 package com.baidu.cms.common.utils;
 
 import org.apache.commons.io.IOUtils;
@@ -23,7 +18,7 @@ import java.util.Properties;
 /**
  * Properties文件载入工具类. 可载入多个properties文件, 相同的属性在最后载入的文件中的值将会覆盖之前的值，但以System的Property优先.
  *
- * @author calvin
+ * @author Idea
  * @version 2013-05-15
  */
 public class PropertiesLoader {

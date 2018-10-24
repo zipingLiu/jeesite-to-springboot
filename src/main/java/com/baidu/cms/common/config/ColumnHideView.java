@@ -1,9 +1,10 @@
 package com.baidu.cms.common.config;
 
 /**
- *  列隐藏视图路径枚举
- *  @author: shiyanjun
- *  @Date: 2018/10/23 下午9:58
+ * 列隐藏视图路径枚举
+ *
+ * @author: shiyanjun
+ * @Date: 2018/10/23 下午9:58
  */
 public enum ColumnHideView {
 

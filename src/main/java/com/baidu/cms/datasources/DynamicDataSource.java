@@ -6,9 +6,10 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 /**
- *  动态数据源
- *  @author: shiyanjun
- *  @Date: 2018/10/14 下午8:51
+ * 动态数据源切换
+ *
+ * @author: shiyanjun
+ * @Date: 2018/10/14 下午8:51
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();

@@ -97,21 +97,22 @@ public class Global {
     }
 
     /**
-     *  当前激活环境
-     *  @author: shiyanjun
-     *  @Date: 2018/10/23 下午3:10
+     * 当前激活环境
+     *
+     * @author: shiyanjun
+     * @Date: 2018/10/23 下午3:10
      */
     public static String getActiveEnv() {
         return Global.getConfig("spring.profiles.active");
     }
 
     /**
-     *  获取配置中的所有key
+     * 获取配置中的所有key
      *
-     *  @author: shiyanjun
-     *  @Date: 2018/10/11 上午10:23
+     * @author: shiyanjun
+     * @Date: 2018/10/11 上午10:23
      */
-    public static List<String> getPropKeys () {
+    public static List<String> getPropKeys() {
         List<String> list = new ArrayList<String>();
         Enumeration<?> names = loader.getProperties().propertyNames();
         if (names != null) {
@@ -178,6 +179,7 @@ public class Global {
 
     /**
      * 根据数据库名获取数据库路由键
+     *
      * @Author shiyanjun
      * @Date 2018/10/18 上午11:34
      * @Param
@@ -190,6 +192,7 @@ public class Global {
 
     /**
      * 根据数据库路由键获取数据库名称
+     *
      * @Author shiyanjun
      * @Date 2018/10/18 上午11:36
      * @Param
@@ -202,6 +205,7 @@ public class Global {
 
     /**
      * 获取所有数据库名称
+     *
      * @Author shiyanjun
      * @Date 2018/10/18 上午11:18
      * @Param
@@ -221,6 +225,7 @@ public class Global {
 
     /**
      * 获取数据库的路由键
+     *
      * @Author shiyanjun
      * @Date 2018/10/18 上午11:24
      * @Param
@@ -238,9 +243,10 @@ public class Global {
     }
 
     /**
-     *  从jdbcUrl中解析出数据库名
-     *  @author: shiyanjun
-     *  @Date: 2018/10/11 上午10:35
+     * 从jdbcUrl中解析出数据库名
+     *
+     * @author: shiyanjun
+     * @Date: 2018/10/11 上午10:35
      */
     private static String getDbName(String jdbcUrl) {
         if (StringUtils.isNotBlank(jdbcUrl) && jdbcUrl.startsWith("jdbc:mysql:")) {
@@ -255,6 +261,7 @@ public class Global {
 
     /**
      * 获取所有jdbcUrl配置
+     *
      * @Author shiyanjun
      * @Date 2018/10/18 上午11:12
      * @Param
@@ -279,6 +286,7 @@ public class Global {
 
     /**
      * 获取所有spring数据源配置
+     *
      * @Author shiyanjun
      * @Date 2018/10/18 上午10:59
      * @Param
@@ -302,25 +310,26 @@ public class Global {
 
     /**
      * 获取工程路径
+     *
      * @return
      */
-    public static String getProjectPath(){
+    public static String getProjectPath() {
         // 如果配置了工程路径，则直接返回，否则自动获取。
         String projectPath = Global.getConfig("projectPath");
-        if (StringUtils.isNotBlank(projectPath)){
+        if (StringUtils.isNotBlank(projectPath)) {
             return projectPath;
         }
         try {
             File file = new DefaultResourceLoader().getResource("").getFile();
-            if (file != null){
-                while(true){
+            if (file != null) {
+                while (true) {
                     File f = new File(file.getPath() + File.separator + "src" + File.separator + "main");
-                    if (f == null || f.exists()){
+                    if (f == null || f.exists()) {
                         break;
                     }
-                    if (file.getParentFile() != null){
+                    if (file.getParentFile() != null) {
                         file = file.getParentFile();
-                    }else{
+                    } else {
                         break;
                     }
                 }

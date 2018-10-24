@@ -1,15 +1,14 @@
 package com.baidu.cms.common.persistence.dialect;
 
 /**
- * @author poplar.yfyang
+ * @author Idea
  * @version 1.0 2010-10-10 下午12:31
- * @since JDK 1.5
  */
 public class DerbyDialect implements Dialect {
     @Override
     public boolean supportsLimit() {
         return false;
-	}
+    }
 
     @Override
     public String getLimitString(String sql, int offset, int limit) {
@@ -32,8 +31,8 @@ public class DerbyDialect implements Dialect {
      * @param limitPlaceholder  分页纪录条数占位符号
      * @return 包含占位符的分页sql
      */
-	public String getLimitString(String sql, int offset,String offsetPlaceholder, int limit, String limitPlaceholder) {
-		throw new UnsupportedOperationException( "paged queries not supported" );
-	}
+    public String getLimitString(String sql, int offset, String offsetPlaceholder, int limit, String limitPlaceholder) {
+        throw new UnsupportedOperationException("paged queries not supported");
+    }
 
 }

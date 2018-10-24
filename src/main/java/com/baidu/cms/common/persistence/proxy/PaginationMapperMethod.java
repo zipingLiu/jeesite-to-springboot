@@ -20,9 +20,8 @@ import java.util.Map;
  * 执行代理类，扩展Mybatis的方式来让其Mapper接口来支持.
  * </p>
  *
- * @author poplar.yfyang
+ * @author Idea
  * @version 1.0 2012-05-13 上午10:09
- * @since JDK 1.5
  */
 public class PaginationMapperMethod {
 
@@ -72,7 +71,7 @@ public class PaginationMapperMethod {
         RowBounds rowBounds;
         if (paginationIndex != null) {
             page = (Page<Object>) args[paginationIndex];
-            rowBounds =  new RowBounds(page.getFirstResult(), page.getMaxResults());
+            rowBounds = new RowBounds(page.getFirstResult(), page.getMaxResults());
         } else if (rowBoundsIndex != null) {
             rowBounds = (RowBounds) args[rowBoundsIndex];
             page = new Page<Object>();

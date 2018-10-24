@@ -16,20 +16,15 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- *  多数据源，切面处理类
- *  @author: shiyanjun
- *  @Date: 2018/10/14 下午9:35
+ * 动态数据源切面处理类
+ *
+ * @author: shiyanjun
+ * @Date: 2018/10/14 下午9:35
  */
 @Aspect
 @Component
 public class DataSourceAspect implements Ordered {
     protected Logger logger = LoggerFactory.getLogger(getClass());
-
-//    @Value("${spring.datasource.druid.base.pointcutExecution}")
-//    String basePointcutExecution;
-//
-//    @Value("${spring.datasource.druid.studio.pointcutExecution}")
-//    String studioPointcutExecution;
 
     @Pointcut("@annotation(com.baidu.cms.datasources.annotation.DataSource)")
     public void dataSourcePointCutWithAnnotation() {
@@ -42,52 +37,21 @@ public class DataSourceAspect implements Ordered {
         Method method = signature.getMethod();
 
         DataSource ds = method.getAnnotation(DataSource.class);
-        if(ds == null){
+        if (ds == null) {
             DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
-            logger.debug(">>>>>>>> set datasource is " + DataSourceNames.BASE.getKey());
-        }else {
+            logger.debug("设置数据源:" + DataSourceNames.BASE.getKey());
+        } else {
             DynamicDataSource.setDataSource(ds.name().getKey());
-            logger.debug(">>>>>>>> set datasource is " + ds.name());
+            logger.debug("设置数据源:" + ds.name());
         }
 
         try {
             return point.proceed();
         } finally {
             DynamicDataSource.clearDataSource();
-            logger.debug(">>>>>>>> clean datasource");
+            logger.debug("清理数据源");
         }
     }
-
-    /**
-     * base系统模块所在包
-     */
-    @Pointcut("execution(* com.baidu.cms.base.modules..*.*(..))")
-    public void dataSourcePointCutForBasePackage() {
-
-    }
-
-    /**
-     * 排除代码生成器所在包
-     */
-    @Pointcut("!execution(* com.baidu.cms.base.modules.gen.web.GenTableController.*(..))")
-    public void dataSourcePointCutExcludeGenPackage() {
-
-    }
-
-    /**
-     * base模块并且排除代码生成器
-     */
-//    @Around("dataSourcePointCutForBasePackage() && dataSourcePointCutExcludeGenPackage()")
-//    public Object aroundForBasePackage(ProceedingJoinPoint point) throws Throwable {
-//        DynamicDataSource.setDataSource(DataSourceNames.BASE.getKey());
-//        logger.debug("设置数据源: set datasource is " + DataSourceNames.BASE.getKey());
-//        try {
-//            return point.proceed();
-//        } finally {
-//            DynamicDataSource.clearDataSource();
-//            logger.debug("清理数据源: clean datasource");
-//        }
-//    }
 
     @Pointcut("execution(* com.baidu.cms.studio.modules..*.*(..))")
     public void dataSourcePointCutForStudioPackage() {
@@ -95,17 +59,17 @@ public class DataSourceAspect implements Ordered {
     }
 
     /**
-     * studio业务模块所在包
+     * studio业务模块使用studio数据源
      */
     @Around("dataSourcePointCutForStudioPackage()")
     public Object aroundForStudioPackage(ProceedingJoinPoint point) throws Throwable {
         DynamicDataSource.setDataSource(DataSourceNames.STUDIO.getKey());
-        logger.debug("设置数据源: set datasource is " + DataSourceNames.STUDIO.getKey());
+        logger.debug("设置数据源:" + DataSourceNames.STUDIO.getKey());
         try {
             return point.proceed();
         } finally {
             DynamicDataSource.clearDataSource();
-            logger.debug("清理数据源: clean datasource");
+            logger.debug("清理数据源");
         }
     }
 

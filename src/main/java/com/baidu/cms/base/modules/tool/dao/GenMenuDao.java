@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 生成菜单DAO接口
+ *
  * @author shiyanjun
  * @version 2018-10-12
  */
 @Mapper
 public interface GenMenuDao extends CrudDao<GenMenu> {
-	
+
 }

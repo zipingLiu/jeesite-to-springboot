@@ -11,22 +11,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *  配置多数据源
- *  @author: shiyanjun
- *  @Date: 2018/10/14 下午9:13
+ * 多数据源配置
+ *
+ * @author: shiyanjun
+ * @Date: 2018/10/14 下午9:13
  */
 @Configuration
 public class DynamicDataSourceConfig {
 
+    /**
+     * base数据源
+     */
     @Bean
     @ConfigurationProperties("spring.datasource.druid.base")
-    public DataSource firstDataSource(){
+    public DataSource firstDataSource() {
         return DruidDataSourceBuilder.create().build();
     }
 
+    /**
+     * studio数据源
+     */
     @Bean
     @ConfigurationProperties("spring.datasource.druid.studio")
-    public DataSource secondDataSource(){
+    public DataSource secondDataSource() {
         return DruidDataSourceBuilder.create().build();
     }
 

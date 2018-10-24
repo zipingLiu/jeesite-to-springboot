@@ -1,6 +1,3 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
- */
 package com.baidu.cms.common.utils;
 
 import java.io.UnsupportedEncodingException;
@@ -18,7 +15,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
  * 2.自制的base62 编码
  * 3.Commons-Lang的xml/html escape
  * 4.JDK提供的URLEncoder
- * @author calvin
+ * @author Idea
  * @version 2013-01-15
  */
 public class Encodes {

@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * 报名用户Controller
+ *
  * @author shiyanjun
  * @version 2018-10-18
  */
@@ -31,60 +32,60 @@ import java.util.List;
 @RequestMapping(value = "${adminPath}/psmatchuser/psMatchUser")
 public class PsMatchUserController extends BaseController {
 
-	@Autowired
-	private PsMatchService psMatchService;
+    @Autowired
+    private PsMatchService psMatchService;
 
-	@Autowired
-	private PsMatchUserService psMatchUserService;
-	
-	@ModelAttribute
-	public PsMatchUser get(@RequestParam(required=false) String id) {
-		PsMatchUser entity = null;
-		if (StringUtils.isNotBlank(id)){
-			entity = psMatchUserService.get(id);
-		}
-		if (entity == null){
-			entity = new PsMatchUser();
-		} else {
-			PsUserUtil.decrypt(entity);
-		}
-		return entity;
-	}
-	
-	@RequiresPermissions("psmatchuser:psMatchUser:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(PsMatchUser psMatchUser, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<PsMatchUser> page = psMatchUserService.findPage(new Page<PsMatchUser>(request, response), psMatchUser); 
-		model.addAttribute("page", page);
-		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
-		model.addAttribute("matchList", matchList);
-		return "studio/modules/psmatchuser/psMatchUserList";
-	}
+    @Autowired
+    private PsMatchUserService psMatchUserService;
 
-	@RequiresPermissions("psmatchuser:psMatchUser:view")
-	@RequestMapping(value = "form")
-	public String form(PsMatchUser psMatchUser, Model model) {
-		model.addAttribute("psMatchUser", psMatchUser);
-		return "studio/modules/psmatchuser/psMatchUserForm";
-	}
+    @ModelAttribute
+    public PsMatchUser get(@RequestParam(required = false) String id) {
+        PsMatchUser entity = null;
+        if (StringUtils.isNotBlank(id)) {
+            entity = psMatchUserService.get(id);
+        }
+        if (entity == null) {
+            entity = new PsMatchUser();
+        } else {
+            PsUserUtil.decrypt(entity);
+        }
+        return entity;
+    }
 
-	@RequiresPermissions("psmatchuser:psMatchUser:edit")
-	@RequestMapping(value = "save")
-	public String save(PsMatchUser psMatchUser, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, psMatchUser)){
-			return form(psMatchUser, model);
-		}
-		psMatchUserService.save(psMatchUser);
-		addMessage(redirectAttributes, "保存报名用户成功");
-		return "redirect:"+Global.getAdminPath()+"/psmatchuser/psMatchUser/?repage";
-	}
-	
-	@RequiresPermissions("psmatchuser:psMatchUser:edit")
-	@RequestMapping(value = "delete")
-	public String delete(PsMatchUser psMatchUser, RedirectAttributes redirectAttributes) {
-		psMatchUserService.delete(psMatchUser);
-		addMessage(redirectAttributes, "删除报名用户成功");
-		return "redirect:"+Global.getAdminPath()+"/psmatchuser/psMatchUser/?repage";
-	}
+    @RequiresPermissions("psmatchuser:psMatchUser:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(PsMatchUser psMatchUser, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<PsMatchUser> page = psMatchUserService.findPage(new Page<>(request, response), psMatchUser);
+        model.addAttribute("page", page);
+        List<PsMatch> matchList = psMatchService.findList(new PsMatch());
+        model.addAttribute("matchList", matchList);
+        return "studio/modules/psmatchuser/psMatchUserList";
+    }
+
+    @RequiresPermissions("psmatchuser:psMatchUser:view")
+    @RequestMapping(value = "form")
+    public String form(PsMatchUser psMatchUser, Model model) {
+        model.addAttribute("psMatchUser", psMatchUser);
+        return "studio/modules/psmatchuser/psMatchUserForm";
+    }
+
+    @RequiresPermissions("psmatchuser:psMatchUser:edit")
+    @RequestMapping(value = "save")
+    public String save(PsMatchUser psMatchUser, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, psMatchUser)) {
+            return form(psMatchUser, model);
+        }
+        psMatchUserService.save(psMatchUser);
+        addMessage(redirectAttributes, "保存报名用户成功");
+        return "redirect:" + Global.getAdminPath() + "/psmatchuser/psMatchUser/?repage";
+    }
+
+    @RequiresPermissions("psmatchuser:psMatchUser:edit")
+    @RequestMapping(value = "delete")
+    public String delete(PsMatchUser psMatchUser, RedirectAttributes redirectAttributes) {
+        psMatchUserService.delete(psMatchUser);
+        addMessage(redirectAttributes, "删除报名用户成功");
+        return "redirect:" + Global.getAdminPath() + "/psmatchuser/psMatchUser/?repage";
+    }
 
 }

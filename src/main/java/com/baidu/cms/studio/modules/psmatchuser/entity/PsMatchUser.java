@@ -1,243 +1,246 @@
 package com.baidu.cms.studio.modules.psmatchuser.entity;
 
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import com.baidu.cms.common.persistence.DataEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import com.baidu.cms.common.persistence.DataEntity;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * 报名用户Entity
+ *
  * @author shiyanjun
  * @version 2018-10-18
  */
 public class PsMatchUser extends DataEntity<PsMatchUser> {
-	
-	private static final long serialVersionUID = 1L;
-	private Long matchId;		// 比赛ID
-	private Long userId;		// 用户ID
-	private Long processId;		// 阶段ID
-	private Date createTime;	// 创建时间
-	private Date updateTime;	// 更新时间
-	private Integer routinePass;// 常规赛是否通过
-	private String matchName;	// 比赛名称
-	private String processName; // 比赛阶段名称
 
-	/** ps_user表信息 */
-	private String userName;	// 用户名
-	private Integer userType;	// 用户类型
-	private String trueName;	// 姓名
-	private String idcard;		// 身份证
-	private String mobile;		// 手机号
-	private String email;		// 邮箱
-	private String companyName;	// 公司名称
-	private String region;		// 地区
-	private Integer capacity;	// 身份
-	private String workPlace;	// 工作地点
-	private String position;	// 职位
-	private String portrait;	// 头像
-	private String userAbs;		// 介绍
-	private Integer isEmployee;	// 是否为员工
-	private String displayName;	// 显示名称
+    private static final long serialVersionUID = 1L;
+    private Long matchId;       // 比赛ID
+    private Long userId;        // 用户ID
+    private Long processId;     // 阶段ID
+    private Date createTime;    // 创建时间
+    private Date updateTime;    // 更新时间
+    private Integer routinePass;// 常规赛是否通过
+    private String matchName;   // 比赛名称
+    private String processName; // 比赛阶段名称
 
-	
-	public PsMatchUser() {
-		super();
-	}
+    /**
+     * ps_user表信息
+     */
+    private String userName;    // 用户名
+    private Integer userType;   // 用户类型
+    private String trueName;    // 姓名
+    private String idcard;      // 身份证
+    private String mobile;      // 手机号
+    private String email;       // 邮箱
+    private String companyName; // 公司名称
+    private String region;      // 地区
+    private Integer capacity;   // 身份
+    private String workPlace;   // 工作地点
+    private String position;    // 职位
+    private String portrait;    // 头像
+    private String userAbs;     // 介绍
+    private Integer isEmployee; // 是否为员工
+    private String displayName; // 显示名称
 
-	public PsMatchUser(String id){
-		super(id);
-	}
 
-	@NotNull(message="比赛ID不能为空")
-	public Long getMatchId() {
-		return matchId;
-	}
+    public PsMatchUser() {
+        super();
+    }
 
-	public void setMatchId(Long matchId) {
-		this.matchId = matchId;
-	}
-	
-	@NotNull(message="用户ID不能为空")
-	public Long getUserId() {
-		return userId;
-	}
+    public PsMatchUser(String id) {
+        super(id);
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-	
-	@NotNull(message="阶段ID不能为空")
-	public Long getProcessId() {
-		return processId;
-	}
+    @NotNull(message = "比赛ID不能为空")
+    public Long getMatchId() {
+        return matchId;
+    }
 
-	public void setProcessId(Long processId) {
-		this.processId = processId;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(message="创建时间不能为空")
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setMatchId(Long matchId) {
+        this.matchId = matchId;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(message="更新时间不能为空")
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    @NotNull(message = "用户ID不能为空")
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	
-	@NotNull(message="常规赛是否通过不能为空")
-	public Integer getRoutinePass() {
-		return routinePass;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public void setRoutinePass(Integer routinePass) {
-		this.routinePass = routinePass;
-	}
+    @NotNull(message = "阶段ID不能为空")
+    public Long getProcessId() {
+        return processId;
+    }
 
-	public String getMatchName() {
-		return matchName;
-	}
+    public void setProcessId(Long processId) {
+        this.processId = processId;
+    }
 
-	public void setMatchName(String matchName) {
-		this.matchName = matchName;
-	}
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "创建时间不能为空")
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public String getProcessName() {
-		return processName;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setProcessName(String processName) {
-		this.processName = processName;
-	}
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "更新时间不能为空")
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    @NotNull(message = "常规赛是否通过不能为空")
+    public Integer getRoutinePass() {
+        return routinePass;
+    }
 
-	public Integer getUserType() {
-		return userType;
-	}
+    public void setRoutinePass(Integer routinePass) {
+        this.routinePass = routinePass;
+    }
 
-	public void setUserType(Integer userType) {
-		this.userType = userType;
-	}
+    public String getMatchName() {
+        return matchName;
+    }
 
-	public String getTrueName() {
-		return trueName;
-	}
+    public void setMatchName(String matchName) {
+        this.matchName = matchName;
+    }
 
-	public void setTrueName(String trueName) {
-		this.trueName = trueName;
-	}
+    public String getProcessName() {
+        return processName;
+    }
 
-	public String getIdcard() {
-		return idcard;
-	}
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
 
-	public void setIdcard(String idcard) {
-		this.idcard = idcard;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public String getMobile() {
-		return mobile;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+    public Integer getUserType() {
+        return userType;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getTrueName() {
+        return trueName;
+    }
 
-	public String getCompanyName() {
-		return companyName;
-	}
+    public void setTrueName(String trueName) {
+        this.trueName = trueName;
+    }
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+    public String getIdcard() {
+        return idcard;
+    }
 
-	public String getRegion() {
-		return region;
-	}
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
 
-	public void setRegion(String region) {
-		this.region = region;
-	}
+    public String getMobile() {
+        return mobile;
+    }
 
-	public Integer getCapacity() {
-		return capacity;
-	}
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-	public void setCapacity(Integer capacity) {
-		this.capacity = capacity;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getWorkPlace() {
-		return workPlace;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setWorkPlace(String workPlace) {
-		this.workPlace = workPlace;
-	}
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public String getPosition() {
-		return position;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public String getRegion() {
+        return region;
+    }
 
-	public String getPortrait() {
-		return portrait;
-	}
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
-	public void setPortrait(String portrait) {
-		this.portrait = portrait;
-	}
+    public Integer getCapacity() {
+        return capacity;
+    }
 
-	public String getUserAbs() {
-		return userAbs;
-	}
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 
-	public void setUserAbs(String userAbs) {
-		this.userAbs = userAbs;
-	}
+    public String getWorkPlace() {
+        return workPlace;
+    }
 
-	public Integer getIsEmployee() {
-		return isEmployee;
-	}
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
 
-	public void setIsEmployee(Integer isEmployee) {
-		this.isEmployee = isEmployee;
-	}
+    public String getPosition() {
+        return position;
+    }
 
-	public String getDisplayName() {
-		return displayName;
-	}
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
+    }
+
+    public String getUserAbs() {
+        return userAbs;
+    }
+
+    public void setUserAbs(String userAbs) {
+        this.userAbs = userAbs;
+    }
+
+    public Integer getIsEmployee() {
+        return isEmployee;
+    }
+
+    public void setIsEmployee(Integer isEmployee) {
+        this.isEmployee = isEmployee;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 }

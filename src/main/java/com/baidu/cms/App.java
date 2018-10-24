@@ -11,11 +11,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 启动类
+ *
+ * @author: shiyanjun
+ * @Date: 2018/10/14 下午5:30
  */
 @EnableCaching
 @SpringBootApplication
 @ServletComponentScan("com.baidu.cms")
-@ComponentScan(value = "com.baidu.cms",lazyInit = true)
+@ComponentScan(value = "com.baidu.cms", lazyInit = true)
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 public class App {
     public static void main(String[] args) {

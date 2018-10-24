@@ -1,15 +1,15 @@
 package com.baidu.cms.base.modules.test.entity;
 
-import com.baidu.cms.base.modules.sys.entity.User;
-import com.baidu.cms.base.modules.sys.entity.Office;
 import com.baidu.cms.base.modules.sys.entity.Area;
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.util.List;
-import com.google.common.collect.Lists;
-
+import com.baidu.cms.base.modules.sys.entity.Office;
+import com.baidu.cms.base.modules.sys.entity.User;
 import com.baidu.cms.common.persistence.DataEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.common.collect.Lists;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 主表Entity
@@ -20,12 +20,12 @@ public class TestDataMain extends DataEntity<TestDataMain> {
 	
 	private static final long serialVersionUID = 1L;
 	private User user;		// 归属用户
-	private Office office;		// 归属部门
+	private Office office;	// 归属部门
 	private Area area;		// 归属区域
-	private String name;		// 名称
+	private String name;	// 名称
 	private String sex;		// 性别
-	private Date inDate;		// 加入日期
-	private List<TestDataChild> testDataChildList = Lists.newArrayList();		// 子表列表
+	private Date inDate;	// 加入日期
+	private List<TestDataChild> testDataChildList = Lists.newArrayList();	// 子表列表
 	
 	public TestDataMain() {
 		super();

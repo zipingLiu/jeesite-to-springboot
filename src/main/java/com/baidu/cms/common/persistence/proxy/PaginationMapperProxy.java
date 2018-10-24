@@ -1,11 +1,10 @@
 package com.baidu.cms.common.persistence.proxy;
 
 import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.Reflections;
 import org.apache.ibatis.binding.BindingException;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.session.SqlSession;
-
-import com.baidu.cms.common.utils.Reflections;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,15 +17,15 @@ import java.util.Set;
  * .
  * </p>
  *
- * @author poplar.yfyang
+ * @author Idea
  * @version 1.0 2012-05-13 上午10:07
- * @since JDK 1.5
  */
 public class PaginationMapperProxy implements InvocationHandler {
 
 
     private static final Set<String> OBJECT_METHODS = new HashSet<String>() {
         private static final long serialVersionUID = -1782950882770203583L;
+
         {
             add("toString");
             add("getClass");

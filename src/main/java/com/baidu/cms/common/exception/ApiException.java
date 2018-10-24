@@ -2,6 +2,7 @@ package com.baidu.cms.common.exception;
 
 /**
  * Api异常类
+ *
  * @Author shiyanjun
  * @Date 2018/10/22 下午7:16
  */

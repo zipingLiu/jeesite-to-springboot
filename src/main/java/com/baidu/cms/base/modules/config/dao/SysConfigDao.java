@@ -1,8 +1,8 @@
 package com.baidu.cms.base.modules.config.dao;
 
+import com.baidu.cms.base.modules.config.entity.SysConfig;
 import com.baidu.cms.common.persistence.CrudDao;
 import org.apache.ibatis.annotations.Mapper;
-import com.baidu.cms.base.modules.config.entity.SysConfig;
 
 /**
  * 配置参数管理DAO接口

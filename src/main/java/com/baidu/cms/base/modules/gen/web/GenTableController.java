@@ -30,6 +30,7 @@ import java.util.Map;
 
 /**
  * 业务表Controller
+ *
  * @author Idea
  * @version 2013-10-15
  */
@@ -37,94 +38,94 @@ import java.util.Map;
 @RequestMapping(value = "${adminPath}/gen/genTable")
 public class GenTableController extends BaseController {
 
-	@Autowired
-	private GenTableService genTableService;
+    @Autowired
+    private GenTableService genTableService;
 
-	@DataSource(name = DataSourceNames.BASE)
-	@ModelAttribute
-	public GenTable get(@RequestParam(required=false) String id) {
-		if (StringUtils.isNotBlank(id)){
-			return genTableService.get(id);
-		}else{
-			return new GenTable();
-		}
-	}
+    @DataSource(name = DataSourceNames.BASE)
+    @ModelAttribute
+    public GenTable get(@RequestParam(required = false) String id) {
+        if (StringUtils.isNotBlank(id)) {
+            return genTableService.get(id);
+        } else {
+            return new GenTable();
+        }
+    }
 
-	@DataSource(name = DataSourceNames.BASE)
-	@RequiresPermissions("gen:genTable:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(GenTable genTable, HttpServletRequest request, HttpServletResponse response, Model model) {
-		User user = UserUtils.getUser();
-		if (!user.isAdmin()){
-			genTable.setCreateBy(user);
-		}
-        Page<GenTable> page = genTableService.find(new Page<GenTable>(request, response), genTable);
+    @DataSource(name = DataSourceNames.BASE)
+    @RequiresPermissions("gen:genTable:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(GenTable genTable, HttpServletRequest request, HttpServletResponse response, Model model) {
+        User user = UserUtils.getUser();
+        if (!user.isAdmin()) {
+            genTable.setCreateBy(user);
+        }
+        Page<GenTable> page = genTableService.find(new Page<>(request, response), genTable);
         model.addAttribute("page", page);
-		return "base/modules/gen/genTableList";
-	}
+        return "base/modules/gen/genTableList";
+    }
 
-	@RequiresPermissions("gen:genTable:view")
-	@RequestMapping(value = "form")
-	public String form(GenTable genTable, Model model) {
-		try {
-			// 获取物理表列表
-			List<GenTable> tableList = new ArrayList<GenTable>();
+    @RequiresPermissions("gen:genTable:view")
+    @RequestMapping(value = "form")
+    public String form(GenTable genTable, Model model) {
+        try {
+            // 获取物理表列表
+            List<GenTable> tableList = new ArrayList<GenTable>();
 
-			// 从配置获取所有的数据库路由键和数据库名称
-			Map<String, String> map = Global.getDatasourceKeyAndName();
-			Iterator<String> it = map.keySet().iterator();
-			while (it.hasNext()) {
-				String datasourceKey = it.next();
-				DynamicDataSource.setDataSource(datasourceKey);
-				// 加载物理表
-				List<GenTable> subList = genTableService.findTableListFormDb(new GenTable());
-				tableList.addAll(subList);
-			}
-			model.addAttribute("tableList", tableList);
+            // 从配置获取所有的数据库路由键和数据库名称
+            Map<String, String> map = Global.getDatasourceKeyAndName();
+            Iterator<String> it = map.keySet().iterator();
+            while (it.hasNext()) {
+                String datasourceKey = it.next();
+                DynamicDataSource.setDataSource(datasourceKey);
+                // 加载物理表
+                List<GenTable> subList = genTableService.findTableListFormDb(new GenTable());
+                tableList.addAll(subList);
+            }
+            model.addAttribute("tableList", tableList);
 
-			// 验证表是否存在
-			if (StringUtils.isBlank(genTable.getId()) && !genTableService.checkTableName(genTable.getName())){
-				addMessage(model, "下一步失败！" + genTable.getName() + " 表已经添加！");
-				genTable.setName("");
-			}
-			// 获取物理表字段
-			else{
-				genTable = genTableService.getTableFormDb(genTable);
-			}
-		} finally {
-			DynamicDataSource.clearDataSource();
-			logger.debug(">>>>>>>> clean datasource");
-		}
-		model.addAttribute("genTable", genTable);
-		model.addAttribute("config", GenUtils.getConfig());
-		return "base/modules/gen/genTableForm";
-	}
+            // 验证表是否存在
+            if (StringUtils.isBlank(genTable.getId()) && !genTableService.checkTableName(genTable.getName())) {
+                addMessage(model, "下一步失败！" + genTable.getName() + " 表已经添加！");
+                genTable.setName("");
+            }
+            // 获取物理表字段
+            else {
+                genTable = genTableService.getTableFormDb(genTable);
+            }
+        } finally {
+            DynamicDataSource.clearDataSource();
+            logger.debug(">>>>>>>> clean datasource");
+        }
+        model.addAttribute("genTable", genTable);
+        model.addAttribute("config", GenUtils.getConfig());
+        return "base/modules/gen/genTableForm";
+    }
 
-	@DataSource(name = DataSourceNames.BASE)
-	@RequiresPermissions("gen:genTable:edit")
-	@RequestMapping(value = "save")
-	public String save(GenTable genTable, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, genTable)){
-			return form(genTable, model);
-		}
-		// 验证表是否已经存在
-		if (StringUtils.isBlank(genTable.getId()) && !genTableService.checkTableName(genTable.getName())){
-			addMessage(model, "保存失败！" + genTable.getName() + " 表已经存在！");
-			genTable.setName("");
-			return form(genTable, model);
-		}
-		genTableService.save(genTable);
-		addMessage(redirectAttributes, "保存业务表'" + genTable.getName() + "'成功");
-		return "redirect:" + adminPath + "/gen/genTable/?repage";
-	}
+    @DataSource(name = DataSourceNames.BASE)
+    @RequiresPermissions("gen:genTable:edit")
+    @RequestMapping(value = "save")
+    public String save(GenTable genTable, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, genTable)) {
+            return form(genTable, model);
+        }
+        // 验证表是否已经存在
+        if (StringUtils.isBlank(genTable.getId()) && !genTableService.checkTableName(genTable.getName())) {
+            addMessage(model, "保存失败！" + genTable.getName() + " 表已经存在！");
+            genTable.setName("");
+            return form(genTable, model);
+        }
+        genTableService.save(genTable);
+        addMessage(redirectAttributes, "保存业务表'" + genTable.getName() + "'成功");
+        return "redirect:" + adminPath + "/gen/genTable/?repage";
+    }
 
-	@DataSource(name = DataSourceNames.BASE)
-	@RequiresPermissions("gen:genTable:edit")
-	@RequestMapping(value = "delete")
-	public String delete(GenTable genTable, RedirectAttributes redirectAttributes) {
-		genTableService.delete(genTable);
-		addMessage(redirectAttributes, "删除业务表成功");
-		return "redirect:" + adminPath + "/gen/genTable/?repage";
-	}
+    @DataSource(name = DataSourceNames.BASE)
+    @RequiresPermissions("gen:genTable:edit")
+    @RequestMapping(value = "delete")
+    public String delete(GenTable genTable, RedirectAttributes redirectAttributes) {
+        genTableService.delete(genTable);
+        addMessage(redirectAttributes, "删除业务表成功");
+        return "redirect:" + adminPath + "/gen/genTable/?repage";
+    }
 
 }

@@ -2,9 +2,9 @@ package com.baidu.cms.common.servlet;
 
 import com.baidu.cms.base.modules.sys.security.SystemAuthorizingRealm;
 import com.baidu.cms.base.modules.sys.utils.UserUtils;
-import com.ckfinder.connector.ConnectorServlet;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.FileUtils;
+import com.ckfinder.connector.ConnectorServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;

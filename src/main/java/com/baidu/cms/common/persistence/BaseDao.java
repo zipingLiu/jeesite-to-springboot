@@ -2,6 +2,7 @@ package com.baidu.cms.common.persistence;
 
 /**
  * DAO支持类实现
+ *
  * @author Idea
  * @version 2014-05-16
  */

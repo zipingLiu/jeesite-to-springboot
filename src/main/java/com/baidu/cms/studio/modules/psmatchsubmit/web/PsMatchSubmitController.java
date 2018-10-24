@@ -2,7 +2,6 @@ package com.baidu.cms.studio.modules.psmatchsubmit.web;
 
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.utils.Collections3;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import com.baidu.cms.studio.common.PsUserUtil;
@@ -23,12 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * 提交管理Controller
+ *
  * @author shiyanjun
  * @version 2018-10-18
  */
@@ -36,95 +35,81 @@ import java.util.List;
 @RequestMapping(value = "${adminPath}/psmatchsubmit/psMatchSubmit")
 public class PsMatchSubmitController extends BaseController {
 
-	@Autowired
-	private PsMatchService psMatchService;
+    @Autowired
+    private PsMatchService psMatchService;
 
-	@Autowired
-	private PsMatchProcessService psMatchProcessService;
+    @Autowired
+    private PsMatchProcessService psMatchProcessService;
 
-	@Autowired
-	private PsMatchSubmitService psMatchSubmitService;
-	
-	@ModelAttribute
-	public PsMatchSubmit get(@RequestParam(required=false) String id) {
-		PsMatchSubmit entity = null;
-		if (StringUtils.isNotBlank(id)){
-			entity = psMatchSubmitService.get(id);
-		}
-		if (entity == null){
-			entity = new PsMatchSubmit();
-		} else {
-			PsUserUtil.decrypt(entity);
-		}
-		return entity;
-	}
-	
-	@RequiresPermissions("psmatchsubmit:psMatchSubmit:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(PsMatchSubmit psMatchSubmit, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<PsMatchSubmit> page = psMatchSubmitService.findPage(new Page<PsMatchSubmit>(request, response), psMatchSubmit);
+    @Autowired
+    private PsMatchSubmitService psMatchSubmitService;
+
+    @ModelAttribute
+    public PsMatchSubmit get(@RequestParam(required = false) String id) {
+        PsMatchSubmit entity = null;
+        if (StringUtils.isNotBlank(id)) {
+            entity = psMatchSubmitService.get(id);
+        }
+        if (entity == null) {
+            entity = new PsMatchSubmit();
+        } else {
+            PsUserUtil.decrypt(entity);
+        }
+        return entity;
+    }
+
+    @RequiresPermissions("psmatchsubmit:psMatchSubmit:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(PsMatchSubmit psMatchSubmit, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<PsMatchSubmit> page = psMatchSubmitService.findPage(new Page<>(request, response), psMatchSubmit);
 
         // 读取排行榜配置
-		String submitTopNum = request.getParameter("submitTopNum");
+        String submitTopNum = request.getParameter("submitTopNum");
         if (StringUtils.isNotBlank(submitTopNum)) {
-			Page<PsMatchSubmit> topPage = psMatchSubmitService.findSubmitTopPage(new Page<>(request, response), psMatchSubmit);
-			List<PsMatchSubmit> topList = topPage.getList();
-			Collections.sort(topList);
-			page.setCount(topList.size());
+            Page<PsMatchSubmit> topPage = psMatchSubmitService.findSubmitTopPage(new Page<>(request, response), psMatchSubmit);
+            List<PsMatchSubmit> topList = topPage.getList();
+            Collections.sort(topList);
+            page.setCount(topList.size());
             page.setList(topList);
         }
         model.addAttribute("page", page);
         List<PsMatch> matchList = psMatchService.findList(new PsMatch());
         model.addAttribute("matchList", matchList);
-		return "studio/modules/psmatchsubmit/psMatchSubmitList";
-	}
-
-	/**
-	 * 求topList
-	 */
-    private List<PsMatchSubmit> getTopList(List<PsMatchSubmit> list, int topNum) {
-	    if (!Collections3.isEmpty(list)) {
-            List<PsMatchSubmit> topList = new ArrayList<>();
-            for (int i = 0; i < topNum; i++) {
-                topList.add(list.get(i));
-            }
-			return topList;
-        }
-        return list;
+        return "studio/modules/psmatchsubmit/psMatchSubmitList";
     }
 
     @RequiresPermissions("psmatchsubmit:psMatchSubmit:view")
-	@RequestMapping(value = "form")
-	public String form(PsMatchSubmit psMatchSubmit, Model model) {
-		model.addAttribute("psMatchSubmit", psMatchSubmit);
-		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
-		model.addAttribute("matchList", matchList);
-		if (psMatchSubmit != null && psMatchSubmit.getMatchId() != null) {
-			PsMatchProcess process = new PsMatchProcess();
-			process.setMatchId(psMatchSubmit.getMatchId());
-			List<PsMatchProcess> processList = psMatchProcessService.findList(process);
-			model.addAttribute("processList", processList);
-		}
-		return "studio/modules/psmatchsubmit/psMatchSubmitForm";
-	}
+    @RequestMapping(value = "form")
+    public String form(PsMatchSubmit psMatchSubmit, Model model) {
+        model.addAttribute("psMatchSubmit", psMatchSubmit);
+        List<PsMatch> matchList = psMatchService.findList(new PsMatch());
+        model.addAttribute("matchList", matchList);
+        if (psMatchSubmit != null && psMatchSubmit.getMatchId() != null) {
+            PsMatchProcess process = new PsMatchProcess();
+            process.setMatchId(psMatchSubmit.getMatchId());
+            List<PsMatchProcess> processList = psMatchProcessService.findList(process);
+            model.addAttribute("processList", processList);
+        }
+        return "studio/modules/psmatchsubmit/psMatchSubmitForm";
+    }
 
-	@RequiresPermissions("psmatchsubmit:psMatchSubmit:edit")
-	@RequestMapping(value = "save")
-	public String save(PsMatchSubmit psMatchSubmit, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, psMatchSubmit)){
-			return form(psMatchSubmit, model);
-		}
-		psMatchSubmitService.save(psMatchSubmit);
-		addMessage(redirectAttributes, "保存提交成功");
-		return "redirect:"+Global.getAdminPath()+"/psmatchsubmit/psMatchSubmit/?repage";
-	}
-	
-	@RequiresPermissions("psmatchsubmit:psMatchSubmit:edit")
-	@RequestMapping(value = "delete")
-	public String delete(PsMatchSubmit psMatchSubmit, RedirectAttributes redirectAttributes) {
-		psMatchSubmitService.delete(psMatchSubmit);
-		addMessage(redirectAttributes, "删除提交成功");
-		return "redirect:"+Global.getAdminPath()+"/psmatchsubmit/psMatchSubmit/?repage";
-	}
+    @RequiresPermissions("psmatchsubmit:psMatchSubmit:edit")
+    @RequestMapping(value = "save")
+    public String save(PsMatchSubmit psMatchSubmit, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, psMatchSubmit)) {
+            return form(psMatchSubmit, model);
+        }
+        psMatchSubmitService.save(psMatchSubmit);
+        addMessage(redirectAttributes, "保存提交成功");
+        return "redirect:" + Global.getAdminPath() + "/psmatchsubmit/psMatchSubmit/?repage";
+    }
+
+    @RequiresPermissions("psmatchsubmit:psMatchSubmit:edit")
+    @RequestMapping(value = "delete")
+    public String delete(PsMatchSubmit psMatchSubmit, RedirectAttributes redirectAttributes) {
+        psMatchSubmitService.delete(psMatchSubmit);
+        addMessage(redirectAttributes, "删除提交成功");
+        return "redirect:" + Global.getAdminPath() + "/psmatchsubmit/psMatchSubmit/?repage";
+    }
 
 }

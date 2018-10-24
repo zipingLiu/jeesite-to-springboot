@@ -3,9 +3,8 @@ package com.baidu.cms.common.persistence.dialect;
 /**
  * Mysql方言的实现
  *
- * @author poplar.yfyang
+ * @author Idea
  * @version 1.0 2010-10-10 下午12:31
- * @since JDK 1.5
  */
 public class MySQLDialect implements Dialect {
 

@@ -6,9 +6,10 @@ import com.baidu.cms.studio.modules.psmatchuser.entity.PsMatchUser;
 import com.baidu.cms.studio.modules.psuser.entity.PsUser;
 
 /**
- *  用户公共工具类
- *  @author: shiyanjun
- *  @Date: 2018/10/19 下午3:03
+ * 用户公共工具类
+ *
+ * @author: shiyanjun
+ * @Date: 2018/10/19 下午3:03
  */
 public class PsUserUtil {
 

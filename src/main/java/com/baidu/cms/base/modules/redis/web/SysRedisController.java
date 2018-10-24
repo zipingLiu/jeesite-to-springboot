@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 缓存管理Controller
+ *
  * @author shiyanjun
  * @version 2018-10-20
  */
@@ -28,65 +29,65 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "${adminPath}/redis/sysRedis")
 public class SysRedisController extends BaseController {
 
-	@Autowired
-	private SysRedisService sysRedisService;
-	
-	@ModelAttribute
-	public SysRedis get(@RequestParam(required=false) String redisKey) {
-		SysRedis entity = null;
-		if (StringUtils.isNotBlank(redisKey)){
-			entity = sysRedisService.get(redisKey);
-		}
-		if (entity == null){
-			entity = new SysRedis();
-		}
-		return entity;
-	}
-	
-	@RequiresPermissions("redis:sysRedis:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(SysRedis sysRedis, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<SysRedis> page = sysRedisService.findPage(new Page<>(request, response), sysRedis);
-		model.addAttribute("page", page);
-		return "base/modules/redis/sysRedisList";
-	}
+    @Autowired
+    private SysRedisService sysRedisService;
 
-	@RequiresPermissions("redis:sysRedis:view")
-	@RequestMapping(value = "form")
-	public String form(SysRedis sysRedis, Model model) {
-		model.addAttribute("sysRedis", sysRedis);
-		return "base/modules/redis/sysRedisForm";
-	}
+    @ModelAttribute
+    public SysRedis get(@RequestParam(required = false) String redisKey) {
+        SysRedis entity = null;
+        if (StringUtils.isNotBlank(redisKey)) {
+            entity = sysRedisService.get(redisKey);
+        }
+        if (entity == null) {
+            entity = new SysRedis();
+        }
+        return entity;
+    }
 
-	@RequiresPermissions("redis:sysRedis:edit")
-	@RequestMapping(value = "save")
-	public String save(SysRedis sysRedis, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, sysRedis)){
-			return form(sysRedis, model);
-		}
-		// key名称校验
-		if (!checkKey(model, sysRedis.getRedisKey())) {
-			return form(sysRedis, model);
-		}
-		sysRedisService.save(sysRedis);
-		addMessage(redirectAttributes, "保存缓存管理成功");
-		return "redirect:"+Global.getAdminPath()+"/redis/sysRedis/?repage";
-	}
+    @RequiresPermissions("redis:sysRedis:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(SysRedis sysRedis, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<SysRedis> page = sysRedisService.findPage(new Page<>(request, response), sysRedis);
+        model.addAttribute("page", page);
+        return "base/modules/redis/sysRedisList";
+    }
 
-	private boolean checkKey(Model model, String redisKey) {
-		if (StringUtils.isNotBlank(redisKey) && redisKey.startsWith(RedisUtils.DEFAULT_CACHE_PREFIX)) {
-			addMessage(model, "非法的key名称!");
-			return false;
-		}
-		return true;
-	}
+    @RequiresPermissions("redis:sysRedis:view")
+    @RequestMapping(value = "form")
+    public String form(SysRedis sysRedis, Model model) {
+        model.addAttribute("sysRedis", sysRedis);
+        return "base/modules/redis/sysRedisForm";
+    }
 
-	@RequiresPermissions("redis:sysRedis:edit")
-	@RequestMapping(value = "delete")
-	public String delete(SysRedis sysRedis, RedirectAttributes redirectAttributes) {
-		sysRedisService.delete(sysRedis);
-		addMessage(redirectAttributes, "删除缓存管理成功");
-		return "redirect:"+Global.getAdminPath()+"/redis/sysRedis/?repage";
-	}
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "save")
+    public String save(SysRedis sysRedis, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, sysRedis)) {
+            return form(sysRedis, model);
+        }
+        // key名称校验
+        if (!checkKey(model, sysRedis.getRedisKey())) {
+            return form(sysRedis, model);
+        }
+        sysRedisService.save(sysRedis);
+        addMessage(redirectAttributes, "保存缓存管理成功");
+        return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/?repage";
+    }
+
+    private boolean checkKey(Model model, String redisKey) {
+        if (StringUtils.isNotBlank(redisKey) && redisKey.startsWith(RedisUtils.DEFAULT_CACHE_PREFIX)) {
+            addMessage(model, "非法的key名称!");
+            return false;
+        }
+        return true;
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "delete")
+    public String delete(SysRedis sysRedis, RedirectAttributes redirectAttributes) {
+        sysRedisService.delete(sysRedis);
+        addMessage(redirectAttributes, "删除缓存管理成功");
+        return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/?repage";
+    }
 
 }
