@@ -1,19 +1,21 @@
 package com.baidu.cms.base.modules.column.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.baidu.cms.base.modules.column.dao.SysColumnHideDao;
+import com.baidu.cms.base.modules.column.entity.SysColumnHide;
 import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.service.CrudService;
 import com.baidu.cms.common.utils.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.service.CrudService;
-import com.baidu.cms.base.modules.column.entity.SysColumnHide;
-import com.baidu.cms.base.modules.column.dao.SysColumnHideDao;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 列隐藏配置Service
@@ -26,6 +28,9 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
 
 	@Autowired
 	private RedisUtils redisUtils;
+
+	@Autowired
+	private ListOperations<String, Object> listOps;
 
 	public SysColumnHide get(String id) {
 		return super.get(id);
@@ -53,18 +58,43 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
 	}
 	
 	@Transactional(readOnly = false)
-	public void save(SysColumnHide sysColumnHide) {
-		super.save(sysColumnHide);
-		writeToCache(sysColumnHide);
+	public void save(SysColumnHide hide) {
+		super.save(hide);
+		this.updateCache();
 	}
 
-	private void writeToCache(SysColumnHide sysColumnHide) {
+	/*private void writeToCache(SysColumnHide sysColumnHide) {
 		try {
 			// 写入缓存
 			String key = Global.getSysColumnHideKey(sysColumnHide.getClassName());
 			String value = sysColumnHide.getColumnHideArr();
 			redisUtils.set(key, value);
 			logger.info("写入缓存:" + key + "=" + value);
+		} catch (Exception e) {
+			logger.error("写入缓存异常:" + e.toString());
+		}
+	}*/
+
+	/**
+	 *  刷新缓存
+	 *  @author: shiyanjun
+	 *  @Date: 2018/10/24 上午9:59
+	 */
+	private void updateCache() {
+		try {
+			List<SysColumnHide> list = findAllList(new SysColumnHide());
+			for (SysColumnHide hide : list) {
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("pageName", hide.getPageName());
+				jsonObject.put("className", hide.getClassName());
+				jsonObject.put("columnHideArr", hide.getColumnHideArr());
+				// 写入缓存
+				String key = RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY);
+				String value = JSON.toJSONString(jsonObject);
+				listOps.leftPush(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY), value);
+				logger.info("写入缓存:" + key + "=" + value);
+			}
+
 		} catch (Exception e) {
 			logger.error("写入缓存异常:" + e.toString());
 		}

@@ -50,10 +50,12 @@ public class ColumnHideInterceptor implements HandlerInterceptor {
                 List<Object> list = lo.range(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY), 0, -1);
                 if (!Collections3.isEmpty(list)) {
                     for (Object obj : list) {
-                        SysColumnHide hide = JSON.parseObject(obj.toString(), SysColumnHide.class);
-                        if (modelAndView.getViewName().equals(hide.getClassName())) {
-                            modelAndView.addObject("columnHideArr", hide.getColumnHideArr());
-                            logger.info("从缓存读取列隐藏配置:" + hide.getClassName() + "=" + hide.getColumnHideArr());
+                        JSONObject jsonObject = JSON.parseObject(obj.toString());
+                        String className = (String) jsonObject.get("className");
+                        String columnHideArr = (String) jsonObject.get("columnHideArr");
+                        if (modelAndView.getViewName().equals(className)) {
+                            modelAndView.addObject("columnHideArr", columnHideArr);
+                            logger.info("从缓存读取列隐藏配置:" + className + "=" + columnHideArr);
                             return;
                         }
                     }
