@@ -55,7 +55,7 @@ public class ColumnHideInterceptor implements HandlerInterceptor {
                         String columnHideArr = (String) jsonObject.get("columnHideArr");
                         if (modelAndView.getViewName().equals(className)) {
                             modelAndView.addObject("columnHideArr", columnHideArr);
-                            logger.info("从缓存读取列隐藏配置:" + className + "=" + columnHideArr);
+                            logger.info("拦截器从缓存读取列隐藏配置:" + className + "=" + columnHideArr);
                             return;
                         }
                     }
@@ -72,7 +72,7 @@ public class ColumnHideInterceptor implements HandlerInterceptor {
                         jsonObject.put("className", hide.getClassName());
                         jsonObject.put("columnHideArr", hide.getColumnHideArr());
                         lo.leftPush(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY), JSON.toJSONString(jsonObject));
-                        logger.info("从数据库查询列隐藏配置写入缓存:" + hide.getClassName() + "=" + hide.getColumnHideArr());
+                        logger.info("拦截器从数据库查询列隐藏配置写入缓存:" + hide.getClassName() + "=" + hide.getColumnHideArr());
 
                     }
                 }
