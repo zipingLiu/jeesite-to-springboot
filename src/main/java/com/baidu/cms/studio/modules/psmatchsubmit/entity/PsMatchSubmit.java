@@ -12,7 +12,7 @@ import java.util.Date;
  * @author shiyanjun
  * @version 2018-10-18
  */
-public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
+public class PsMatchSubmit extends DataEntity<PsMatchSubmit> implements Comparable<PsMatchSubmit> {
 	
 	private static final long serialVersionUID = 1L;
 	private String submitName;	// 提交名称
@@ -378,5 +378,13 @@ public class PsMatchSubmit extends DataEntity<PsMatchSubmit> {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	@Override
+	public int compareTo(PsMatchSubmit o) {
+		if (this.score != null && o.getScore() != null) {
+			return o.getScore().compareTo(this.score);
+		}
+		return 0;
 	}
 }

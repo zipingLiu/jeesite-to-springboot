@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -66,9 +67,10 @@ public class PsMatchSubmitController extends BaseController {
         // 读取排行榜配置
 		String submitTopNum = request.getParameter("submitTopNum");
         if (StringUtils.isNotBlank(submitTopNum)) {
-            Integer topNum = StringUtils.toInteger(submitTopNum, 1);
-            List<PsMatchSubmit> topList = getTopList(page.getList(), topNum);
-            page.setCount(topList.size());
+			Page<PsMatchSubmit> topPage = psMatchSubmitService.findSubmitTopPage(new Page<>(request, response), psMatchSubmit);
+			List<PsMatchSubmit> topList = topPage.getList();
+			Collections.sort(topList);
+			page.setCount(topList.size());
             page.setList(topList);
         }
         model.addAttribute("page", page);
@@ -97,8 +99,6 @@ public class PsMatchSubmitController extends BaseController {
 		model.addAttribute("psMatchSubmit", psMatchSubmit);
 		List<PsMatch> matchList = psMatchService.findList(new PsMatch());
 		model.addAttribute("matchList", matchList);
-		/*List<PsProject> projectList = psProjectService.findList(new PsProject());
-		model.addAttribute("projectList", projectList);*/
 		if (psMatchSubmit != null && psMatchSubmit.getMatchId() != null) {
 			PsMatchProcess process = new PsMatchProcess();
 			process.setMatchId(psMatchSubmit.getMatchId());
