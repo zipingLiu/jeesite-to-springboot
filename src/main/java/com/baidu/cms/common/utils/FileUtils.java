@@ -1,11 +1,14 @@
 package com.baidu.cms.common.utils;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 import org.apache.tools.zip.ZipOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -226,6 +229,25 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
 
     /**
+     * 读取文件到字符串对象
+     * @param classResourcePath 资源文件路径加文件名
+     * @return 文件内容
+     * @author ThinkGem 2016-7-4
+     */
+    public static String readFileToString(String classResourcePath){
+        InputStream in = null;
+        try {
+            in = new ClassPathResource(classResourcePath).getInputStream();
+            return IOUtils.toString(in, Charsets.toCharset("UTF-8"));
+        } catch (IOException e) {
+            logger.warn("Error file convert: {}", e.getMessage());
+        }finally{
+            IOUtils.closeQuietly(in);
+        }
+        return null;
+    }
+
+    /**
      * 删除文件，可以删除单个文件或文件夹
      *
      * @param fileName 被删除的文件名
@@ -391,8 +413,6 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 
     /**
      * 写入文件
-     *
-     * @param file 要写入的文件
      */
     public static void writeToFile(String fileName, String content, boolean append) {
         try {
@@ -405,8 +425,6 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 
     /**
      * 写入文件
-     *
-     * @param file 要写入的文件
      */
     public static void writeToFile(String fileName, String content, String encoding, boolean append) {
         try {
@@ -592,8 +610,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     /**
      * 获取待压缩文件在ZIP文件中entry的名字，即相对于跟目录的相对路径名
      *
-     * @param dirPat 目录名
-     * @param file   entry文件名
+     * @param dirPath 目录名
+     * @param file    entry文件名
      * @return
      */
     private static String getEntryName(String dirPath, File file) {
@@ -780,7 +798,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             return error;
         }
 
-        long fileLength = file.length(); // 记录文件大小
+        long fileLength = file != null ? file.length() : 0; // 记录文件大小
         long pastLength = 0;    // 记录已下载文件大小
         int rangeSwitch = 0;    // 0：从头开始的全文下载；1：从某字节开始的下载（bytes=27000-）；2：从某字节开始到某字节结束的下载（bytes=27000-39000）
         long toLength = 0;        // 记录客户端需要下载的字节段的最后一个字节偏移量（比如bytes=27000-39000，则这个值是为39000）
@@ -842,16 +860,19 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         }
 
         try {
-            response.addHeader("Content-Disposition", "attachment; filename=\"" +
-                    Encodes.urlEncode(StringUtils.isBlank(fileName) ? file.getName() : fileName) + "\"");
-            response.setContentType(getContentType(file.getName())); // set the MIME type.
-            response.addHeader("Content-Length", String.valueOf(contentLength));
-            os = response.getOutputStream();
+            if (file != null) {
+                response.addHeader("Content-Disposition", "attachment; filename=\"" +
+                        Encodes.urlEncode(StringUtils.isBlank(fileName) ? file.getName() : fileName) + "\"");
+                response.setContentType(getContentType(file.getName())); // set the MIME type.
+                response.addHeader("Content-Length", String.valueOf(contentLength));
+                os = response.getOutputStream();
+            }
             out = new BufferedOutputStream(os);
             raf = new RandomAccessFile(file, "r");
             try {
                 switch (rangeSwitch) {
                     case 0: { // 普通下载，或者从头开始的下载 同1
+                        break;//--shiyanjun
                     }
                     case 1: { // 针对 bytes=27000- 的请求
                         raf.seek(pastLength); // 形如 bytes=969998336- 的客户端请求，跳过 969998336 个字节

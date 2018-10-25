@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.cms.base.modules.syspagecol.dao.SysPageColDao">
+    
+	<sql id="sysPageColColumns">
+		a.id AS "id",
+		a.module_name AS "moduleName",
+		a.entity_name AS "entityName",
+		a.view_path AS "viewPath",
+		a.view_name AS "viewName",
+		a.col_all AS "colAll",
+		a.col_hide AS "colHide"
+	</sql>
+	
+	<sql id="sysPageColJoins">
+	</sql>
+    
+	<select id="get" resultType="SysPageCol">
+		SELECT 
+			<include refid="sysPageColColumns"/>
+		FROM sys_page_col a
+		<include refid="sysPageColJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysPageCol">
+		SELECT 
+			<include refid="sysPageColColumns"/>
+		FROM sys_page_col a
+		<include refid="sysPageColJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="moduleName != null and moduleName != ''">
+				AND a.module_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{moduleName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{moduleName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{moduleName},'%')</if>
+			</if>
+			<if test="entityName != null and entityName != ''">
+				AND a.entity_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{entityName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{entityName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{entityName},'%')</if>
+			</if>
+			<if test="viewPath != null and viewPath != ''">
+				AND a.view_path LIKE 
+					<if test="dbName == 'oracle'">'%'||#{viewPath}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{viewPath}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{viewPath},'%')</if>
+			</if>
+			<if test="viewName != null and viewName != ''">
+				AND a.view_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{viewName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{viewName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{viewName},'%')</if>
+			</if>
+			<if test="colAll != null and colAll != ''">
+				AND a.col_all LIKE 
+					<if test="dbName == 'oracle'">'%'||#{colAll}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{colAll}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{colAll},'%')</if>
+			</if>
+			<if test="colHide != null and colHide != ''">
+				AND a.col_hide LIKE 
+					<if test="dbName == 'oracle'">'%'||#{colHide}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{colHide}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{colHide},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysPageCol">
+		SELECT 
+			<include refid="sysPageColColumns"/>
+		FROM sys_page_col a
+		<include refid="sysPageColJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO sys_page_col(
+			module_name,
+			entity_name,
+			view_path,
+			view_name,
+			col_all,
+			col_hide
+		) VALUES (
+			#{moduleName},
+			#{entityName},
+			#{viewPath},
+			#{viewName},
+			#{colAll},
+			#{colHide}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_page_col SET 	
+			module_name = #{moduleName},
+			entity_name = #{entityName},
+			view_path = #{viewPath},
+			view_name = #{viewName},
+			col_all = #{colAll},
+			col_hide = #{colHide}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_page_col
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

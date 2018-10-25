@@ -45,7 +45,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 转换为字节数组
      *
-     * @param str
+     * @param bytes
      * @return
      */
     public static String toString(byte[] bytes) {
@@ -253,7 +253,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 获得i18n字符串
      */
     public static String getMessage(String code, Object[] args) {
-        LocaleResolver localLocaleResolver = (LocaleResolver) SpringContextHolder.getBean(LocaleResolver.class);
+        LocaleResolver localLocaleResolver = SpringContextHolder.getBean(LocaleResolver.class);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Locale localLocale = localLocaleResolver.resolveLocale(request);
         return SpringContextHolder.getApplicationContext().getMessage(code, args, localLocale);
@@ -378,4 +378,97 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return result.toString();
     }
 
+    /**
+     * 将驼峰风格替换为下划线风格
+     */
+    public static String camelhumpToUnderline(String str) {
+        Matcher matcher = Pattern.compile("[A-Z]").matcher(str);
+        StringBuilder builder = new StringBuilder(str);
+        for (int i = 0; matcher.find(); i++) {
+            builder.replace(matcher.start() + i, matcher.end() + i, "_" + matcher.group().toLowerCase());
+        }
+        if (builder.charAt(0) == '_') {
+            builder.deleteCharAt(0);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 将下划线风格替换为驼峰风格
+     */
+    public static String underlineToCamelhump(String str) {
+        Matcher matcher = Pattern.compile("_[a-z]").matcher(str);
+        StringBuilder builder = new StringBuilder(str);
+        for (int i = 0; matcher.find(); i++) {
+            builder.replace(matcher.start() - i, matcher.end() - i, matcher.group().substring(1).toUpperCase());
+        }
+        if (Character.isUpperCase(builder.charAt(0))) {
+            builder.replace(0, 1, String.valueOf(Character.toLowerCase(builder.charAt(0))));
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 分割固定格式的字符串
+     */
+    public static String[] splitString(String str, String separator) {
+        return StringUtils.splitByWholeSeparator(str, separator);
+    }
+
+    /**
+     * 将字符串首字母大写
+     */
+    public static String firstToUpper(String str) {
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+
+    /**
+     * 将字符串首字母小写
+     */
+    public static String firstToLower(String str) {
+        return Character.toLowerCase(str.charAt(0)) + str.substring(1);
+    }
+
+    /**
+     * 转为帕斯卡命名方式（如：FooBar）
+     */
+    public static String toPascalStyle(String str, String seperator) {
+        return StringUtils.firstToUpper(toCamelhumpStyle(str, seperator));
+    }
+
+    /**
+     * 转为驼峰命令方式（如：fooBar）
+     */
+    public static String toCamelhumpStyle(String str, String seperator) {
+        return StringUtils.underlineToCamelhump(toUnderlineStyle(str, seperator));
+    }
+
+    /**
+     * 转为下划线命名方式（如：foo_bar）
+     */
+    public static String toUnderlineStyle(String str, String seperator) {
+        str = str.trim().toLowerCase();
+        if (str.contains(seperator)) {
+            str = str.replace(seperator, "_");
+        }
+        return str;
+    }
+
+    /**
+     * 转为显示命名方式（如：Foo Bar）
+     */
+    public static String toDisplayStyle(String str, String seperator) {
+        String displayName = "";
+        str = str.trim().toLowerCase();
+        if (str.contains(seperator)) {
+            String[] words = StringUtils.splitString(str, seperator);
+            for (String word : words) {
+                displayName += StringUtils.firstToUpper(word) + " ";
+            }
+            displayName = displayName.trim();
+        } else {
+            displayName = StringUtils.firstToUpper(str);
+        }
+        return displayName;
+    }
 }

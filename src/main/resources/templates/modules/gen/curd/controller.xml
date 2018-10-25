@@ -35,9 +35,6 @@ import ${packageName}.${moduleName}.service<#if subModuleName != "">.${subModule
 public class ${ClassName}Controller extends BaseController {
 
 	@Autowired
-	private SysColumnHideService sysColumnHideService;
-
-	@Autowired
 	private ${ClassName}Service ${className}Service;
 	
 	@ModelAttribute

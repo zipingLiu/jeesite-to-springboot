@@ -135,6 +135,28 @@ public class Global {
     }
 
     /**
+     * 获取视图前缀
+     */
+    public static String getViewPrefix() {
+        return getConfig("spring.mvc.view.prefix");
+    }
+
+    /**
+     * 获取视图后缀
+     */
+    public static String getViewSuffix() {
+        return getConfig("spring.mvc.view.suffix");
+    }
+
+    /**
+     * 获取视图文件扩展名(例如jsp)
+     */
+    public static String getViewExtension() {
+        String suffix = getViewSuffix();
+        return StringUtils.substringAfter(suffix, ".");
+    }
+
+    /**
      * 是否是演示模式，演示模式下不能修改用户、角色、密码、菜单、授权
      */
     public static Boolean isDemoMode() {
