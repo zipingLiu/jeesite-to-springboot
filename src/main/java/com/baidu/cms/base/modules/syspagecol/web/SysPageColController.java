@@ -63,7 +63,34 @@ public class SysPageColController extends BaseController {
     @RequiresPermissions("syspagecol:sysPageCol:view")
     @RequestMapping(value = "form")
     public String form(SysPageCol sysPageCol, Model model) {
-        // 所有列
+        if (sysPageCol.getIsNewRecord()) {
+            List<SysPageCol> colList = getColListFromCache();
+            // 下一步
+            if (StringUtils.isNotBlank(sysPageCol.getViewName())) {
+                for (SysPageCol pageCol : colList) {
+                    if (sysPageCol.getViewName().equals(pageCol.getViewName())) {
+                        model.addAttribute("sysPageCol", pageCol);
+                        List<ColLabVal> allList = getAllColList(sysPageCol);
+                        model.addAttribute("allList", allList);
+                        return "base/modules/syspagecol/sysPageColForm";
+                    }
+                }
+            }
+            // 新建
+            model.addAttribute("colList", colList);
+            return "base/modules/syspagecol/sysPageColForm";
+        }
+        // 修改
+        List<ColLabVal> allList = getAllColList(sysPageCol);
+        model.addAttribute("allList", allList);
+        model.addAttribute("sysPageCol", sysPageCol);
+        return "base/modules/syspagecol/sysPageColForm";
+    }
+
+    /**
+     * 所有列名的集合
+     */
+    private List<ColLabVal> getAllColList(SysPageCol sysPageCol) {
         List<ColLabVal> allList = new ArrayList<>();
         String colAll = sysPageCol.getColAll();
         if (colAll != null) {
@@ -72,20 +99,16 @@ public class SysPageColController extends BaseController {
                 allList.add(new ColLabVal(split[i], String.valueOf(i)));
             }
         }
-        model.addAttribute("allList", allList);
+        return allList;
+    }
 
-        if (sysPageCol.getIsNewRecord()) {
-            //List<SysPageCol> colList = sysPageColService.findAllList(new SysPageCol());
-            // 加载所有视图信息
-            String jsonContent = redisUtils.get(RedisUtils.prefix("ALL-VIEW-COLUMN-LIST:"));
-            List<SysPageCol> colList = JSON.parseObject(jsonContent, new TypeReference<List<SysPageCol>>() {
-            });
-            model.addAttribute("colList", colList);
-            return "base/modules/syspagecol/sysPageColForm";
-        }
-
-        model.addAttribute("sysPageCol", sysPageCol);
-        return "base/modules/syspagecol/sysPageColForm";
+    /**
+     * 从缓存加载所有视图信息
+     */
+    private List<SysPageCol> getColListFromCache() {
+        String jsonContent = redisUtils.get(RedisUtils.prefix("ALL-VIEW-COLUMN-LIST:"));
+        return JSON.parseObject(jsonContent, new TypeReference<List<SysPageCol>>() {
+        });
     }
 
     @RequiresPermissions("syspagecol:sysPageCol:edit")

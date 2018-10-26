@@ -108,7 +108,7 @@ public class SysPageCol extends DataEntity<SysPageCol> {
         for (String s : list) {
             sb.append(s).append(",");
         }
-        colHide = sb.toString();
+        colAll = sb.toString();
     }
 
 }
