@@ -1,8 +1,7 @@
 package com.baidu.cms.common;
 
 import com.alibaba.fastjson.JSON;
-import com.baidu.cms.base.modules.column.entity.PageColumn;
-import com.baidu.cms.base.modules.syspagecol.service.SysPageColService;
+import com.baidu.cms.base.modules.syspagecol.entity.PageColumn;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.JsoupUtil;
 import com.baidu.cms.common.utils.RedisUtils;
@@ -45,9 +44,6 @@ public class AppStartup implements ApplicationRunner {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Autowired
-    private SysPageColService sysPageColService;
-
     @Override
     public void run(ApplicationArguments args) {
         columnHideCache();
@@ -70,11 +66,14 @@ public class AppStartup implements ApplicationRunner {
 
             // 存储列信息
             List<PageColumn> columnList = new ArrayList<>();
+            List<String> viewPathList = new ArrayList<>();
             while (it.hasNext()) {
                 File file = it.next();
                 String fileName = file.getName();
                 if (fileName.endsWith("List.jsp")) {
                     String viewPath = StringUtils.substringBetween(file.getPath(), "views/", ".jsp");
+                    viewPathList.add(viewPath);
+
                     String moduleName = StringUtils.substringBefore(viewPath, "/modules");
                     String entityName = StringUtils.firstToUpper(StringUtils.substringBefore(fileName, "List.jsp"));
 
@@ -94,10 +93,16 @@ public class AppStartup implements ApplicationRunner {
                     }
                 }
             }
-            String toJSONString = JSON.toJSONString(columnList);
+
+            Global.viewPathList.addAll(viewPathList);
+
             // 写入缓存
-            redisUtils.set("PAGE-COLUMN-LIST:", toJSONString);
-            logger.info("将所有列写入缓存:" + toJSONString);
+            String columnListString = JSON.toJSONString(columnList);
+            redisUtils.set("ALL-VIEW-COLUMN-LIST:", columnListString);
+            logger.info("将所有列写入缓存:" + columnListString);
+
+            //String viewPathListString = JSON.toJSONString(viewPathList);
+            //redisUtils.set("ALL-VIEW-PATH-LIST:", viewPathListString);
         } catch (IOException e) {
             logger.error("系统启动异常:" + e.toString());
         }

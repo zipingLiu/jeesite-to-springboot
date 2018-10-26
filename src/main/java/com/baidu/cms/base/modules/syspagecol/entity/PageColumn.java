@@ -1,4 +1,4 @@
-package com.baidu.cms.base.modules.column.entity;
+package com.baidu.cms.base.modules.syspagecol.entity;
 
 import java.util.List;
 

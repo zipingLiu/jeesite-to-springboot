@@ -16,7 +16,7 @@
 		$(document).ready(function() {
 			//$("#name").focus();
 			// 设置隐藏列
-            hideShowTableTd('contentTable', '${r"${columnHideArr}"}', 0);
+            hideShowTableTd('contentTable', '${r"${colHide}"}', 0);
 			$("#searchForm").validate({
 				submitHandler: function(form){
 					loading('正在查询，请稍等...');

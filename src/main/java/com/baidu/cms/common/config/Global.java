@@ -3,6 +3,7 @@ package com.baidu.cms.common.config;
 import com.baidu.cms.common.utils.PropertiesLoader;
 import com.baidu.cms.common.utils.StringUtils;
 import com.ckfinder.connector.ServletContextFactory;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +69,11 @@ public class Global {
 
     public static final String SYS_COLUMN_HIDE_KEY = "SYS-COLUMN-HIDE:";
     public static final String SYS_PAGE_COL_LIST_KEY = "SYS-PAGE-COL-LIST:";
+
+    /**
+     * 所有列表页视图路径
+     */
+    public static List<String> viewPathList = Lists.newArrayList();
 
     /**
      * 获取当前对象实例

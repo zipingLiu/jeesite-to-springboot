@@ -1,6 +1,5 @@
 package com.baidu.cms.base.modules.config.web;
 
-import com.baidu.cms.base.modules.column.service.SysColumnHideService;
 import com.baidu.cms.base.modules.config.entity.SysConfig;
 import com.baidu.cms.base.modules.config.service.SysConfigService;
 import com.baidu.cms.common.config.Global;
@@ -32,9 +31,6 @@ public class SysConfigController extends BaseController {
 
     @Autowired
     private RedisUtils redisUtils;
-
-    @Autowired
-    private SysColumnHideService sysColumnHideService;
 
     @Autowired
     private SysConfigService sysConfigService;

@@ -1,9 +1,12 @@
 package com.baidu.cms.base.modules.syspagecol.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.baidu.cms.base.modules.syspagecol.entity.ColLabVal;
+import com.baidu.cms.base.modules.syspagecol.entity.SysPageCol;
+import com.baidu.cms.base.modules.syspagecol.service.SysPageColService;
+import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.StringUtils;
+import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.baidu.cms.common.config.Global;
-import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.web.BaseController;
-import com.baidu.cms.common.utils.StringUtils;
-import com.baidu.cms.base.modules.syspagecol.entity.SysPageCol;
-import com.baidu.cms.base.modules.syspagecol.service.SysPageColService;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class SysPageColController extends BaseController {
 
 	@Autowired
 	private SysPageColService sysPageColService;
-	
+
 	@ModelAttribute
 	public SysPageCol get(@RequestParam(required=false) String id) {
 		SysPageCol entity = null;
@@ -46,11 +44,11 @@ public class SysPageColController extends BaseController {
 		}
 		return entity;
 	}
-	
+
 	@RequiresPermissions("syspagecol:sysPageCol:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(SysPageCol sysPageCol, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<SysPageCol> page = sysPageColService.findPage(new Page<SysPageCol>(request, response), sysPageCol); 
+		Page<SysPageCol> page = sysPageColService.findPage(new Page<>(request, response), sysPageCol);
 		model.addAttribute("page", page);
 		return "base/modules/syspagecol/sysPageColList";
 	}
@@ -61,11 +59,13 @@ public class SysPageColController extends BaseController {
 		model.addAttribute("sysPageCol", sysPageCol);
 
 		// 所有列
-		String colAll = sysPageCol.getColAll();
-		String[] split = colAll.split(",");
 		List<ColLabVal> allList = new ArrayList<>();
-		for (int i = 0; i < split.length; i++) {
-			allList.add(new ColLabVal(split[i], String.valueOf(i)));
+		String colAll = sysPageCol.getColAll();
+		if (colAll != null) {
+			String[] split = colAll.split(",");
+			for (int i = 0; i < split.length; i++) {
+				allList.add(new ColLabVal(split[i], String.valueOf(i)));
+			}
 		}
 		model.addAttribute("allList", allList);
 		return "base/modules/syspagecol/sysPageColForm";
@@ -79,15 +79,15 @@ public class SysPageColController extends BaseController {
 		}
 		sysPageColService.save(sysPageCol);
 		addMessage(redirectAttributes, "保存视图展示列成功");
-		return "redirect:"+Global.getAdminPath()+"/syspagecol/sysPageCol/?repage";
+		return "redirect:"+ Global.getAdminPath()+"/syspagecol/sysPageCol/?repage";
 	}
-	
+
 	@RequiresPermissions("syspagecol:sysPageCol:edit")
 	@RequestMapping(value = "delete")
 	public String delete(SysPageCol sysPageCol, RedirectAttributes redirectAttributes) {
 		sysPageColService.delete(sysPageCol);
 		addMessage(redirectAttributes, "删除视图展示列成功");
-		return "redirect:"+Global.getAdminPath()+"/syspagecol/sysPageCol/?repage";
+		return "redirect:"+ Global.getAdminPath()+"/syspagecol/sysPageCol/?repage";
 	}
 
 }

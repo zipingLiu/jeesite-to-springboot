@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.cms.base.modules.syspagecol.entity.SysPageCol;
 import com.baidu.cms.base.modules.syspagecol.service.SysPageColService;
-import com.baidu.cms.common.config.ColumnHideView;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.Collections3;
 import com.baidu.cms.common.utils.RedisUtils;
@@ -46,7 +45,7 @@ public class PageViewInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) {
         try {
-            if (modelAndView != null && ColumnHideView.hasKey(modelAndView.getViewName())) {
+            if (modelAndView != null && Global.viewPathList.contains(modelAndView.getViewName())) {
                 // 读缓存
                 List<Object> list = lo.range(RedisUtils.prefix(Global.SYS_PAGE_COL_LIST_KEY), 0, -1);
                 if (!Collections3.isEmpty(list)) {
