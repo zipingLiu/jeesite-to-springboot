@@ -61,20 +61,8 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
     @Transactional(readOnly = false)
     public void save(SysColumnHide hide) {
         super.save(hide);
-        this.updateCache();
+        //this.updateCache();
     }
-
-	/*private void writeToCache(SysColumnHide sysColumnHide) {
-		try {
-			// 写入缓存
-			String key = Global.getSysColumnHideKey(sysColumnHide.getClassName());
-			String value = sysColumnHide.getColumnHideArr();
-			redisUtils.set(key, value);
-			logger.info("写入缓存:" + key + "=" + value);
-		} catch (Exception e) {
-			logger.error("写入缓存异常:" + e.toString());
-		}
-	}*/
 
     /**
      * 刷新缓存
@@ -85,7 +73,7 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
     private void updateCache() {
         try {
             List<SysColumnHide> list = findAllList(new SysColumnHide());
-            String key = RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY);
+            String key = RedisUtils.prefix(Global.SYS_PAGE_COL_LIST_KEY);
             // 先删除list,再写入
             redisUtils.delete(key);
             for (SysColumnHide hide : list) {
@@ -94,7 +82,7 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
                 jsonObject.put("className", hide.getClassName());
                 jsonObject.put("columnHideArr", hide.getColumnHideArr());
                 String value = JSON.toJSONString(jsonObject);
-                listOps.leftPush(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY), value);
+                listOps.leftPush(RedisUtils.prefix(Global.SYS_PAGE_COL_LIST_KEY), value);
                 logger.info("写入缓存:" + key + "=" + value);
             }
         } catch (Exception e) {
@@ -105,7 +93,7 @@ public class SysColumnHideService extends CrudService<SysColumnHideDao, SysColum
     @Transactional(readOnly = false)
     public void delete(SysColumnHide sysColumnHide) {
         super.delete(sysColumnHide);
-        this.updateCache();
+        //this.updateCache();
     }
 
 }

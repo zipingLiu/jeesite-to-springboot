@@ -2,6 +2,7 @@ package com.baidu.cms.common;
 
 import com.alibaba.fastjson.JSON;
 import com.baidu.cms.base.modules.column.entity.PageColumn;
+import com.baidu.cms.base.modules.syspagecol.service.SysPageColService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.JsoupUtil;
 import com.baidu.cms.common.utils.RedisUtils;
@@ -43,6 +44,9 @@ public class AppStartup implements ApplicationRunner {
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    private SysPageColService sysPageColService;
 
     @Override
     public void run(ApplicationArguments args) {

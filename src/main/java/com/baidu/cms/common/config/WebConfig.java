@@ -1,7 +1,7 @@
 package com.baidu.cms.common.config;
 
-import com.baidu.cms.base.modules.sys.interceptor.ColumnHideInterceptor;
-import com.baidu.cms.base.modules.sys.interceptor.LogInterceptor;
+import com.baidu.cms.common.interceptor.LogInterceptor;
+import com.baidu.cms.common.interceptor.PageViewInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -21,9 +21,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LogInterceptor logInterceptor = new LogInterceptor();
-        ColumnHideInterceptor hideInterceptor = new ColumnHideInterceptor();
+        PageViewInterceptor pageViewInterceptor = new PageViewInterceptor();
         registry.addInterceptor(logInterceptor);
-        registry.addInterceptor(hideInterceptor);
+        registry.addInterceptor(pageViewInterceptor);
     }
 
 }

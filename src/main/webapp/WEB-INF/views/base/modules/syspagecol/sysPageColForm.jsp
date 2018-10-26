@@ -71,7 +71,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">隐藏的列：</label>
+			<label class="control-label">要隐藏的列：</label>
 			<div class="controls">
 				<form:checkboxes path="colHideList" items="${allList}" itemLabel="colLab" itemValue="colVal" htmlEscape="false" class=""/>
 			</div>

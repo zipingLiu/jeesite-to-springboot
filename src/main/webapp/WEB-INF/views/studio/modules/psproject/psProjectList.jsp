@@ -10,7 +10,7 @@
 		$(document).ready(function() {
 			//$("#name").focus();
             // 设置隐藏列
-            hideShowTableTd('contentTable', '${columnHideArr}', 0);
+            hideShowTableTd('contentTable', '${colHide}', 0);
 			$("#searchForm").validate({
 				submitHandler: function(form){
 					loading('正在查询，请稍等...');

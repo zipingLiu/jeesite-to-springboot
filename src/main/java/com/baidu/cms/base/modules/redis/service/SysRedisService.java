@@ -67,7 +67,7 @@ public class SysRedisService {
             int start = pageNo == 1 ? 0 : (pageNo - 1) * pageSize;
             for (int i = start, j = 0; i < keyList.size() && j < pageSize; i++, j++) {
                 String key = keyList.get(i);
-                if (key.startsWith(RedisUtils.prefix(Global.SYS_COLUMN_HIDE_LIST_KEY))) {
+                if (key.startsWith(RedisUtils.prefix(Global.SYS_PAGE_COL_LIST_KEY))) {
                     List<Object> range = listOps.range(key, 0, -1);
                     value = JSON.toJSONString(range);
                 } else {

@@ -81,9 +81,6 @@
 			<li><label>所有列：</label>
 				<form:input path="colAll" htmlEscape="false" maxlength="1000" class="input-medium"/>
 			</li>
-			<li><label>隐藏的列：</label>
-				<form:checkboxes path="colHide" items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>
@@ -98,7 +95,7 @@
 				<th class="sort-column viewPath">视图路径</th>
 				<th class="sort-column viewName">视图文件名称</th>
 				<th class="sort-column colAll">所有列</th>
-				<th class="sort-column colHide">隐藏的列</th>
+				<th class="sort-column colHide">要隐藏的列</th>
 				<shiro:hasPermission name="syspagecol:sysPageCol:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
