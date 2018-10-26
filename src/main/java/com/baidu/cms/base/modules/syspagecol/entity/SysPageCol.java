@@ -2,7 +2,6 @@ package com.baidu.cms.base.modules.syspagecol.entity;
 
 import com.baidu.cms.common.persistence.DataEntity;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
@@ -97,7 +96,14 @@ public class SysPageCol extends DataEntity<SysPageCol> {
     }
 
     public void setColHideList(List<String> list) {
-//        colHide = "," + StringUtils.join(list, ",") + ",";
+        StringBuilder sb = new StringBuilder();
+        for (String s : list) {
+            sb.append(s).append(",");
+        }
+        colHide = sb.toString();
+    }
+
+    public void setThList(List<String> list) {
         StringBuilder sb = new StringBuilder();
         for (String s : list) {
             sb.append(s).append(",");
