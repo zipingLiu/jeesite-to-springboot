@@ -1,7 +1,6 @@
 package com.baidu.cms.common;
 
 import com.alibaba.fastjson.JSON;
-import com.baidu.cms.base.modules.column.entity.ColumnPair;
 import com.baidu.cms.base.modules.column.entity.PageColumn;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.JsoupUtil;
@@ -11,6 +10,8 @@ import org.apache.commons.io.FileUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -34,6 +35,8 @@ import java.util.List;
 @Order(1)
 @Component
 public class AppStartup implements ApplicationRunner {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ServletContext servletContext;
@@ -77,9 +80,9 @@ public class AppStartup implements ApplicationRunner {
                     if (table != null) {
                         Elements eList = table.getElementsByTag("th");
                         if (!CollectionUtils.isEmpty(eList)) {
-                            List<ColumnPair> thList = new ArrayList<>();
+                            List<String> thList = new ArrayList<>();
                             for (int i = 0; i < eList.size(); i++) {
-                                thList.add(new ColumnPair(i, eList.get(i).text()));
+                                thList.add(eList.get(i).text());
                             }
                             PageColumn pageColumn = new PageColumn(moduleName, entityName, viewPath, fileName, thList);
                             columnList.add(pageColumn);
@@ -87,10 +90,12 @@ public class AppStartup implements ApplicationRunner {
                     }
                 }
             }
+            String toJSONString = JSON.toJSONString(columnList);
             // 写入缓存
-            redisUtils.set("PAGE-COLUMN-LIST:", JSON.toJSONString(columnList));
+            redisUtils.set("PAGE-COLUMN-LIST:", toJSONString);
+            logger.info("将所有列写入缓存:" + toJSONString);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("系统启动异常:" + e.toString());
         }
     }
 }

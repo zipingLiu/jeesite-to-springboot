@@ -44,7 +44,7 @@
 		<div class="control-group">
 			<label class="control-label">缓存值：</label>
 			<div class="controls">
-                <form:textarea path="redisValue" htmlEscape="false" rows="8" maxlength="1000" class="input-xxlarge required"/>
+                <form:textarea path="redisValue" htmlEscape="false" rows="8" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

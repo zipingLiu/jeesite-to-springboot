@@ -31,19 +31,19 @@ public class PageColumn {
     private String viewName;
 
     /**
-     * 所有的列名
+     * 所有的列名集合
      */
-    private List<ColumnPair> columnList;
+    private List<String> thList;
 
     public PageColumn() {
     }
 
-    public PageColumn(String moduleName, String entityName, String viewPath, String viewName, List<ColumnPair> columnList) {
+    public PageColumn(String moduleName, String entityName, String viewPath, String viewName, List<String> thList) {
         this.moduleName = moduleName;
         this.entityName = entityName;
         this.viewPath = viewPath;
         this.viewName = viewName;
-        this.columnList = columnList;
+        this.thList = thList;
     }
 
     public String getModuleName() {
@@ -78,11 +78,11 @@ public class PageColumn {
         this.viewName = viewName;
     }
 
-    public List<ColumnPair> getColumnList() {
-        return columnList;
+    public List<String> getThList() {
+        return thList;
     }
 
-    public void setColumnList(List<ColumnPair> columnList) {
-        this.columnList = columnList;
+    public void setThList(List<String> thList) {
+        this.thList = thList;
     }
 }
