@@ -36,12 +36,12 @@
         <c:when test="${empty sysPageCol.viewName}">
             <form:form id="inputForm" modelAttribute="sysPageCol" action="${ctx}/syspagecol/sysPageCol/form" method="post" class="form-horizontal">
                 <form:hidden path="id"/>
-
                 <sys:message content="${message}"/>
                 <div class="control-group">
                     <label class="control-label">选择视图文件:</label>
                     <div class="controls">
-                        <form:select path="viewName" class="input-xxlarge">
+                        <form:select path="viewName" class="required input-xxlarge">
+                            <form:option value="" label="选择视图文件"/>
                             <form:options items="${colList}" itemLabel="viewName" itemValue="viewName" htmlEscape="false"/>
                         </form:select>
                         <span class="help-inline"></span>

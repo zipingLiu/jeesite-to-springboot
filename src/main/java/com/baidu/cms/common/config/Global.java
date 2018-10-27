@@ -1,5 +1,8 @@
 package com.baidu.cms.common.config;
 
+import com.baidu.cms.base.modules.syspagecol.entity.ColLabVal;
+import com.baidu.cms.base.modules.syspagecol.entity.PageColumn;
+import com.baidu.cms.common.utils.Collections3;
 import com.baidu.cms.common.utils.PropertiesLoader;
 import com.baidu.cms.common.utils.StringUtils;
 import com.ckfinder.connector.ServletContextFactory;
@@ -74,12 +77,55 @@ public class Global {
      * 所有列表页视图路径
      */
     public static List<String> viewPathList = Lists.newArrayList();
+    /**
+     * 所有视图列信息
+     */
+    public static List<PageColumn> viewColumnList = Lists.newArrayList();
+
+    /**
+     * 所有视图信息，key为视图名称
+     */
+    public static Map<String, PageColumn> viewColumnMap = Maps.newHashMap();
 
     /**
      * 获取当前对象实例
      */
     public static Global getInstance() {
         return global;
+    }
+
+    public static PageColumn getPageColumn(String viewName) {
+        return Global.viewColumnMap.get(viewName);
+    }
+
+    /**
+     * 根据视图名称查询所有的列名和列索引(用于复选框)
+     */
+    public static List<ColLabVal> getColLabValList(String viewName) {
+        PageColumn pageColumn = Global.getPageColumn(viewName);
+        List<String> thList = pageColumn.getThList();
+        List<ColLabVal> colLabValList = new ArrayList<>();
+        for (int i = 0; i < thList.size(); i++) {
+            colLabValList.add(new ColLabVal(thList.get(i), String.valueOf(i)));
+        }
+        return colLabValList;
+    }
+
+    /**
+     * 根据视图名称获取所有的列名的字符串形式,多个列名之间使用逗号分隔
+     */
+    public static String getThListString(String viewName) {
+        PageColumn pageColumn = Global.getPageColumn(viewName);
+        StringBuilder builder = new StringBuilder();
+        if (pageColumn != null) {
+            List<String> thList = pageColumn.getThList();
+            if (!Collections3.isEmpty(thList)) {
+                for (String th : thList) {
+                    builder.append(th).append(",");
+                }
+            }
+        }
+        return builder.toString();
     }
 
     /**

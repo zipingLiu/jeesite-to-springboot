@@ -2,7 +2,7 @@ package com.baidu.cms.base.modules.syspagecol.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.baidu.cms.base.modules.syspagecol.entity.ColLabVal;
+import com.baidu.cms.base.modules.syspagecol.entity.PageColumn;
 import com.baidu.cms.base.modules.syspagecol.entity.SysPageCol;
 import com.baidu.cms.base.modules.syspagecol.service.SysPageColService;
 import com.baidu.cms.common.config.Global;
@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,48 +63,22 @@ public class SysPageColController extends BaseController {
     @RequestMapping(value = "form")
     public String form(SysPageCol sysPageCol, Model model) {
         if (sysPageCol.getIsNewRecord()) {
+            // 加载视图列表
             List<SysPageCol> colList = getColListFromCache();
-            // 下一步
-            if (StringUtils.isNotBlank(sysPageCol.getViewName())) {
-                // 验证视图是否存在
-                if (!sysPageColService.checkTableName(sysPageCol.getViewName())) {
-                    addMessage(model, "下一步失败！" + sysPageCol.getViewName() + " 视图已经添加！");
-                    sysPageCol.setViewName("");
-                } else {
-                    for (SysPageCol pageCol : colList) {
-                        if (sysPageCol.getViewName().equals(pageCol.getViewName())) {
-                            model.addAttribute("sysPageCol", pageCol);
-                            List<ColLabVal> allList = getAllColList(pageCol);
-                            model.addAttribute("allList", allList);
-                            return "base/modules/syspagecol/sysPageColForm";
-                        }
-                    }
-                }
-            }
-            // 新建
             model.addAttribute("colList", colList);
-            return "base/modules/syspagecol/sysPageColForm";
-        }
-        // 修改
-        List<ColLabVal> allList = getAllColList(sysPageCol);
-        model.addAttribute("allList", allList);
-        model.addAttribute("sysPageCol", sysPageCol);
-        return "base/modules/syspagecol/sysPageColForm";
-    }
-
-    /**
-     * 所有列名的集合
-     */
-    private List<ColLabVal> getAllColList(SysPageCol sysPageCol) {
-        List<ColLabVal> allList = new ArrayList<>();
-        String colAll = sysPageCol.getColAll();
-        if (colAll != null) {
-            String[] split = colAll.split(",");
-            for (int i = 0; i < split.length; i++) {
-                allList.add(new ColLabVal(split[i], String.valueOf(i)));
+            // 验证视图是否存在
+            if (!sysPageColService.checkTableName(sysPageCol.getViewName())) {
+                addMessage(model, "下一步失败！" + sysPageCol.getViewName() + " 视图已经添加！");
+                sysPageCol.setViewName("");
             }
         }
-        return allList;
+        PageColumn pageColumn = Global.viewColumnMap.get(sysPageCol.getViewName());
+        SysPageCol pageCol = new SysPageCol(pageColumn, sysPageCol.getId(), sysPageCol.getColHide());
+        model.addAttribute("sysPageCol", pageColumn == null ? sysPageCol : pageCol);
+        if (pageColumn != null) {
+            model.addAttribute("allList", sysPageCol.getColLabValList(pageColumn.getThList()));
+        }
+        return "base/modules/syspagecol/sysPageColForm";
     }
 
     /**

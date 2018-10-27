@@ -1,9 +1,11 @@
 package com.baidu.cms.base.modules.syspagecol.entity;
 
+import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.DataEntity;
 import com.google.common.collect.Lists;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +30,22 @@ public class SysPageCol extends DataEntity<SysPageCol> {
 
     public SysPageCol(String id) {
         super(id);
+    }
+
+    /**
+     * 根据PageColumn来构造SysPageCol
+     */
+    public SysPageCol(PageColumn pageColumn, String id, String colHide) {
+        this.id = id;
+        this.colHide = colHide;
+        if (pageColumn != null) {
+            this.viewName = pageColumn.getViewName();
+            this.entityName = pageColumn.getEntityName();
+            this.moduleName = pageColumn.getModuleName();
+            this.viewPath = pageColumn.getViewPath();
+            String thListString = Global.getThListString(pageColumn.getViewName());
+            this.colAll = thListString;
+        }
     }
 
     @Length(min = 1, max = 50, message = "模块名称长度必须介于 1 和 50 之间")
@@ -109,6 +127,18 @@ public class SysPageCol extends DataEntity<SysPageCol> {
             sb.append(s).append(",");
         }
         colAll = sb.toString();
+    }
+
+    /**
+     * 获取所有列(用于复选框)
+     * thList为所有的列名集合
+     */
+    public List<ColLabVal> getColLabValList(List<String> thList) {
+        List<ColLabVal> colLabValList = new ArrayList<>();
+        for (int i = 0; i < thList.size(); i++) {
+            colLabValList.add(new ColLabVal(thList.get(i), String.valueOf(i)));
+        }
+        return colLabValList;
     }
 
 }

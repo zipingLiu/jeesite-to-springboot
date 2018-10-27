@@ -64,15 +64,12 @@ public class AppStartup implements ApplicationRunner {
             String viewExtension = Global.getViewExtension();
             Iterator<File> it = FileUtils.iterateFiles(new File(realPath), new String[]{viewExtension}, true);
 
-            // 存储列信息
-            List<PageColumn> columnList = new ArrayList<>();
-            List<String> viewPathList = new ArrayList<>();
             while (it.hasNext()) {
                 File file = it.next();
                 String fileName = file.getName();
                 if (fileName.endsWith("List.jsp")) {
                     String viewPath = StringUtils.substringBetween(file.getPath(), "views/", ".jsp");
-                    viewPathList.add(viewPath);
+                    Global.viewPathList.add(viewPath);
 
                     String moduleName = StringUtils.substringBefore(viewPath, "/modules");
                     String entityName = StringUtils.firstToUpper(StringUtils.substringBefore(fileName, "List.jsp"));
@@ -88,18 +85,17 @@ public class AppStartup implements ApplicationRunner {
                                 thList.add(eList.get(i).text());
                             }
                             PageColumn pageColumn = new PageColumn(moduleName, entityName, viewPath, fileName, thList);
-                            columnList.add(pageColumn);
+                            Global.viewColumnList.add(pageColumn);
+                            Global.viewColumnMap.put(pageColumn.getViewName(), pageColumn);
                         }
                     }
                 }
             }
 
-            Global.viewPathList.addAll(viewPathList);
-
             // 写入缓存
-            String columnListString = JSON.toJSONString(columnList);
-            redisUtils.set("ALL-VIEW-COLUMN-LIST:", columnListString);
-            logger.info("将所有列写入缓存:" + columnListString);
+            String viewColumnList = JSON.toJSONString(Global.viewColumnList);
+            redisUtils.set("ALL-VIEW-COLUMN-LIST:", viewColumnList);
+            logger.info("将所有列写入缓存:" + viewColumnList);
 
             //String viewPathListString = JSON.toJSONString(viewPathList);
             //redisUtils.set("ALL-VIEW-PATH-LIST:", viewPathListString);
