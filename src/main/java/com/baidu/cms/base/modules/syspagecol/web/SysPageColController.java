@@ -67,12 +67,18 @@ public class SysPageColController extends BaseController {
             List<SysPageCol> colList = getColListFromCache();
             // 下一步
             if (StringUtils.isNotBlank(sysPageCol.getViewName())) {
-                for (SysPageCol pageCol : colList) {
-                    if (sysPageCol.getViewName().equals(pageCol.getViewName())) {
-                        model.addAttribute("sysPageCol", pageCol);
-                        List<ColLabVal> allList = getAllColList(sysPageCol);
-                        model.addAttribute("allList", allList);
-                        return "base/modules/syspagecol/sysPageColForm";
+                // 验证视图是否存在
+                if (!sysPageColService.checkTableName(sysPageCol.getViewName())) {
+                    addMessage(model, "下一步失败！" + sysPageCol.getViewName() + " 视图已经添加！");
+                    sysPageCol.setViewName("");
+                } else {
+                    for (SysPageCol pageCol : colList) {
+                        if (sysPageCol.getViewName().equals(pageCol.getViewName())) {
+                            model.addAttribute("sysPageCol", pageCol);
+                            List<ColLabVal> allList = getAllColList(pageCol);
+                            model.addAttribute("allList", allList);
+                            return "base/modules/syspagecol/sysPageColForm";
+                        }
                     }
                 }
             }
