@@ -141,6 +141,7 @@
 				<th class="sort-column evalDockerCommand">Docker命令</th>
 				<th class="sort-column columns">列JSON</th>
 				<th class="sort-column tokenStartTime">获取Token开始时间</th>
+				<th>排行榜</th>
 				<shiro:hasPermission name="psmatchprocess:psMatchProcess:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>

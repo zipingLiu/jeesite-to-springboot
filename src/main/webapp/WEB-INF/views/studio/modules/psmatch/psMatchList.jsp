@@ -152,6 +152,8 @@
 				<th>论坛链接</th>
 				<th class="sort-column createTime">创建时间</th>
 				<th class="sort-column updateTime">更新时间</th>
+				<th>提交列表</th>
+				<th>报名列表</th>
 				<shiro:hasPermission name="psmatch:psMatch:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
