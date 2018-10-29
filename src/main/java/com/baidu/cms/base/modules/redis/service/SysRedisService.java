@@ -32,9 +32,9 @@ public class SysRedisService {
 
     public SysRedis get(String redisKey) {
         String key = RedisUtils.prefix(redisKey);
-        String redisValue = redisUtils.getByKeyType(key);
+        SysRedis newSysRedis = redisUtils.getStringValByKeyType(key);
         DataType dataType = redisUtils.getDataType(key);
-        return redisValue != null ? new SysRedis(dataType.code(), redisKey, redisValue) : null;
+        return newSysRedis.getRedisValue() != null ? new SysRedis(dataType.code(), redisKey, newSysRedis.getRedisValue()) : null;
     }
 
     /**
@@ -67,9 +67,9 @@ public class SysRedisService {
             int start = pageNo == 1 ? 0 : (pageNo - 1) * pageSize;
             for (int i = start, j = 0; i < keyList.size() && j < pageSize; i++, j++) {
                 String key = keyList.get(i);
-                String value = redisUtils.getByKeyType(key);
-                DataType dataType = redisUtils.getDataType(key);
-                list.add(new SysRedis(dataType.code(), RedisUtils.delPrefix(key), value));
+//                SysRedis newSysRedis = redisUtils.getSysRedisByKeyType(key);
+                SysRedis newSysRedis = redisUtils.getStringValByKeyType(key);
+                list.add(newSysRedis);
             }
         }
         page.setList(list);

@@ -4,7 +4,6 @@ import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.base.modules.redis.service.SysRedisService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.utils.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -56,6 +55,10 @@ public class SysRedisController extends BaseController {
     @RequiresPermissions("redis:sysRedis:view")
     @RequestMapping(value = "form")
     public String form(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (DataType.LIST.code().equals(dataType)) {
+            // TODO
+        }
         model.addAttribute("sysRedis", sysRedis);
         return "base/modules/redis/sysRedisForm";
     }
@@ -85,11 +88,11 @@ public class SysRedisController extends BaseController {
             addMessage(model, "目前仅支持String类型!");
             return false;
         }
-        String redisKey = sysRedis.getRedisKey();
+        /*String redisKey = sysRedis.getRedisKey();
         if (StringUtils.isNotBlank(redisKey) && redisKey.startsWith(RedisUtils.DEFAULT_CACHE_PREFIX)) {
             addMessage(model, "非法的key名称!");
             return false;
-        }
+        }*/
         return true;
     }
 

@@ -42,6 +42,15 @@
 			</form:select>
 			<span class="help-inline"><font color="red">*</font> </span>
 		</div>--%>
+		<c:if test="${not empty sysRedis.redisKey}">
+			<div class="control-group">
+				<label class="control-label">数据类型：</label>
+				<div class="controls">
+					<form:input path="dataType" readonly="true" htmlEscape="false" class="input-xlarge required"/>
+					<span class="help-inline"><font color="red">*</font> </span>
+				</div>
+			</div>
+		</c:if>
         <div class="control-group">
             <label class="control-label">缓存键：</label>
             <div class="controls">
@@ -52,7 +61,7 @@
 		<div class="control-group">
 			<label class="control-label">缓存值：</label>
 			<div class="controls">
-                <form:textarea path="redisValue" htmlEscape="false" rows="8" class="input-xxlarge required"/>
+                <form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 package com.baidu.cms.common.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.common.config.Global;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
@@ -174,27 +175,67 @@ public class RedisUtils {
 
     /**
      * 根据key的类型获取value
+     * 将value转成json
      */
-    public String getByKeyType(String key) {
-        String value = null;
+    public SysRedis getStringValByKeyType(String key) {
         DataType type = redisTemplate.type(key);
-        if (DataType.STRING.code().equals(type.code())) {
-            value = get(key);
-        } else if (DataType.LIST.code().equals(type.code())) {
-            List<Object> range = listOperations.range(key, 0, -1);
-            value = JSON.toJSONString(range);
-        } else if (DataType.SET.code().equals(type.code())) {
-            Set<Object> members = setOperations.members(key);
-            value = JSON.toJSONString(members);
-        } else if (DataType.ZSET.code().equals(type.code())) {
-            Set<Object> range = zSetOperations.range(key, 0, -1);
-            value = JSON.toJSONString(range);
-        } else if (DataType.HASH.code().equals(type.code())) {
-            Map<String, Object> map = hashOperations.entries(key);
-            value = JSON.toJSONString(map);
-        } else {
-            logger.error("未知的key类型");
+        SysRedis sysRedis = new SysRedis(type.code(), key, null);
+        switch (type) {
+            case STRING:
+                sysRedis.setRedisValue(get(key));
+                break;
+            case LIST:
+                List<Object> list = listOperations.range(key, 0, -1);
+                sysRedis.setRedisValue(JSON.toJSONString(list));
+                break;
+            case SET:
+                Set<Object> set = setOperations.members(key);
+                sysRedis.setRedisValue(JSON.toJSONString(set));
+                break;
+            case ZSET:
+                Set<Object> zSet = zSetOperations.range(key, 0, -1);
+                sysRedis.setRedisValue(JSON.toJSONString(zSet));
+                break;
+            case HASH:
+                Map<String, Object> map = hashOperations.entries(key);
+                sysRedis.setRedisValue(JSON.toJSONString(map));
+            default:
+                logger.error("未知的key类型");
+                break;
         }
-        return value;
+        return sysRedis;
+    }
+
+    /**
+     * 根据key的类型获取value
+     */
+    public SysRedis getSysRedisByKeyType(String key) {
+        DataType type = redisTemplate.type(key);
+        SysRedis sysRedis = new SysRedis(type.code(), key, null);
+        switch (type) {
+            case STRING:
+                sysRedis.setRedisValue(get((key)));
+                break;
+            case LIST:
+                List<Object> list = listOperations.range(key, 0, -1);
+                sysRedis.setValList(list);
+                break;
+            case SET:
+                Set<Object> set = setOperations.members(key);
+                sysRedis.setValSet(set);
+                break;
+            case ZSET:
+                Set<Object> zSet = zSetOperations.range(key, 0, -1);
+                sysRedis.setValSet(zSet);
+                break;
+            case HASH:
+                Map<String, Object> map = hashOperations.entries(key);
+                sysRedis.setValMap(map);
+                break;
+            default:
+                logger.error("未知的key类型");
+                break;
+        }
+        return sysRedis;
     }
 }

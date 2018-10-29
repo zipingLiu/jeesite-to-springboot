@@ -4,6 +4,10 @@ import com.baidu.cms.common.persistence.DataEntity;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.redis.connection.DataType;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 缓存管理Entity
  *
@@ -13,9 +17,12 @@ import org.springframework.data.redis.connection.DataType;
 public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedis> {
 
     private static final long serialVersionUID = 1L;
-    private String dataType;    // 数据类型
-    private String redisKey;    // 缓存键
-    private String redisValue;  // 缓存值
+    private String dataType;            // 数据类型
+    private String redisKey;            // 缓存键
+    private String redisValue;          // 缓存值
+    private List<Object> valList;       // list类型的value
+    private Set<Object> valSet;         // set/zset类型的value
+    private Map<String, Object> valMap; // map类型的value
 
     public SysRedis() {
         super();
@@ -57,6 +64,30 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public List<Object> getValList() {
+        return valList;
+    }
+
+    public void setValList(List<Object> valList) {
+        this.valList = valList;
+    }
+
+    public Set<Object> getValSet() {
+        return valSet;
+    }
+
+    public void setValSet(Set<Object> valSet) {
+        this.valSet = valSet;
+    }
+
+    public Map<String, Object> getValMap() {
+        return valMap;
+    }
+
+    public void setValMap(Map<String, Object> valMap) {
+        this.valMap = valMap;
     }
 
     /**
