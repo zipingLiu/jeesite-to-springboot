@@ -199,6 +199,7 @@ public class RedisUtils {
             case HASH:
                 Map<String, Object> map = hashOperations.entries(key);
                 sysRedis.setRedisValue(JSON.toJSONString(map));
+                break;
             default:
                 logger.error("未知的key类型");
                 break;
