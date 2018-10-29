@@ -55,10 +55,6 @@ public class SysRedisController extends BaseController {
     @RequiresPermissions("redis:sysRedis:view")
     @RequestMapping(value = "form")
     public String form(SysRedis sysRedis, Model model) {
-        String dataType = sysRedis.getDataType();
-        if (DataType.LIST.code().equals(dataType)) {
-            // TODO
-        }
         model.addAttribute("sysRedis", sysRedis);
         return "base/modules/redis/sysRedisForm";
     }
@@ -66,14 +62,12 @@ public class SysRedisController extends BaseController {
     @RequiresPermissions("redis:sysRedis:edit")
     @RequestMapping(value = "save")
     public String save(SysRedis sysRedis, Model model, RedirectAttributes redirectAttributes) {
-        // 目前仅支持string类型
-        sysRedis.setDataType(DataType.STRING.code());
         if (!beanValidator(model, sysRedis)) {
             return form(sysRedis, model);
         }
         // 数据类型校验
-        if (!checkKey(model, sysRedis)) {
-            return form(sysRedis, model);
+        if (!checkDataType(model, sysRedis.getDataType())) {
+            return form(new SysRedis(), model);
         }
         sysRedisService.save(sysRedis);
         addMessage(redirectAttributes, "保存缓存管理成功");
@@ -83,16 +77,11 @@ public class SysRedisController extends BaseController {
     /**
      * redis数据类型校验
      */
-    private boolean checkKey(Model model, SysRedis sysRedis) {
-        if (!DataType.STRING.code().equals(sysRedis.getDataType())) {
+    private boolean checkDataType(Model model, String dataType) {
+        if (!DataType.STRING.code().equals(dataType)) {
             addMessage(model, "目前仅支持String类型!");
             return false;
         }
-        /*String redisKey = sysRedis.getRedisKey();
-        if (StringUtils.isNotBlank(redisKey) && redisKey.startsWith(RedisUtils.DEFAULT_CACHE_PREFIX)) {
-            addMessage(model, "非法的key名称!");
-            return false;
-        }*/
         return true;
     }
 

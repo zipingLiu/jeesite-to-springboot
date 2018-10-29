@@ -34,23 +34,29 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/save" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
-		<%--暂不是支持选择类型--%>
-		<%--<div class="controls">
-			<form:select path="dataType" class="input-xlarge required">
-				<form:option value="" label="请选择"/>
-				<form:options items="${fns:getDictList('redis_data_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-			</form:select>
-			<span class="help-inline"><font color="red">*</font> </span>
-		</div>--%>
-		<c:if test="${not empty sysRedis.redisKey}">
-			<div class="control-group">
-				<label class="control-label">数据类型：</label>
-				<div class="controls">
-					<form:input path="dataType" readonly="true" htmlEscape="false" class="input-xlarge required"/>
-					<span class="help-inline"><font color="red">*</font> </span>
+		<c:choose>
+			<c:when test="${empty sysRedis.redisKey}">
+				<div class="control-group">
+					<label class="control-label">数据类型：</label>
+					<div class="controls">
+						<form:select path="dataType" class="input-xlarge required">
+							<form:option value="" label="请选择"/>
+							<form:options items="${fns:getDictList('redis_data_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
+						<span class="help-inline"><font color="red">*</font> </span>
+					</div>
 				</div>
-			</div>
-		</c:if>
+			</c:when>
+			<c:otherwise>
+				<div class="control-group">
+					<label class="control-label">数据类型：</label>
+					<div class="controls">
+						<form:input path="dataType" readonly="true" htmlEscape="false" class="input-xlarge required"/>
+						<span class="help-inline"><font color="red">*</font> </span>
+					</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
         <div class="control-group">
             <label class="control-label">缓存键：</label>
             <div class="controls">
@@ -66,7 +72,12 @@
 			</div>
 		</div>
 		<div class="form-actions">
-			<shiro:hasPermission name="redis:sysRedis:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
+			<shiro:hasPermission name="redis:sysRedis:edit">
+				<%--仅string类型可以修改--%>
+				<c:if test="${(empty sysRedis.redisKey) || ((not empty sysRedis.redisKey) && (sysRedis.dataType == 'string'))}">
+					<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
+				</c:if>
+			</shiro:hasPermission>
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>
 	</form:form>
