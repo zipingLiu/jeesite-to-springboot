@@ -55,6 +55,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed table-nowrap">
 		<thead>
 			<tr>
+				<th class="sort-column dataType">类型</th>
 				<th class="sort-column redisKey">缓存键</th>
 				<th class="sort-column redisValue">缓存值</th>
 				<shiro:hasPermission name="redis:sysRedis:edit"><th>操作</th></shiro:hasPermission>
@@ -64,6 +65,9 @@
 		<c:forEach items="${page.list}" var="sysRedis">
 		<%--<c:if test="${not empty redisValue}">--%>
 			<tr>
+				<td>
+					${sysRedis.dataType}
+				</td>
 				<td>
 					${sysRedis.redisKey}
 				</td>

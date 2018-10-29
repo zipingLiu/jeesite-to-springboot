@@ -166,23 +166,30 @@ public class RedisUtils {
     }
 
     /**
+     * 查询数据类型
+     */
+    public DataType getDataType(String key) {
+        return redisTemplate.type(key);
+    }
+
+    /**
      * 根据key的类型获取value
      */
     public String getByKeyType(String key) {
         String value = null;
         DataType type = redisTemplate.type(key);
-        if ("string".equals(type.code())) {
+        if (DataType.STRING.code().equals(type.code())) {
             value = get(key);
-        } else if ("list".equals(type.code())) {
+        } else if (DataType.LIST.code().equals(type.code())) {
             List<Object> range = listOperations.range(key, 0, -1);
             value = JSON.toJSONString(range);
-        } else if ("set".equals(type.code())) {
+        } else if (DataType.SET.code().equals(type.code())) {
             Set<Object> members = setOperations.members(key);
             value = JSON.toJSONString(members);
-        } else if ("zset".equals(type.code())) {
+        } else if (DataType.ZSET.code().equals(type.code())) {
             Set<Object> range = zSetOperations.range(key, 0, -1);
             value = JSON.toJSONString(range);
-        } else if ("hash".equals(type.code())) {
+        } else if (DataType.HASH.code().equals(type.code())) {
             Map<String, Object> map = hashOperations.entries(key);
             value = JSON.toJSONString(map);
         } else {

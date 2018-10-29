@@ -7,6 +7,7 @@ import com.baidu.cms.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.DataType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -30,8 +31,10 @@ public class SysRedisService {
     private RedisUtils redisUtils;
 
     public SysRedis get(String redisKey) {
-        String redisValue = redisUtils.getByKeyType(RedisUtils.prefix(redisKey));
-        return redisValue != null ? new SysRedis(redisKey, redisValue) : null;
+        String key = RedisUtils.prefix(redisKey);
+        String redisValue = redisUtils.getByKeyType(key);
+        DataType dataType = redisUtils.getDataType(key);
+        return redisValue != null ? new SysRedis(dataType.code(), redisKey, redisValue) : null;
     }
 
     /**
@@ -65,7 +68,8 @@ public class SysRedisService {
             for (int i = start, j = 0; i < keyList.size() && j < pageSize; i++, j++) {
                 String key = keyList.get(i);
                 String value = redisUtils.getByKeyType(key);
-                list.add(new SysRedis(RedisUtils.delPrefix(key), value));
+                DataType dataType = redisUtils.getDataType(key);
+                list.add(new SysRedis(dataType.code(), RedisUtils.delPrefix(key), value));
             }
         }
         page.setList(list);
@@ -73,7 +77,9 @@ public class SysRedisService {
     }
 
     public void save(SysRedis sysRedis) {
-        redisUtils.set(sysRedis.getRedisKey(), sysRedis.getRedisValue());
+        if (sysRedis.getDataType().equals(DataType.STRING.code())) {
+            redisUtils.set(sysRedis.getRedisKey(), sysRedis.getRedisValue());
+        }
     }
 
     public void delete(SysRedis sysRedis) {

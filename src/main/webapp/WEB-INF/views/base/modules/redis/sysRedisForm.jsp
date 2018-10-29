@@ -34,6 +34,14 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/save" method="post" class="form-horizontal">
 		<sys:message content="${message}"/>
+		<%--暂不是支持选择类型--%>
+		<%--<div class="controls">
+			<form:select path="dataType" class="input-xlarge required">
+				<form:option value="" label="请选择"/>
+				<form:options items="${fns:getDictList('redis_data_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+			</form:select>
+			<span class="help-inline"><font color="red">*</font> </span>
+		</div>--%>
         <div class="control-group">
             <label class="control-label">缓存键：</label>
             <div class="controls">
