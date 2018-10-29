@@ -7,6 +7,7 @@ import com.baidu.cms.base.modules.syspagecol.entity.SysPageCol;
 import com.baidu.cms.base.modules.syspagecol.service.SysPageColService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.Collections3;
 import com.baidu.cms.common.utils.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
@@ -65,7 +66,11 @@ public class SysPageColController extends BaseController {
         if (sysPageCol.getIsNewRecord()) {
             // 加载视图列表
             List<SysPageCol> colList = getColListFromCache();
-            model.addAttribute("colList", colList);
+            if (!Collections3.isEmpty(colList)) {
+                model.addAttribute("colList", colList);
+            } else {
+                model.addAttribute("colList", Global.viewColumnList);
+            }
             // 验证视图是否存在
             if (!sysPageColService.checkTableName(sysPageCol.getViewName())) {
                 addMessage(model, "下一步失败！" + sysPageCol.getViewName() + " 视图已经添加！");

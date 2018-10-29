@@ -43,8 +43,7 @@ public class SysPageCol extends DataEntity<SysPageCol> {
             this.entityName = pageColumn.getEntityName();
             this.moduleName = pageColumn.getModuleName();
             this.viewPath = pageColumn.getViewPath();
-            String thListString = Global.getThListString(pageColumn.getViewName());
-            this.colAll = thListString;
+            this.colAll = Global.getThListString(pageColumn.getViewName());
         }
     }
 

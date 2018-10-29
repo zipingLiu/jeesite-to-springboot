@@ -1,8 +1,12 @@
 package com.baidu.cms.common.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.baidu.cms.common.config.Global;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,6 +15,8 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +31,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class RedisUtils {
+
+    private static Logger logger = LoggerFactory.getLogger(RedisUtils.class);
+
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
@@ -154,5 +163,31 @@ public class RedisUtils {
         String value = Global.getConfig("useDefaultCacheKeyPrefix");
         boolean boo = Global.FALSE.equalsIgnoreCase(value);
         return StringUtils.isNotBlank(value) && boo ? false : true;
+    }
+
+    /**
+     * 根据key的类型获取value
+     */
+    public String getByKeyType(String key) {
+        String value = null;
+        DataType type = redisTemplate.type(key);
+        if ("string".equals(type.code())) {
+            value = get(key);
+        } else if ("list".equals(type.code())) {
+            List<Object> range = listOperations.range(key, 0, -1);
+            value = JSON.toJSONString(range);
+        } else if ("set".equals(type.code())) {
+            Set<Object> members = setOperations.members(key);
+            value = JSON.toJSONString(members);
+        } else if ("zset".equals(type.code())) {
+            Set<Object> range = zSetOperations.range(key, 0, -1);
+            value = JSON.toJSONString(range);
+        } else if ("hash".equals(type.code())) {
+            Map<String, Object> map = hashOperations.entries(key);
+            value = JSON.toJSONString(map);
+        } else {
+            logger.error("未知的key类型");
+        }
+        return value;
     }
 }

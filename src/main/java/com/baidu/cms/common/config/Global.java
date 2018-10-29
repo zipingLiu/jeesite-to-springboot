@@ -70,8 +70,8 @@ public class Global {
      */
     public static final String USERFILES_BASE_URL = "/userfiles/";
 
-    public static final String SYS_COLUMN_HIDE_KEY = "SYS-COLUMN-HIDE:";
     public static final String SYS_PAGE_COL_LIST_KEY = "SYS-PAGE-COL-LIST:";
+    public static final String ALL_VIEW_COLUMN_LIST_KEY = "ALL-VIEW-COLUMN-LIST:";
 
     /**
      * 所有列表页视图路径
@@ -159,6 +159,17 @@ public class Global {
     }
 
     /**
+     * redis是否开启
+     *
+     * @author: shiyanjun
+     * @Date: 2018/10/28 下午3:12
+     */
+    public static boolean redisIsOpen() {
+        String config = Global.getConfig("spring.redis.open");
+        return Boolean.valueOf(config);
+    }
+
+    /**
      * 获取配置中的所有key
      *
      * @author: shiyanjun
@@ -173,10 +184,6 @@ public class Global {
             }
         }
         return list;
-    }
-
-    public static String getSysColumnHideKey(String name) {
-        return SYS_COLUMN_HIDE_KEY + name;
     }
 
     /**

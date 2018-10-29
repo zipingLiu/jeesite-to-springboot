@@ -1,6 +1,5 @@
 package com.baidu.cms.common;
 
-import com.alibaba.fastjson.JSON;
 import com.baidu.cms.base.modules.syspagecol.entity.PageColumn;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.JsoupUtil;
@@ -91,16 +90,8 @@ public class AppStartup implements ApplicationRunner {
                     }
                 }
             }
-
-            // 写入缓存
-            String viewColumnList = JSON.toJSONString(Global.viewColumnList);
-            redisUtils.set("ALL-VIEW-COLUMN-LIST:", viewColumnList);
-            logger.info("将所有列写入缓存:" + viewColumnList);
-
-            //String viewPathListString = JSON.toJSONString(viewPathList);
-            //redisUtils.set("ALL-VIEW-PATH-LIST:", viewPathListString);
         } catch (IOException e) {
-            logger.error("系统启动异常:" + e.toString());
+            logger.error("系统初始化异常:" + e.toString());
         }
     }
 }
