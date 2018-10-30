@@ -78,11 +78,14 @@ public class SysRedisController extends BaseController {
      * redis数据类型校验
      */
     private boolean checkDataType(Model model, String dataType) {
-        if (!DataType.STRING.code().equals(dataType)) {
-            addMessage(model, "目前仅支持String类型!");
-            return false;
+        DataType[] types = DataType.values();
+        for (DataType type : types) {
+            if (type.code().equals(dataType)) {
+                return true;
+            }
         }
-        return true;
+        addMessage(model, "未知的数据类型!");
+        return false;
     }
 
     @RequiresPermissions("redis:sysRedis:edit")

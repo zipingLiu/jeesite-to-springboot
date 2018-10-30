@@ -67,7 +67,6 @@ public class SysRedisService {
             int start = pageNo == 1 ? 0 : (pageNo - 1) * pageSize;
             for (int i = start, j = 0; i < keyList.size() && j < pageSize; i++, j++) {
                 String key = keyList.get(i);
-//                SysRedis newSysRedis = redisUtils.getSysRedisByKeyType(key);
                 SysRedis newSysRedis = redisUtils.getStringValByKeyType(key);
                 list.add(newSysRedis);
             }
@@ -77,9 +76,15 @@ public class SysRedisService {
     }
 
     public void save(SysRedis sysRedis) {
-        if (sysRedis.getDataType().equals(DataType.STRING.code())) {
-            redisUtils.set(sysRedis.getRedisKey(), sysRedis.getRedisValue());
-        }
+        String redisType = sysRedis.getDataType();
+        DataType type = DataType.fromCode(redisType);
+        String key = sysRedis.getRedisKey();
+        String value = sysRedis.getRedisValue();
+        String hashKey = sysRedis.getHashKey();
+        double score = StringUtils.toDouble(sysRedis.getScore());
+        boolean isLeft = StringUtils.toInteger(sysRedis.getLeftOrRight()) == 0;
+        long expire = StringUtils.toLong(sysRedis.getExpire());
+        redisUtils.set(type, key, value, hashKey, isLeft, score, expire);
     }
 
     public void delete(SysRedis sysRedis) {

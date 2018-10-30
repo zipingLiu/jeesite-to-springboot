@@ -239,4 +239,43 @@ public class RedisUtils {
         }
         return sysRedis;
     }
+
+    /**
+     * 根据不同的数据类型进行缓存
+     *
+     * @param dataType 数据类型
+     * @param key      缓存key
+     * @param value    缓存值
+     * @param hashKey  hash键,仅hash类型有效
+     * @param isLeft   从list左端添加
+     * @param expire   过期时间
+     */
+    public void set(DataType dataType, String key, String value, String hashKey, boolean isLeft, double score, long expire) {
+        expire = expire <= 0 ? 60 * 60 * 12 : expire;
+        String prefixKey = RedisUtils.prefix(key);
+        redisTemplate.expire(prefixKey, expire, TimeUnit.SECONDS);
+        switch (dataType) {
+            case STRING:
+                valueOperations.set(prefixKey, value);
+                break;
+            case LIST:
+                if (isLeft) {
+                    listOperations.leftPush(prefixKey, value);
+                } else {
+                    listOperations.rightPush(prefixKey, value);
+                }
+                break;
+            case SET:
+                setOperations.add(prefixKey, value);
+                break;
+            case ZSET:
+                zSetOperations.add(prefixKey, value, score);
+                break;
+            case HASH:
+                hashOperations.put(prefixKey, hashKey, value);
+                break;
+            default:
+                break;
+        }
+    }
 }
