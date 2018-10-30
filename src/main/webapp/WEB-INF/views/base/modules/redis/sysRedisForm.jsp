@@ -6,6 +6,16 @@
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
 	<title>缓存管理管理</title>
 	<meta name="decorator" content="default"/>
+	<style>
+		.table-nowrap td {
+			width: 200px;
+			max-width: 175px;
+			/*超出的文本加上遮罩*/
+			overflow: overlay;
+			white-space: nowrap;
+			text-overflow: clip;
+		}
+	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			//$("#name").focus();
