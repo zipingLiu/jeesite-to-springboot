@@ -42,6 +42,12 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>数据类型：</label>
+				<form:select path="dataType" class="input-medium">
+					<form:option value="" label="请选择"/>
+					<form:options items="${fns:getDictList('redis_data_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
 			<li><label>缓存键：</label>
 				<form:input path="redisKey" htmlEscape="false" maxlength="200" class="input-medium"/>
 			</li>

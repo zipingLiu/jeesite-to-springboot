@@ -288,4 +288,13 @@ public class RedisUtils {
                 break;
         }
     }
+
+    /**
+     * 根据key查询数据类型
+     *
+     * @param key
+     */
+    public DataType type(String key) {
+        return redisTemplate.type(key);
+    }
 }
