@@ -165,15 +165,15 @@
 									<span class="help-inline"><font color="red">*</font> </span>
 								</div>
 							</div>
-						</c:when>
-						<c:otherwise>
-							<%--<div class="control-group">
+							<div class="control-group">
 								<label class="control-label">分值：</label>
 								<div class="controls">
 									<form:textarea path="score" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" class="input-xxlarge required"/>
 									<span class="help-inline"><font color="red">*</font> </span>
 								</div>
-							</div>--%>
+							</div>
+						</c:when>
+						<c:otherwise>
 							<div class="control-group">
 								<label class="control-label">值列表：</label>
 								<div class="controls">

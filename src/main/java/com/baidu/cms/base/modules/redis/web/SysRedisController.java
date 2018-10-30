@@ -71,7 +71,11 @@ public class SysRedisController extends BaseController {
         }
         sysRedisService.save(sysRedis);
         addMessage(redirectAttributes, "保存缓存管理成功");
-        return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/?repage";
+        //return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/?repage";
+        SysRedis newSysRedis = new SysRedis();
+        newSysRedis.setDataType(sysRedis.getDataType());
+        model.addAttribute("sysRedis", newSysRedis);
+        return "base/modules/redis/sysRedisForm";
     }
 
     /**
