@@ -25,8 +25,38 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
     private String redisValue;          // 缓存值
     private String expire;              // 过期时间
     private List<Object> valList;       // list类型的value
-    private Set<Object> valSet;         // set/zset类型的value
+    private Set<Object> valSet;         // set类型的value
+    private List<ScoreVal> zsetList;    // zset类型的value
     private Map<String, Object> valMap; // map类型的value
+
+    public static class ScoreVal {
+        private String score;
+        private String value;
+
+        public ScoreVal() {
+        }
+
+        public ScoreVal(String score, String value) {
+            this.score = score;
+            this.value = value;
+        }
+
+        public String getScore() {
+            return score;
+        }
+
+        public void setScore(String score) {
+            this.score = score;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 
     public SysRedis() {
         super();
@@ -124,6 +154,14 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
 
     public void setValMap(Map<String, Object> valMap) {
         this.valMap = valMap;
+    }
+
+    public List<ScoreVal> getZsetList() {
+        return zsetList;
+    }
+
+    public void setZsetList(List<ScoreVal> zsetList) {
+        this.zsetList = zsetList;
     }
 
     /**

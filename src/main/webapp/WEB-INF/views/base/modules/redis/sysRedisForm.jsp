@@ -71,39 +71,175 @@
 						<span class="help-inline"><font color="red">*</font> </span>
 					</div>
 				</div>
-				<c:if test="${sysRedis.dataType == 'hash'}">
+				<c:if test="${sysRedis.dataType == 'string'}">
 					<div class="control-group">
-						<label class="control-label">HashKey：</label>
+						<label class="control-label">Value：</label>
 						<div class="controls">
-							<form:input path="hashKey" readonly="${(not empty sysRedis.redisKey)?'true':'false'}" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
-							<span class="help-inline"><font color="red">*</font> </span>
-						</div>
-					</div>
-				</c:if>
-				<div class="control-group">
-					<label class="control-label">Value：</label>
-					<div class="controls">
-						<form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
-						<span class="help-inline"><font color="red">*</font> </span>
-					</div>
-				</div>
-				<c:if test="${sysRedis.dataType == 'zset'}">
-					<div class="control-group">
-						<label class="control-label">分值：</label>
-						<div class="controls">
-							<form:textarea path="score" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" class="input-xxlarge required"/>
+							<form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
 							<span class="help-inline"><font color="red">*</font> </span>
 						</div>
 					</div>
 				</c:if>
 				<c:if test="${sysRedis.dataType == 'list'}">
-					<div class="control-group">
-						<label class="control-label">L/R：</label>
-						<div class="controls">
-							<form:textarea path="leftOrRight" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" class="input-xxlarge required"/>
-							<span class="help-inline"><font color="red">*</font> </span>
-						</div>
-					</div>
+					<c:choose>
+						<c:when test="${empty sysRedis.redisKey}">
+							<div class="control-group">
+								<label class="control-label">Value：</label>
+								<div class="controls">
+									<form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
+									<span class="help-inline"><font color="red">*</font> </span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">L/R：</label>
+								<div class="controls">
+									<form:textarea path="leftOrRight" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" class="input-xxlarge required"/>
+									<span class="help-inline"><font color="red">*</font> </span>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="control-group">
+								<label class="control-label">值列表：</label>
+								<div class="controls">
+									<table class="table table-striped table-bordered table-condensed table-nowrap" style="width: 460px">
+										<thead>
+											<th>编号</th>
+											<th>值</th>
+										</thead>
+										<tbody>
+											<c:forEach items="${sysRedis.valList}" var="val" varStatus="status">
+												<tr>
+													<td style="width: 10px">${status.index + 1}</td>
+													<td>${val}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if test="${sysRedis.dataType == 'set'}">
+					<c:choose>
+						<c:when test="${empty sysRedis.redisKey}">
+							<div class="control-group">
+								<label class="control-label">Value：</label>
+								<div class="controls">
+									<form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
+									<span class="help-inline"><font color="red">*</font> </span>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="control-group">
+								<label class="control-label">值列表：</label>
+								<div class="controls">
+									<table class="table table-striped table-bordered table-condensed table-nowrap" style="width: 460px">
+										<thead>
+											<th>编号</th>
+											<th>值</th>
+										</thead>
+										<tbody>
+											<c:forEach items="${sysRedis.valSet}" var="val" varStatus="status">
+												<tr>
+													<td style="width: 10px">${status.index + 1}</td>
+													<td>${val}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if test="${sysRedis.dataType == 'zset'}">
+					<c:choose>
+						<c:when test="${empty sysRedis.redisKey}">
+							<div class="control-group">
+								<label class="control-label">Value：</label>
+								<div class="controls">
+									<form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
+									<span class="help-inline"><font color="red">*</font> </span>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<%--<div class="control-group">
+								<label class="control-label">分值：</label>
+								<div class="controls">
+									<form:textarea path="score" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" class="input-xxlarge required"/>
+									<span class="help-inline"><font color="red">*</font> </span>
+								</div>
+							</div>--%>
+							<div class="control-group">
+								<label class="control-label">值列表：</label>
+								<div class="controls">
+									<table class="table table-striped table-bordered table-condensed table-nowrap" style="width: 460px">
+										<thead>
+											<th>编号</th>
+											<th>值</th>
+											<th>分数</th>
+										</thead>
+										<tbody>
+											<c:forEach items="${sysRedis.zsetList}" var="val" varStatus="status">
+												<tr>
+													<td style="width: 10px">${status.index + 1}</td>
+													<td>${val.value}</td>
+													<td>${val.score}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if test="${sysRedis.dataType == 'hash'}">
+					<c:choose>
+						<c:when test="${empty sysRedis.redisKey}">
+							<div class="control-group">
+								<label class="control-label">HashKey：</label>
+								<div class="controls">
+									<form:input path="hashKey" readonly="${(not empty sysRedis.redisKey)?'true':'false'}" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
+									<span class="help-inline"><font color="red">*</font> </span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Value：</label>
+								<div class="controls">
+									<form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
+									<span class="help-inline"><font color="red">*</font> </span>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="control-group">
+								<label class="control-label">值列表：</label>
+								<div class="controls">
+									<table class="table table-striped table-bordered table-condensed table-nowrap" style="width: 460px">
+										<thead>
+										<tr>
+											<th>key</th>
+											<th>value</th>
+										</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${sysRedis.valMap}" var="val">
+												<tr>
+													<td>${val.key}</td>
+													<td>${val.value}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</c:if>
 				<div class="form-actions">
 					<shiro:hasPermission name="redis:sysRedis:edit">

@@ -41,7 +41,6 @@
 	<form:form id="searchForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
-		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<ul class="ul-form">
 			<li><label>缓存键：</label>
 				<form:input path="redisKey" htmlEscape="false" maxlength="200" class="input-medium"/>
@@ -55,9 +54,9 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed table-nowrap">
 		<thead>
 			<tr>
-				<th class="sort-column dataType">类型</th>
-				<th class="sort-column redisKey">缓存键</th>
-				<th class="sort-column redisValue">缓存值</th>
+				<th>类型</th>
+				<th>缓存键</th>
+				<th>缓存值</th>
 				<shiro:hasPermission name="redis:sysRedis:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>

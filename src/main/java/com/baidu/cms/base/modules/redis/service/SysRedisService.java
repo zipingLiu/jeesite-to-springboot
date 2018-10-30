@@ -32,9 +32,9 @@ public class SysRedisService {
 
     public SysRedis get(String redisKey) {
         String key = RedisUtils.prefix(redisKey);
-        SysRedis newSysRedis = redisUtils.getStringValByKeyType(key);
-        DataType dataType = redisUtils.getDataType(key);
-        return newSysRedis.getRedisValue() != null ? new SysRedis(dataType.code(), redisKey, newSysRedis.getRedisValue()) : null;
+        //SysRedis newSysRedis = redisUtils.getStringValByKeyType(key);
+        SysRedis newSysRedis = redisUtils.getSysRedisByKeyType(key);
+        return newSysRedis;
     }
 
     /**

@@ -8,14 +8,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
+import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -226,8 +229,15 @@ public class RedisUtils {
                 sysRedis.setValSet(set);
                 break;
             case ZSET:
-                Set<Object> zSet = zSetOperations.range(key, 0, -1);
-                sysRedis.setValSet(zSet);
+                Cursor<ZSetOperations.TypedTuple<Object>> cursor = zSetOperations.scan(key, ScanOptions.NONE);
+                List<SysRedis.ScoreVal> zsetList = new ArrayList<>();
+                while (cursor.hasNext()) {
+                    ZSetOperations.TypedTuple<Object> tuple = cursor.next();
+                    String score = String.valueOf(tuple.getScore());
+                    String value = String.valueOf(tuple.getValue());
+                    zsetList.add(new SysRedis.ScoreVal(score, value));
+                }
+                sysRedis.setZsetList(zsetList);
                 break;
             case HASH:
                 Map<String, Object> map = hashOperations.entries(key);
