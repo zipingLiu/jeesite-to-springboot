@@ -236,13 +236,15 @@
 									<table class="table table-striped table-bordered table-condensed table-nowrap" style="width: 460px">
 										<thead>
 										<tr>
+											<th>编号</th>
 											<th>key</th>
 											<th>value</th>
 										</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${sysRedis.valMap}" var="val">
+											<c:forEach items="${sysRedis.valMap}" var="val" varStatus="status">
 												<tr>
+													<td>${status.index + 1}</td>
 													<td>${val.key}</td>
 													<td>${val.value}</td>
 												</tr>
