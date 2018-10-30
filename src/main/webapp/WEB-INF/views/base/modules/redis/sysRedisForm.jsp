@@ -42,11 +42,11 @@
 		<li><a href="${ctx}/redis/sysRedis/">查询缓存</a></li>
 		<li class="active"><a href="${ctx}/redis/sysRedis/form?redisKey=${sysRedis.redisKey}"><shiro:hasPermission name="redis:sysRedis:edit">${not empty sysRedis.redisKey?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="redis:sysRedis:edit">查看</shiro:lacksPermission>缓存</a></li>
 	</ul><br/>
+	<sys:message content="${message}"/>
 	<c:choose>
 		<c:when test="${empty sysRedis.redisKey && empty sysRedis.dataType}">
 			<form:form id="inputForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/form" method="post" class="form-horizontal">
 				<form:hidden path="id"/>
-				<sys:message content="${message}"/>
 				<div class="control-group">
 					<label class="control-label">数据类型:</label>
 					<div class="controls">
