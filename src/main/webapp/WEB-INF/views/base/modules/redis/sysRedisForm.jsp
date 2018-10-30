@@ -101,9 +101,12 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">L/R：</label>
+								<label class="control-label">左侧/右侧添加:</label>
 								<div class="controls">
-									<form:textarea path="leftOrRight" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" class="input-xxlarge required"/>
+									<form:select path="fromLeft" class="input-xlarge required">
+										<form:option value="" label="请选择"/>
+										<form:options items="${fns:getDictList('redis_list_from_left')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+									</form:select>
 									<span class="help-inline"><font color="red">*</font> </span>
 								</div>
 							</div>

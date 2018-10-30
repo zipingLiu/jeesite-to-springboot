@@ -82,7 +82,7 @@ public class SysRedisService {
         String value = sysRedis.getRedisValue();
         String hashKey = sysRedis.getHashKey();
         double score = StringUtils.toDouble(sysRedis.getScore());
-        boolean isLeft = StringUtils.toInteger(sysRedis.getLeftOrRight()) == 0;
+        boolean isLeft = StringUtils.toInteger(sysRedis.getFromLeft()) == 1;
         long expire = StringUtils.toLong(sysRedis.getExpire());
         redisUtils.set(type, key, value, hashKey, isLeft, score, expire);
     }

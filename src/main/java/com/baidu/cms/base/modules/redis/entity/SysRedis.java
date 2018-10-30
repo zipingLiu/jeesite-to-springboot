@@ -20,7 +20,7 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
     private String dataType;            // 数据类型
     private String redisKey;            // 缓存键
     private String hashKey;             // 仅hash类型有效
-    private String leftOrRight;         // 是否从左边添加,仅list类型有效:0左,1右
+    private String fromLeft;            // 是否从左边添加,仅list类型有效:1左,0右
     private String score;               // 分值,仅zset类型有效
     private String redisValue;          // 缓存值
     private String expire;              // 过期时间
@@ -100,12 +100,12 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
         this.hashKey = hashKey;
     }
 
-    public String getLeftOrRight() {
-        return leftOrRight;
+    public String getFromLeft() {
+        return fromLeft;
     }
 
-    public void setLeftOrRight(String leftOrRight) {
-        this.leftOrRight = leftOrRight;
+    public void setFromLeft(String fromLeft) {
+        this.fromLeft = fromLeft;
     }
 
     public String getScore() {
