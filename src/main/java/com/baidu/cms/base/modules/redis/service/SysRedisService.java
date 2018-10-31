@@ -1,8 +1,9 @@
 package com.baidu.cms.base.modules.redis.service;
 
 import com.baidu.cms.base.modules.redis.entity.SysRedis;
+import com.baidu.cms.common.cache.RedisModel;
+import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.utils.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,6 @@ public class SysRedisService {
 
     public SysRedis get(String redisKey) {
         String key = RedisUtils.prefix(redisKey);
-        //SysRedis newSysRedis = redisUtils.getStringValByKeyType(key);
         SysRedis newSysRedis = redisUtils.getSysRedisByKeyType(key);
         return newSysRedis;
     }
@@ -103,15 +103,16 @@ public class SysRedisService {
     }
 
     public void save(SysRedis sysRedis) {
-        String redisType = sysRedis.getDataType();
-        DataType type = DataType.fromCode(redisType);
-        String key = sysRedis.getRedisKey();
-        String value = sysRedis.getRedisValue();
-        String hashKey = sysRedis.getHashKey();
-        double score = StringUtils.toDouble(sysRedis.getScore());
-        boolean isLeft = StringUtils.toInteger(sysRedis.getFromLeft()) == 1;
-        long expire = StringUtils.toLong(sysRedis.getExpire());
-        redisUtils.set(type, key, value, hashKey, isLeft, score, expire);
+        RedisModel redisModel = new RedisModel();
+        redisModel.setDataType(DataType.fromCode(sysRedis.getDataType()));
+        redisModel.setKey(sysRedis.getRedisKey());
+        redisModel.setValue(sysRedis.getRedisValue());
+        redisModel.setHashKey(sysRedis.getHashKey());
+        redisModel.setScore(StringUtils.toDouble(sysRedis.getScore()));
+        redisModel.setLeft(StringUtils.toInteger(sysRedis.getFromLeft()) == 1);
+        redisModel.setExpire(StringUtils.toLong(sysRedis.getExpire()));
+
+        redisUtils.set(redisModel);
     }
 
     public void delete(SysRedis sysRedis) {

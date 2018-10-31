@@ -4,7 +4,7 @@ import com.baidu.cms.base.modules.config.entity.SysConfig;
 import com.baidu.cms.base.modules.config.service.SysConfigService;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
-import com.baidu.cms.common.utils.RedisUtils;
+import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

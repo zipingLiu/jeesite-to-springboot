@@ -3,7 +3,7 @@ package com.baidu.cms.common;
 import com.baidu.cms.base.modules.syspagecol.entity.PageColumn;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.JsoupUtil;
-import com.baidu.cms.common.utils.RedisUtils;
+import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.nodes.Document;

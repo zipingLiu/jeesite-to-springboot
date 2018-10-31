@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.Collections3;
-import com.baidu.cms.common.utils.RedisUtils;
+import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.utils.SpringContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

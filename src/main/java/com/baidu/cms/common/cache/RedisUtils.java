@@ -1,8 +1,9 @@
-package com.baidu.cms.common.utils;
+package com.baidu.cms.common.cache;
 
 import com.alibaba.fastjson.JSON;
 import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.utils.StringUtils;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,9 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtils {
 
     private static Logger logger = LoggerFactory.getLogger(RedisUtils.class);
+
+    // 默认缓存过期时间
+    private static final long REDIS_DEFAULT_EXPIRE_SECOND = 60 * 60 * 12;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -170,13 +174,6 @@ public class RedisUtils {
     }
 
     /**
-     * 查询数据类型
-     */
-    public DataType getDataType(String key) {
-        return redisTemplate.type(key);
-    }
-
-    /**
      * 根据key的类型获取value
      * 将value转成json
      */
@@ -211,7 +208,9 @@ public class RedisUtils {
     }
 
     /**
-     * 根据key的类型获取value
+     * 根据数据类型进行查询
+     *
+     * @param key 缓存key
      */
     public SysRedis getSysRedisByKeyType(String key) {
         DataType type = redisTemplate.type(key);
@@ -251,38 +250,33 @@ public class RedisUtils {
     }
 
     /**
-     * 根据不同的数据类型进行缓存
+     * 根据数据类型进行保存
      *
-     * @param dataType 数据类型
-     * @param key      缓存key
-     * @param value    缓存值
-     * @param hashKey  hash键,仅hash类型有效
-     * @param isLeft   从list左端添加
-     * @param expire   过期时间
+     * @param redisModel 各类型缓存统一模型
      */
-    public void set(DataType dataType, String key, String value, String hashKey, boolean isLeft, double score, long expire) {
-        expire = expire <= 0 ? 60 * 60 * 12 : expire;
-        String prefixKey = RedisUtils.prefix(key);
+    public void set(RedisModel redisModel) {
+        long expire = redisModel.getExpire() > 0 ? redisModel.getExpire() : REDIS_DEFAULT_EXPIRE_SECOND;
+        String prefixKey = RedisUtils.prefix(redisModel.getKey());
         redisTemplate.expire(prefixKey, expire, TimeUnit.SECONDS);
-        switch (dataType) {
+        switch (redisModel.getDataType()) {
             case STRING:
-                valueOperations.set(prefixKey, value);
+                valueOperations.set(prefixKey, redisModel.getValue());
                 break;
             case LIST:
-                if (isLeft) {
-                    listOperations.leftPush(prefixKey, value);
+                if (redisModel.isLeft()) {
+                    listOperations.leftPush(prefixKey, redisModel.getValue());
                 } else {
-                    listOperations.rightPush(prefixKey, value);
+                    listOperations.rightPush(prefixKey, redisModel.getValue());
                 }
                 break;
             case SET:
-                setOperations.add(prefixKey, value);
+                setOperations.add(prefixKey, redisModel.getValue());
                 break;
             case ZSET:
-                zSetOperations.add(prefixKey, value, score);
+                zSetOperations.add(prefixKey, redisModel.getValue(), redisModel.getScore());
                 break;
             case HASH:
-                hashOperations.put(prefixKey, hashKey, value);
+                hashOperations.put(prefixKey, redisModel.getHashKey(), redisModel.getValue());
                 break;
             default:
                 break;

@@ -7,7 +7,7 @@ import com.baidu.cms.base.modules.syspagecol.entity.SysPageCol;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
 import com.baidu.cms.common.service.CrudService;
-import com.baidu.cms.common.utils.RedisUtils;
+import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
