@@ -44,7 +44,8 @@
 	</ul><br/>
 	<sys:message content="${message}"/>
 	<c:choose>
-		<c:when test="${empty sysRedis.redisKey && empty sysRedis.dataType}">
+		<%--如果没有数据类型--%>
+		<c:when test="${empty sysRedis.dataType}">
 			<form:form id="inputForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/form" method="post" class="form-horizontal">
 				<form:hidden path="id"/>
 				<div class="control-group">
@@ -63,6 +64,7 @@
 				</div>
 			</form:form>
 		</c:when>
+		<%--如果有数据类型--%>
 		<c:otherwise>
 			<form:form id="inputForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/save" method="post" class="form-horizontal">
 				<form:hidden path="id"/>
@@ -82,6 +84,7 @@
 						<span class="help-inline"><font color="red">*</font> </span>
 					</div>
 				</div>
+				<%--如果数据类型是string--%>
 				<c:if test="${sysRedis.dataType == 'string'}">
 					<div class="control-group">
 						<label class="control-label">Value：</label>
@@ -91,6 +94,7 @@
 						</div>
 					</div>
 				</c:if>
+				<%--如果数据类型是list--%>
 				<c:if test="${sysRedis.dataType == 'list'}">
 					<c:choose>
 						<c:when test="${empty sysRedis.redisKey}">
@@ -135,6 +139,7 @@
 						</c:otherwise>
 					</c:choose>
 				</c:if>
+				<%--如果数据类型是set--%>
 				<c:if test="${sysRedis.dataType == 'set'}">
 					<c:choose>
 						<c:when test="${empty sysRedis.redisKey}">
@@ -169,6 +174,7 @@
 						</c:otherwise>
 					</c:choose>
 				</c:if>
+				<%--如果数据类型是zset--%>
 				<c:if test="${sysRedis.dataType == 'zset'}">
 					<c:choose>
 						<c:when test="${empty sysRedis.redisKey}">
@@ -212,6 +218,7 @@
 						</c:otherwise>
 					</c:choose>
 				</c:if>
+				<%--如果数据类型是hash--%>
 				<c:if test="${sysRedis.dataType == 'hash'}">
 					<c:choose>
 						<c:when test="${empty sysRedis.redisKey}">
@@ -223,7 +230,7 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">Value：</label>
+								<label class="control-label">HashValue：</label>
 								<div class="controls">
 									<form:textarea path="redisValue" readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}" htmlEscape="false" rows="8" class="input-xxlarge required"/>
 									<span class="help-inline"><font color="red">*</font> </span>
@@ -238,8 +245,8 @@
 										<thead>
 										<tr>
 											<th>编号</th>
-											<th>key</th>
-											<th>value</th>
+											<th>HashKey</th>
+											<th>HashValue</th>
 										</tr>
 										</thead>
 										<tbody>
