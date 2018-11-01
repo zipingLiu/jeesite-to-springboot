@@ -13,6 +13,16 @@ import java.util.Date;
  */
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
+    /**
+     * 一小时的秒数
+     */
+    private static final int HOUR_SECOND = 60 * 60;
+
+    /**
+     * 一分钟的秒数
+     */
+    private static final int MINUTE_SECOND = 60;
+
     private static String[] parsePatterns = {
             "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM",
             "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm", "yyyy/MM",
@@ -157,6 +167,35 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         long s = (timeMillis / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
         long sss = (timeMillis - day * 24 * 60 * 60 * 1000 - hour * 60 * 60 * 1000 - min * 60 * 1000 - s * 1000);
         return (day > 0 ? day + "," : "") + hour + ":" + min + ":" + s + "." + sss;
+    }
+
+    /**
+     * 根据秒数获取时间串
+     *
+     * @param second (eg: 100s)
+     * @return (eg : 00 : 01 : 40)
+     */
+    public static String getTimeStrBySecond(long second) {
+
+        long day = second / 60 / 60 / 24;
+        long hour = second / 60 / 60 % 24;
+        long minute = second / 60 % 60;
+        long seconds = second % 60;
+
+        StringBuilder sb = new StringBuilder();
+        if (day != 0) {
+            sb.append(day).append("天");
+        }
+        if (hour != 0) {
+            sb.append(hour).append("小时");
+        }
+        if (minute != 0) {
+            sb.append(minute).append("分");
+        }
+        if (seconds != 0) {
+            sb.append(seconds).append("秒");
+        }
+        return sb.toString();
     }
 
     /**

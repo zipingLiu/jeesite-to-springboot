@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/include/head.jsp" %>
-	<title>缓存管理管理</title>
+	<title>缓存管理</title>
 	<meta name="decorator" content="default"/>
 	<style>
 		.table-nowrap td {
@@ -77,7 +77,8 @@
 				<div class="control-group">
 					<label class="control-label">Key：</label>
 					<div class="controls">
-						<form:input path="redisKey" readonly="${(not empty sysRedis.redisKey)?'true':'false'}" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
+						<input id="oldRedisKey" name="oldRedisKey" type="hidden" value="${sysRedis.redisKey}"/>
+						<form:input path="redisKey" htmlEscape="false" maxlength="200" class="input-xlarge required"/>
 						<span class="help-inline"><font color="red">*</font> </span>
 					</div>
 				</div>
@@ -256,12 +257,17 @@
 						</c:otherwise>
 					</c:choose>
 				</c:if>
+				<div class="control-group">
+					<label class="control-label">过期时间(秒)：</label>
+					<div class="controls">
+						<input id="oldExpire" name="oldExpire" type="hidden" value="${sysRedis.expire}"/>
+						<form:input path="expire" htmlEscape="false" maxlength="200" class="input-xlarge redisExpire"/>
+						<span class="help-inline">只能输入正整数/负整数,任意负数代表永不过期,输入0则无效</span>
+					</div>
+				</div>
 				<div class="form-actions">
 					<shiro:hasPermission name="redis:sysRedis:edit">
-						<%--仅string类型可以修改--%>
-						<c:if test="${(empty sysRedis.redisKey) || ((not empty sysRedis.redisKey) && (sysRedis.dataType == 'string'))}">
-							<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
-						</c:if>
+						<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
 					</shiro:hasPermission>
 					<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 				</div>

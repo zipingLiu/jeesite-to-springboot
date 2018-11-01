@@ -2,15 +2,15 @@ package com.baidu.cms.common.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.utils.Collections3;
-import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.utils.SpringContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.ListOperations;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,16 +22,11 @@ import java.util.List;
  * @author: shiyanjun
  * @Date: 2018/10/23 下午7:42
  */
-public class PageViewInterceptor implements HandlerInterceptor {
+public class PageViewInterceptor extends HandlerInterceptorAdapter {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
     private ListOperations<String, Object> lo = SpringContextHolder.getBean(ListOperations.class);
-
-    @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) {
-        return true;
-    }
 
     /**
      * 查询列隐藏配置写入视图对象
@@ -64,8 +59,4 @@ public class PageViewInterceptor implements HandlerInterceptor {
 
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
-
-    }
 }

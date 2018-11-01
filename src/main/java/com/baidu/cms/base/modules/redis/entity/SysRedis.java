@@ -2,6 +2,7 @@ package com.baidu.cms.base.modules.redis.entity;
 
 import com.baidu.cms.common.persistence.DataEntity;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.redis.connection.DataType;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
 
     private static final long serialVersionUID = 1L;
     private String dataType;            // 数据类型
+    private String oldRedisKey;         // 原始的缓存key
     private String redisKey;            // 缓存键
     private String hashKey;             // 仅hash类型有效
     private String fromLeft;            // 是否从左边添加,仅list类型有效:1左,0右
@@ -69,10 +71,11 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
         this.redisValue = redisValue;
     }
 
-    public SysRedis(String dataType, String redisKey, String redisValue) {
+    public SysRedis(String dataType, String redisKey, String redisValue, String expire) {
         this.dataType = dataType;
         this.redisKey = redisKey;
         this.redisValue = redisValue;
+        this.expire = expire;
     }
 
     public String getDataType() {
@@ -83,7 +86,16 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
         this.dataType = dataType;
     }
 
-    @Length(min = 1, max = 200, message = "缓存键长度必须介于 1 和 200 之间")
+    public String getOldRedisKey() {
+        return oldRedisKey;
+    }
+
+    public void setOldRedisKey(String oldRedisKey) {
+        this.oldRedisKey = oldRedisKey;
+    }
+
+    @NotBlank(message = "缓存key不能为空")
+    @Length(min = 1, max = 200, message = "缓存key长度必须介于 1 和 200 之间")
     public String getRedisKey() {
         return redisKey;
     }

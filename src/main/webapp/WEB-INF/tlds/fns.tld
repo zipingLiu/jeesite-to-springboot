@@ -10,7 +10,13 @@
   <tlib-version>1.1</tlib-version>
   <short-name>fns</short-name>
   <uri>http://java.sun.com/jsp/jstl/functionss</uri>
-
+  <function>
+    <description>获取计时器时间串</description>
+    <name>getTimeStrBySecond</name>
+    <function-class>com.baidu.cms.common.utils.DateUtils</function-class>
+    <function-signature>java.lang.String getTimeStrBySecond(long)</function-signature>
+    <example>${fns:getTimeStrBySecond(second)}</example>
+  </function>
   <function>
     <description>获取管理路径</description>
     <name>getAdminPath</name>

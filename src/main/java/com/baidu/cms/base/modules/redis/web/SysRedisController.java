@@ -2,8 +2,10 @@ package com.baidu.cms.base.modules.redis.web;
 
 import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.base.modules.redis.service.SysRedisService;
+import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.config.Global;
 import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.SpringContextHolder;
 import com.baidu.cms.common.utils.StringUtils;
 import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -69,6 +71,11 @@ public class SysRedisController extends BaseController {
         if (!checkDataType(model, sysRedis.getDataType())) {
             return form(new SysRedis(), model);
         }
+        // 修改时校验
+        if (!checkBeforeUpdate(model, sysRedis)) {
+            return form(sysRedis, model);
+        }
+
         sysRedisService.save(sysRedis);
         SysRedis newSysRedis = new SysRedis();
         newSysRedis.setDataType(sysRedis.getDataType());
@@ -89,6 +96,25 @@ public class SysRedisController extends BaseController {
         }
         addMessage(model, "未知的数据类型!");
         return false;
+    }
+
+    /**
+     * key是否存在
+     *
+     * @param model
+     * @param sysRedis
+     */
+    private boolean checkBeforeUpdate(Model model, SysRedis sysRedis) {
+        String oldRedisKey = sysRedis.getOldRedisKey();
+        if (StringUtils.isNotBlank(oldRedisKey)) {
+            RedisUtils redisUtils = SpringContextHolder.getBean(RedisUtils.class);
+            Boolean hasKey = redisUtils.hasKey(oldRedisKey);
+            if (!hasKey) {
+                addMessage(model, "要修改的数据已不存在了!");
+                return false;
+            }
+        }
+        return true;
     }
 
     @RequiresPermissions("redis:sysRedis:edit")

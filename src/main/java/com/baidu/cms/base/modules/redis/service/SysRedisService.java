@@ -4,6 +4,7 @@ import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.common.cache.RedisModel;
 import com.baidu.cms.common.cache.RedisUtils;
 import com.baidu.cms.common.persistence.Page;
+import com.baidu.cms.common.utils.NumberUtil;
 import com.baidu.cms.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,6 +104,22 @@ public class SysRedisService {
     }
 
     public void save(SysRedis sysRedis) {
+        String oldRedisKey = sysRedis.getOldRedisKey();
+        Long expire = NumberUtil.toLong(sysRedis.getExpire());
+        Boolean hasKey = Boolean.valueOf(redisUtils.hasKey(oldRedisKey));
+
+        // 修改
+        if (hasKey) {
+            redisUtils.rename(oldRedisKey, sysRedis.getRedisKey());
+            if (DataType.STRING.code().equals(sysRedis.getDataType())) {
+                redisUtils.set(sysRedis.getRedisKey(), sysRedis.getRedisValue(), expire);
+            } else {
+                redisUtils.setExpire(sysRedis.getRedisKey(), expire);
+            }
+            return;
+        }
+
+        // 新建
         RedisModel redisModel = new RedisModel();
         redisModel.setDataType(DataType.fromCode(sysRedis.getDataType()));
         redisModel.setKey(sysRedis.getRedisKey());
@@ -110,8 +127,7 @@ public class SysRedisService {
         redisModel.setHashKey(sysRedis.getHashKey());
         redisModel.setScore(StringUtils.toDouble(sysRedis.getScore()));
         redisModel.setLeft(StringUtils.toInteger(sysRedis.getFromLeft()) == 1);
-        redisModel.setExpire(StringUtils.toLong(sysRedis.getExpire()));
-
+        redisModel.setExpire(NumberUtil.toLong(sysRedis.getExpire()));
         redisUtils.set(redisModel);
     }
 

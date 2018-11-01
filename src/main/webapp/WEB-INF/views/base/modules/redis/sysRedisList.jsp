@@ -31,6 +31,33 @@
 			$("#searchForm").submit();
         	return false;
         }
+
+        /**
+         * 根据秒数获取时间串
+         *
+         * @param second 秒数
+         * @return (返回格式 00 : 01 : 40)
+         */
+        function getTimeStrBySecond(second) {
+
+            var HOUR_SECOND = 60 * 60;
+            var MINUTE_SECOND = 60;
+
+            if (second <= 0) {
+                return "00:00:00";
+            }
+            var hours = second / HOUR_SECOND;
+            if (hours > 0) {
+                second -= hours * HOUR_SECOND;
+            }
+            var minutes = second / MINUTE_SECOND;
+            if (minutes > 0) {
+                second -= minutes * MINUTE_SECOND;
+            }
+            return (hours >= 10 ? (hours + "")
+                : ("0" + hours) + ":" + (minutes >= 10 ? (minutes + "") : ("0" + minutes)) + ":"
+                + (second >= 10 ? (second + "") : ("0" + second)));
+        }
 	</script>
 </head>
 <body>
@@ -62,6 +89,7 @@
 			<tr>
 				<th>类型</th>
 				<th>缓存键</th>
+				<th>过期时间</th>
 				<th>缓存值</th>
 				<shiro:hasPermission name="redis:sysRedis:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -75,6 +103,17 @@
 				</td>
 				<td>
 					${sysRedis.redisKey}
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${sysRedis.expire < 0}">
+							<span style="color: grey">永不过期</span>
+						</c:when>
+						<c:otherwise>
+							<c:set var="redisExpire" value="${sysRedis.expire}" scope="page"/>
+							<span style="color: red">${fns:getTimeStrBySecond(redisExpire)}</script></span>
+						</c:otherwise>
+					</c:choose>
 				</td>
 				<td>
 					${sysRedis.redisValue}

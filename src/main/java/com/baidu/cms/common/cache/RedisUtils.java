@@ -39,9 +39,6 @@ public class RedisUtils {
 
     private static Logger logger = LoggerFactory.getLogger(RedisUtils.class);
 
-    // 默认缓存过期时间
-    private static final long REDIS_DEFAULT_EXPIRE_SECOND = 60 * 60 * 12;
-
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
@@ -179,7 +176,8 @@ public class RedisUtils {
      */
     public SysRedis getStringValByKeyType(String key) {
         DataType type = redisTemplate.type(key);
-        SysRedis sysRedis = new SysRedis(type.code(), key, null);
+        Long expire = redisTemplate.getExpire(key);
+        SysRedis sysRedis = new SysRedis(type.code(), key, null, String.valueOf(expire));
         switch (type) {
             case STRING:
                 sysRedis.setRedisValue(get(key));
@@ -214,7 +212,8 @@ public class RedisUtils {
      */
     public SysRedis getSysRedisByKeyType(String key) {
         DataType type = redisTemplate.type(key);
-        SysRedis sysRedis = new SysRedis(type.code(), key, null);
+        Long expire = redisTemplate.getExpire(key);
+        SysRedis sysRedis = new SysRedis(type.code(), key, null, String.valueOf(expire));
         switch (type) {
             case STRING:
                 sysRedis.setRedisValue(get((key)));
@@ -255,9 +254,7 @@ public class RedisUtils {
      * @param redisModel 各类型缓存统一模型
      */
     public void set(RedisModel redisModel) {
-        long expire = redisModel.getExpire() > 0 ? redisModel.getExpire() : REDIS_DEFAULT_EXPIRE_SECOND;
         String prefixKey = RedisUtils.prefix(redisModel.getKey());
-        redisTemplate.expire(prefixKey, expire, TimeUnit.SECONDS);
         switch (redisModel.getDataType()) {
             case STRING:
                 valueOperations.set(prefixKey, redisModel.getValue());
@@ -281,6 +278,25 @@ public class RedisUtils {
             default:
                 break;
         }
+        // 更新过期时间
+        setExpire(prefixKey, redisModel.getExpire());
+    }
+
+    /**
+     * 更新过期时间
+     *
+     * @param key    缓存key
+     * @param expire 过期时间,单位秒
+     */
+    public void setExpire(String key, Long expire) {
+        // 忽略等于0的过期时间
+        if (expire != null && expire != 0) {
+            if (expire < 0) {
+                redisTemplate.persist(key);
+            } else {
+                redisTemplate.expire(key, expire * 1000, TimeUnit.MILLISECONDS);
+            }
+        }
     }
 
     /**
@@ -290,5 +306,24 @@ public class RedisUtils {
      */
     public DataType type(String key) {
         return redisTemplate.type(key);
+    }
+
+    /**
+     * key是否存在
+     *
+     * @param key
+     */
+    public Boolean hasKey(String key) {
+        return redisTemplate.hasKey(key);
+    }
+
+    /**
+     * 重命名key
+     *
+     * @param oldKey 旧key
+     * @param newKey 新key
+     */
+    public void rename(String oldKey, String newKey) {
+        redisTemplate.rename(oldKey, newKey);
     }
 }

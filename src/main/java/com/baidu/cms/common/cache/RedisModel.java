@@ -18,7 +18,7 @@ public class RedisModel implements Serializable {
     private String hashKey;   //hash键,仅hash类型有效
     private boolean isLeft;   //从list左端添加
     private double score;     //得分
-    private long expire;      //过期时间
+    private Long expire;      //过期时间,单位秒
 
     public DataType getDataType() {
         return dataType;
@@ -68,11 +68,11 @@ public class RedisModel implements Serializable {
         this.score = score;
     }
 
-    public long getExpire() {
+    public Long getExpire() {
         return expire;
     }
 
-    public void setExpire(long expire) {
+    public void setExpire(Long expire) {
         this.expire = expire;
     }
 }
