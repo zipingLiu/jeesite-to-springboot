@@ -18,17 +18,26 @@ import java.util.Set;
 public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedis> {
 
     private static final long serialVersionUID = 1L;
+    //公共字段
     private String dataType;            // 数据类型
     private String oldRedisKey;         // 原始的缓存key
     private String redisKey;            // 缓存键
-    private String hashKey;             // 仅hash类型有效
-    private String fromLeft;            // 是否从左边添加,仅list类型有效:1左,0右
-    private String score;               // 分值,仅zset类型有效
     private String redisValue;          // 缓存值
     private String expire;              // 过期时间
+
+    //List数据类型
+    private String fromLeft;            // 是否从左边添加,仅list类型有效:1左,0右
     private List<Object> valList;       // list类型的value
+
+    //set数据类型
     private Set<Object> valSet;         // set类型的value
+
+    //zset数据类型
     private List<ScoreVal> zsetList;    // zset类型的value
+    private String score;               // 分值,仅zset类型有效
+
+    //hash数据类型
+    private String hashKey;             // 仅hash类型有效
     private Map<String, Object> valMap; // map类型的value
 
     public static class ScoreVal {
@@ -78,6 +87,7 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
         this.expire = expire;
     }
 
+    @NotBlank(message = "数据类型不能为空")
     public String getDataType() {
         return dataType;
     }

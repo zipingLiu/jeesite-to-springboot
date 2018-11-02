@@ -11,6 +11,7 @@ import com.baidu.cms.common.web.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,18 +33,33 @@ import javax.servlet.http.HttpServletResponse;
 public class SysRedisController extends BaseController {
 
     @Autowired
+    private RedisUtils redisUtils;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
     private SysRedisService sysRedisService;
 
     @ModelAttribute
-    public SysRedis get(@RequestParam(required = false) String redisKey) {
-        SysRedis entity = null;
-        if (StringUtils.isNotBlank(redisKey)) {
-            entity = sysRedisService.get(redisKey);
+    public SysRedis get(@RequestParam(required = false) SysRedis sysRedis) {
+        if (sysRedis == null) {
+            sysRedis = new SysRedis();
+        } else {
+            String dataType = sysRedis.getDataType();
+            String oldRedisKey = sysRedis.getOldRedisKey();
+            String redisKey = sysRedis.getRedisKey();
+            if (StringUtils.isNotBlank(oldRedisKey)) {
+                redisKey = oldRedisKey;
+            }
+            if (StringUtils.isNotBlank(dataType) && StringUtils.isNotBlank(redisKey)) {
+                Boolean hasKey = redisTemplate.hasKey(redisKey);
+                if (hasKey != null && hasKey) {
+                    sysRedis = redisUtils.getSysRedisByKeyType(redisKey);
+                }
+            }
         }
-        if (entity == null) {
-            entity = new SysRedis();
-        }
-        return entity;
+        return sysRedis;
     }
 
     @RequiresPermissions("redis:sysRedis:view")
@@ -57,7 +73,15 @@ public class SysRedisController extends BaseController {
     @RequiresPermissions("redis:sysRedis:view")
     @RequestMapping(value = "form")
     public String form(SysRedis sysRedis, Model model) {
-        model.addAttribute("sysRedis", sysRedis);
+        SysRedis entity = null;
+        if (StringUtils.isNotBlank(sysRedis.getRedisKey())) {
+            entity = sysRedisService.get(sysRedis.getRedisKey());
+        }
+        if (entity == null) {
+            model.addAttribute("sysRedis", sysRedis);
+        } else {
+            model.addAttribute("sysRedis", entity);
+        }
         return "base/modules/redis/sysRedisForm";
     }
 
@@ -81,6 +105,88 @@ public class SysRedisController extends BaseController {
         newSysRedis.setDataType(sysRedis.getDataType());
         model.addAttribute("sysRedis", newSysRedis);
         model.addAttribute("message", "保存缓存管理成功");
+        return "base/modules/redis/sysRedisForm";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "updateRedisKey")
+    public String updateRedisKey(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (dataType == null || DataType.NONE.code().equals(dataType)) {
+            addMessage(model, "数据类型不能为空");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        String oldRedisKey = sysRedis.getOldRedisKey();
+        if (StringUtils.isBlank(oldRedisKey)) {
+            addMessage(model, "缓存key不能为空");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+
+        String redisKey = sysRedis.getRedisKey();
+        if (oldRedisKey.equals(redisKey)) {
+            model.addAttribute("message", "保存缓存管理成功");
+        } else {
+            Boolean hasKey = redisTemplate.hasKey(redisKey);
+            if (hasKey != null && hasKey) {
+                addMessage(model, "要设置的key已存在");
+                model.addAttribute("sysRedis", sysRedis);
+                return "base/modules/redis/sysRedisForm";
+            }
+            redisUtils.rename(oldRedisKey, redisKey);
+            model.addAttribute("message", "保存缓存管理成功");
+        }
+        model.addAttribute("sysRedis", sysRedis);
+        return "base/modules/redis/sysRedisForm";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "updateExpire")
+    public String updateExpire(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (dataType == null || DataType.NONE.code().equals(dataType)) {
+            addMessage(model, "数据类型不能为空");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        String oldRedisKey = sysRedis.getOldRedisKey();
+        if (StringUtils.isBlank(oldRedisKey)) {
+            addMessage(model, "缓存key不能为空");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+
+        redisUtils.setExpire(oldRedisKey, StringUtils.toLong(sysRedis.getExpire()));
+        model.addAttribute("message", "保存过期时间成功");
+        model.addAttribute("sysRedis", sysRedis);
+        return "base/modules/redis/sysRedisForm";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "updateRedisValue")
+    public String updateRedisValue(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (dataType == null || DataType.NONE.code().equals(dataType)) {
+            addMessage(model, "数据类型不能为空");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        String oldRedisKey = sysRedis.getOldRedisKey();
+        if (StringUtils.isBlank(oldRedisKey)) {
+            addMessage(model, "缓存key不能为空");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        String redisValue = sysRedis.getRedisValue();
+        if (StringUtils.isBlank(redisValue)) {
+            addMessage(model, "缓存值不能为空");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        redisUtils.updateRedisValue(sysRedis);
+        model.addAttribute("message", "保存缓存值成功");
+        model.addAttribute("sysRedis", sysRedis);
         return "base/modules/redis/sysRedisForm";
     }
 

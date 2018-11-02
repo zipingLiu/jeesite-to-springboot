@@ -216,7 +216,8 @@ public class RedisUtils {
         SysRedis sysRedis = new SysRedis(type.code(), key, null, String.valueOf(expire));
         switch (type) {
             case STRING:
-                sysRedis.setRedisValue(get((key)));
+                String redisValue = get((key));
+                sysRedis.setRedisValue(redisValue);
                 break;
             case LIST:
                 List<Object> list = listOperations.range(key, 0, -1);
@@ -280,6 +281,39 @@ public class RedisUtils {
         }
         // 更新过期时间
         setExpire(prefixKey, redisModel.getExpire());
+    }
+
+    /**
+     * 更新或添加值
+     *
+     * @param sysRedis
+     */
+    public void updateRedisValue(SysRedis sysRedis) {
+        DataType dataType = DataType.fromCode(sysRedis.getDataType());
+        switch (dataType) {
+            case STRING:
+                valueOperations.set(sysRedis.getOldRedisKey(), sysRedis.getRedisValue());
+                break;
+            case LIST:
+                if ("0".equals(sysRedis.getFromLeft())) {
+                    listOperations.rightPush(sysRedis.getOldRedisKey(), sysRedis.getRedisValue());
+                } else {
+                    listOperations.leftPush(sysRedis.getOldRedisKey(), sysRedis.getRedisValue());
+                }
+                break;
+            case SET:
+                setOperations.add(sysRedis.getOldRedisKey(), sysRedis.getRedisValue());
+                break;
+            case ZSET:
+                double score = StringUtils.toDouble(sysRedis.getScore());
+                zSetOperations.add(sysRedis.getOldRedisKey(), sysRedis.getRedisValue(), score);
+                break;
+            case HASH:
+                hashOperations.put(sysRedis.getOldRedisKey(), sysRedis.getHashKey(), sysRedis.getRedisValue());
+                break;
+            default:
+                break;
+        }
     }
 
     /**
