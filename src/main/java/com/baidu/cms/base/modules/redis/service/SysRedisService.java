@@ -112,7 +112,9 @@ public class SysRedisService {
         if (hasKey) {
             redisUtils.rename(oldRedisKey, sysRedis.getRedisKey());
             if (DataType.STRING.code().equals(sysRedis.getDataType())) {
-                redisUtils.set(sysRedis.getRedisKey(), sysRedis.getRedisValue(), expire);
+                if (expire != null) {
+                    redisUtils.set(sysRedis.getRedisKey(), sysRedis.getRedisValue(), expire);
+                }
             } else {
                 redisUtils.setExpire(sysRedis.getRedisKey(), expire);
             }
