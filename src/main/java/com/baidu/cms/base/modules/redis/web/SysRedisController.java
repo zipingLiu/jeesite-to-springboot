@@ -231,4 +231,70 @@ public class SysRedisController extends BaseController {
         return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/?repage";
     }
 
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "deleteHash")
+    public String deleteHash(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (!DataType.HASH.code().equals(dataType)) {
+            addMessage(model, "数据类型不正确");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        redisUtils.deleteHashKey(sysRedis.getOldRedisKey(), sysRedis.getHashKey());
+        return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/?repage";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "deleteListValue")
+    public String deleteListValue(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (!DataType.LIST.code().equals(dataType)) {
+            addMessage(model, "数据类型不正确");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        try {
+            redisUtils.deleteListValue(sysRedis.getOldRedisKey(), StringUtils.toInteger(sysRedis.getCurrentIndex()));
+        } catch (Exception e) {
+            addMessage(model, e.getMessage());
+            model.addAttribute("sysRedis", sysRedis);
+        }
+        return "base/modules/redis/sysRedisForm";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "deleteSetValue")
+    public String deleteSetValue(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (!DataType.SET.code().equals(dataType)) {
+            addMessage(model, "数据类型不正确");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        try {
+            redisUtils.deleteSetValue(sysRedis.getOldRedisKey(), sysRedis.getRedisValue());
+        } catch (Exception e) {
+            addMessage(model, e.getMessage());
+            model.addAttribute("sysRedis", sysRedis);
+        }
+        return "base/modules/redis/sysRedisForm";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "deleteZSetValue")
+    public String deleteZSetValue(SysRedis sysRedis, Model model) {
+        String dataType = sysRedis.getDataType();
+        if (!DataType.ZSET.code().equals(dataType)) {
+            addMessage(model, "数据类型不正确");
+            model.addAttribute("sysRedis", sysRedis);
+            return "base/modules/redis/sysRedisForm";
+        }
+        try {
+            redisUtils.deleteZSetValue(sysRedis.getOldRedisKey(), sysRedis.getRedisValue());
+        } catch (Exception e) {
+            addMessage(model, e.getMessage());
+            model.addAttribute("sysRedis", sysRedis);
+        }
+        return "base/modules/redis/sysRedisForm";
+    }
 }

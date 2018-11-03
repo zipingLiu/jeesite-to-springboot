@@ -27,6 +27,7 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
 
     //List数据类型
     private String fromLeft;            // 是否从左边添加,仅list类型有效:1左,0右
+    private String currentIndex;        // 当前操作的元素的索引，仅list类型有效
     private List<Object> valList;       // list类型的value
 
     //set数据类型
@@ -128,6 +129,14 @@ public class SysRedis extends DataEntity<SysRedis> implements Comparable<SysRedi
 
     public void setFromLeft(String fromLeft) {
         this.fromLeft = fromLeft;
+    }
+
+    public String getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(String currentIndex) {
+        this.currentIndex = currentIndex;
     }
 
     public String getScore() {

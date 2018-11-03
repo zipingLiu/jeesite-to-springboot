@@ -60,6 +60,7 @@
             var oldRedisKey = $('#oldRedisKey').val();
             var redisValue = '';
             var hashKey = '';
+            var score = 0;
             if (dataType == 'string') {
                 redisValue = $('#redisValue').val();
             } else if (dataType == 'list') {
@@ -68,13 +69,14 @@
                 redisValue = $('#setRedisValue').val();
             } else if (dataType == 'zset') {
                 redisValue = $('#zsetRedisValue').val();
+                score = $('#score').val();
             } else if (dataType == 'hash') {
                 hashKey = $('#hashKey').val();
                 redisValue = $('#hashValue').val();
             } else {
                 alert("00000000")
             }
-            var url = redis.URL.updateRedisValueForm(dataType, oldRedisKey, redisValue, fromLeft, hashKey);
+            var url = redis.URL.updateRedisValueForm(dataType, oldRedisKey, redisValue, fromLeft, hashKey, score);
             a.href = '${ctx}/' + url;
         }
     </script>
@@ -172,7 +174,7 @@
                             <div class="controls">
                                 <form:textarea path="redisValue"
                                                readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}"
-                                               htmlEscape="false" rows="8" class="input-xxlarge required"/>
+                                               htmlEscape="false" rows="8" class="input-xlarge required"/>
                                 <span class="help-inline"><font color="red">*</font> </span>
                             </div>
                         </div>
@@ -180,7 +182,7 @@
                             <label class="control-label">左侧/右侧添加:</label>
                             <div class="controls">
                                 <form:select path="fromLeft" class="input-xlarge required">
-                                    <form:option value="" label="请选择"/>
+                                    <%--<form:option value="" label="请选择"/>--%>
                                     <form:options items="${fns:getDictList('redis_list_from_left')}" itemLabel="label"
                                                   itemValue="value" htmlEscape="false"/>
                                 </form:select>
@@ -194,8 +196,8 @@
                             <div class="controls">
                                 <form:input id="listRedisValue" path="redisValue" htmlEscape="false" maxlength="200" class="input-xlarge"/>
                                 <c:if test="${not empty sysRedis.redisKey}">
-                                    <a class="btn" onclick="updateRedisValue(this, 1)">从左侧添加</a>
-                                    <a class="btn" onclick="updateRedisValue(this, 0)">从右侧添加</a>
+                                    <a class="btn" onclick="updateRedisValue(this, 1)">从左侧(头部)添加</a>
+                                    <a class="btn" onclick="updateRedisValue(this, 0)">从右侧(尾部)添加</a>
                                 </c:if>
                             </div>
                         </div>
@@ -205,14 +207,16 @@
                                 <table class="table table-striped table-bordered table-condensed table-nowrap"
                                        style="width: 460px">
                                     <thead>
-                                    <th>编号</th>
+                                    <th>索引</th>
                                     <th>值</th>
+                                    <th>操作</th>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${sysRedis.valList}" var="val" varStatus="status">
                                         <tr>
-                                            <td style="width: 10px">${status.index + 1}</td>
+                                            <td style="width: 10px">${status.index}</td>
                                             <td>${val}</td>
+                                            <td><a href="${ctx}/redis/sysRedis/deleteListValue?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&currentIndex=${status.index}&redisValue=${val}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -231,7 +235,7 @@
                             <div class="controls">
                                 <form:textarea path="redisValue"
                                                readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}"
-                                               htmlEscape="false" rows="8" class="input-xxlarge required"/>
+                                               htmlEscape="false" rows="8" class="input-xlarge required"/>
                                 <span class="help-inline"><font color="red">*</font> </span>
                             </div>
                         </div>
@@ -255,14 +259,16 @@
                                 <table class="table table-striped table-bordered table-condensed table-nowrap"
                                        style="width: 460px">
                                     <thead>
-                                    <th>编号</th>
+                                    <th>索引</th>
                                     <th>值</th>
+                                    <th>操作</th>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${sysRedis.valSet}" var="val" varStatus="status">
                                         <tr>
-                                            <td style="width: 10px">${status.index + 1}</td>
+                                            <td style="width: 10px">${status.index}</td>
                                             <td>${val}</td>
+                                            <td><a href="${ctx}/redis/sysRedis/deleteSetValue?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&redisValue=${val}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -281,7 +287,7 @@
                             <div class="controls">
                                 <form:textarea path="redisValue"
                                                readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}"
-                                               htmlEscape="false" rows="8" class="input-xxlarge required"/>
+                                               htmlEscape="false" rows="8" class="input-xlarge required"/>
                                 <span class="help-inline"><font color="red">*</font> </span>
                             </div>
                         </div>
@@ -290,7 +296,7 @@
                             <div class="controls">
                                 <form:textarea path="score"
                                                readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}"
-                                               htmlEscape="false" class="input-xxlarge required"/>
+                                               htmlEscape="false" class="input-xlarge required"/>
                                 <span class="help-inline"><font color="red">*</font> </span>
                             </div>
                         </div>
@@ -298,9 +304,11 @@
                     <c:otherwise>
                         <c:if test="${not empty sysRedis.redisKey}">
                             <div class="control-group">
-                                <label class="control-label">Value：</label>
+                                <label class="control-label">值：</label>
                                 <div class="controls">
                                     <form:input id="zsetRedisValue" path="redisValue" htmlEscape="false" maxlength="200"
+                                                class="input-xlarge"/>
+                                    得分：<form:input id="score" path="score" htmlEscape="false" maxlength="200"
                                                 class="input-xlarge"/>
                                     <c:if test="${not empty sysRedis.redisKey}">
                                         <a class="btn" onclick="updateRedisValue(this)">添加值</a>
@@ -314,16 +322,18 @@
                                 <table class="table table-striped table-bordered table-condensed table-nowrap"
                                        style="width: 460px">
                                     <thead>
-                                    <th>编号</th>
+                                    <th>索引</th>
                                     <th>值</th>
                                     <th>分数</th>
+                                    <th>操作</th>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${sysRedis.zsetList}" var="val" varStatus="status">
                                         <tr>
-                                            <td style="width: 10px">${status.index + 1}</td>
+                                            <td style="width: 10px">${status.index}</td>
                                             <td>${val.value}</td>
                                             <td>${val.score}</td>
+                                            <td><a href="${ctx}/redis/sysRedis/deleteZSetValue?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&redisValue=${val.value}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -350,7 +360,7 @@
                             <div class="controls">
                                 <form:textarea path="redisValue"
                                                readonly="${((not empty sysRedis.redisKey) && (sysRedis.dataType != 'string'))?'true':'false'}"
-                                               htmlEscape="false" rows="8" class="input-xxlarge required"/>
+                                               htmlEscape="false" rows="8" class="input-xlarge required"/>
                                 <span class="help-inline"><font color="red">*</font> </span>
                             </div>
                         </div>
@@ -374,17 +384,19 @@
                                        style="width: 460px">
                                     <thead>
                                     <tr>
-                                        <th>编号</th>
+                                        <th>索引</th>
                                         <th>HashKey</th>
                                         <th>HashValue</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${sysRedis.valMap}" var="val" varStatus="status">
                                         <tr>
-                                            <td>${status.index + 1}</td>
+                                            <td>${status.index}</td>
                                             <td>${val.key}</td>
                                             <td>${val.value}</td>
+                                            <td><a href="${ctx}/redis/sysRedis/deleteHash?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&hashKey=${val.key}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -416,8 +428,8 @@
             updateExpireForm: function (dataType, oldRedisKey, expire) {
                 return '/redis/sysRedis/updateExpire?dataType=' + dataType + '&oldRedisKey=' + oldRedisKey + '&expire=' + expire;
             },
-            updateRedisValueForm: function (dataType, oldRedisKey, redisValue, fromLeft, hashKey) {
-                return '/redis/sysRedis/updateRedisValue?dataType=' + dataType + '&oldRedisKey=' + oldRedisKey + '&redisValue=' + redisValue + '&fromLeft=' + fromLeft + '&hashKey=' + hashKey;
+            updateRedisValueForm: function (dataType, oldRedisKey, redisValue, fromLeft, hashKey, score) {
+                return '/redis/sysRedis/updateRedisValue?dataType=' + dataType + '&oldRedisKey=' + oldRedisKey + '&redisValue=' + redisValue + '&fromLeft=' + fromLeft + '&hashKey=' + hashKey+ '&score=' + score;
             }
         }
     }

@@ -3,23 +3,23 @@ package com.baidu.cms.common.cache;
 import com.alibaba.fastjson.JSON;
 import com.baidu.cms.base.modules.redis.entity.SysRedis;
 import com.baidu.cms.common.config.Global;
+import com.baidu.cms.common.service.ServiceException;
 import com.baidu.cms.common.utils.StringUtils;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
-import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -118,6 +118,16 @@ public class RedisUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 删除hashKey
+     *
+     * @param key
+     * @param hashKey
+     */
+    public void deleteHashKey(String key, String hashKey) {
+        hashOperations.delete(key, hashKey);
     }
 
     /**
@@ -228,13 +238,12 @@ public class RedisUtils {
                 sysRedis.setValSet(set);
                 break;
             case ZSET:
-                Cursor<ZSetOperations.TypedTuple<Object>> cursor = zSetOperations.scan(key, ScanOptions.NONE);
                 List<SysRedis.ScoreVal> zsetList = new ArrayList<>();
-                while (cursor.hasNext()) {
-                    ZSetOperations.TypedTuple<Object> tuple = cursor.next();
-                    String score = String.valueOf(tuple.getScore());
-                    String value = String.valueOf(tuple.getValue());
-                    zsetList.add(new SysRedis.ScoreVal(score, value));
+                Set<ZSetOperations.TypedTuple<Object>> tuples = zSetOperations.rangeWithScores(key, 0, -1);
+                Iterator<ZSetOperations.TypedTuple<Object>> it = tuples.iterator();
+                while (it.hasNext()) {
+                    ZSetOperations.TypedTuple<Object> next = it.next();
+                    zsetList.add(new SysRedis.ScoreVal(String.valueOf(next.getScore()), String.valueOf(next.getValue())));
                 }
                 sysRedis.setZsetList(zsetList);
                 break;
@@ -359,5 +368,40 @@ public class RedisUtils {
      */
     public void rename(String oldKey, String newKey) {
         redisTemplate.rename(oldKey, newKey);
+    }
+
+    public void deleteListValue(String oldRedisKey, int currentIndex) {
+        List<Object> list = listOperations.range(oldRedisKey, 0, -1);
+        if (list.size() == 1) {
+            throw new ServiceException("集合中至少要有1条数据");
+        }
+        List<Object> newList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (i != currentIndex) {
+                newList.add(list.get(i));
+            }
+            listOperations.rightPop(oldRedisKey);
+        }
+        listOperations.rightPushAll(oldRedisKey, newList);
+    }
+
+    /**
+     * 删除Set集合中的元素
+     *
+     * @param oldRedisKey
+     * @param redisValue
+     */
+    public void deleteSetValue(String oldRedisKey, String redisValue) {
+        setOperations.remove(oldRedisKey, redisValue);
+    }
+
+    /**
+     * 删除Set集合中的元素
+     *
+     * @param oldRedisKey
+     * @param redisValue
+     */
+    public void deleteZSetValue(String oldRedisKey, String redisValue) {
+        zSetOperations.remove(oldRedisKey, redisValue);
     }
 }
