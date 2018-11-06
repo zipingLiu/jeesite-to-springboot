@@ -40,4 +40,22 @@ public class RedisService {
     public void del(SysRedis sysRedis) {
         redisDao.del(sysRedis.getRedisKey());
     }
+
+    public void remove(SysRedis sysRedis) {
+        DataType type = DataType.fromCode(sysRedis.getDataType());
+        switch (type) {
+            case STRING:
+                break;
+            case HASH:
+                redisDao.remove(sysRedis.getRedisKey(), sysRedis.getHashKey());
+                break;
+            default:
+                redisDao.remove(sysRedis.getRedisKey(), sysRedis.getRedisValue());
+                break;
+        }
+    }
+
+    public void rename(SysRedis sysRedis) {
+        redisDao.rename(sysRedis.getOldRedisKey(), sysRedis.getRedisKey());
+    }
 }

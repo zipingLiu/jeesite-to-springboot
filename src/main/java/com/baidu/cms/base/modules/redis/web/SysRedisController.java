@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 缓存管理Controller
@@ -79,8 +81,28 @@ public class SysRedisController extends BaseController {
     @RequestMapping(value = "delete")
     public String delete(SysRedis sysRedis, RedirectAttributes redirectAttributes) {
         redisService.del(sysRedis);
-        addMessage(redirectAttributes, "删除缓存管理成功");
+        addMessage(redirectAttributes, "删除缓存成功");
         return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/list?repage";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "remove")
+    public String remove(SysRedis sysRedis, RedirectAttributes redirectAttributes) {
+        redisService.remove(sysRedis);
+        redirectAttributes.addAttribute("redisKey", sysRedis.getRedisKey());
+        addMessage(redirectAttributes, "删除元素成功");
+        return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/form?repage";
+    }
+
+    @RequiresPermissions("redis:sysRedis:edit")
+    @RequestMapping(value = "rename")
+    public String rename(SysRedis sysRedis, RedirectAttributes redirectAttributes) {
+        if (!sysRedis.getOldRedisKey().equals(sysRedis.getRedisKey())) {
+            redisService.rename(sysRedis);
+        }
+        redirectAttributes.addAttribute("redisKey", sysRedis.getRedisKey());
+        addMessage(redirectAttributes, "名称修改成功");
+        return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/form?repage";
     }
 
 }

@@ -216,7 +216,7 @@
                                         <tr>
                                             <td style="width: 10px">${status.index}</td>
                                             <td>${val}</td>
-                                            <td><a href="${ctx}/redis/sysRedis/deleteListValue?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&currentIndex=${status.index}&redisValue=${val}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
+                                            <td><a href="${ctx}/redis/sysRedis/remove?dataType=${sysRedis.dataType}&redisKey=${sysRedis.redisKey}&currentIndex=${status.index}&redisValue=${val}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -268,7 +268,7 @@
                                         <tr>
                                             <td style="width: 10px">${status.index}</td>
                                             <td>${val}</td>
-                                            <td><a href="${ctx}/redis/sysRedis/deleteSetValue?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&redisValue=${val}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
+                                            <td><a href="${ctx}/redis/sysRedis/remove?dataType=${sysRedis.dataType}&redisKey=${sysRedis.redisKey}&redisValue=${val}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -333,7 +333,7 @@
                                             <td style="width: 10px">${status.index}</td>
                                             <td>${val.value}</td>
                                             <td>${val.score}</td>
-                                            <td><a href="${ctx}/redis/sysRedis/deleteZSetValue?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&redisValue=${val.value}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
+                                            <td><a href="${ctx}/redis/sysRedis/remove?dataType=${sysRedis.dataType}&redisKey=${sysRedis.redisKey}&redisValue=${val.value}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -396,7 +396,7 @@
                                             <td>${status.index}</td>
                                             <td>${val.key}</td>
                                             <td>${val.value}</td>
-                                            <td><a href="${ctx}/redis/sysRedis/deleteHash?dataType=${sysRedis.dataType}&oldRedisKey=${sysRedis.redisKey}&hashKey=${val.key}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
+                                            <td><a href="${ctx}/redis/sysRedis/remove?dataType=${sysRedis.dataType}&redisKey=${sysRedis.redisKey}&hashKey=${val.key}" onclick="return confirmx('确认要删除该缓存吗？', this.href)">删除</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -423,7 +423,7 @@
         /**与服务端交互url*/
         URL: {
             updateRedisKeyForm: function (dataType, oldRedisKey, redisKey) {
-                return '/redis/sysRedis/updateRedisKey?dataType=' + dataType +'&oldRedisKey=' + oldRedisKey + '&redisKey=' + redisKey;
+                return '/redis/sysRedis/rename?oldRedisKey=' + oldRedisKey + '&redisKey=' + redisKey;
             },
             updateExpireForm: function (dataType, oldRedisKey, expire) {
                 return '/redis/sysRedis/updateExpire?dataType=' + dataType + '&oldRedisKey=' + oldRedisKey + '&expire=' + expire;

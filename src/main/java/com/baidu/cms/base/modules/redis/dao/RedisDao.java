@@ -141,6 +141,39 @@ public class RedisDao {
     }
 
     /**
+     * 删除集合中的元素
+     *
+     * @param key    集合的key
+     * @param elName 集合的元素名称
+     */
+    public void remove(Object key, Object elName) {
+        DataType type = template.type(key);
+        switch (type) {
+            case STRING:
+                break;
+            case LIST:
+                // TODO 需要按索引删除元素
+                template.opsForList().rightPop(key);
+                break;
+            case SET:
+                template.opsForSet().remove(key, elName);
+                break;
+            case ZSET:
+                template.opsForZSet().remove(key, elName);
+                break;
+            case HASH:
+                template.opsForHash().delete(key, elName);
+                break;
+            case NONE:
+                break;
+        }
+    }
+
+    public void rename(Object oldKey, Object newKey) {
+        template.rename(oldKey, newKey);
+    }
+
+    /**
      * 更新过期时间
      *
      * @param key    缓存key
