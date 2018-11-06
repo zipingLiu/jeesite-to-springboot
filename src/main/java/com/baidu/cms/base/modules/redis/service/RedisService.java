@@ -46,6 +46,9 @@ public class RedisService {
         switch (type) {
             case STRING:
                 break;
+            case LIST:
+                redisDao.remove(sysRedis.getRedisKey(), sysRedis.getCurrentIndex());
+                break;
             case HASH:
                 redisDao.remove(sysRedis.getRedisKey(), sysRedis.getHashKey());
                 break;

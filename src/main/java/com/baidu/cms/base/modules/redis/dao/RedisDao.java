@@ -45,14 +45,17 @@ public class RedisDao {
             case STRING:
                 Object redisValue = template.opsForValue().get(key);
                 sysRedis.setRedisValue(String.valueOf(redisValue));
+                sysRedis.setElCount(1L);
                 break;
             case LIST:
                 List<Object> list = template.opsForList().range(key, 0, -1);
                 sysRedis.setValList(list);
+                sysRedis.setElCount(template.opsForList().size(key));
                 break;
             case SET:
                 Set<Object> set = template.opsForSet().members(key);
                 sysRedis.setValSet(set);
+                sysRedis.setElCount(template.opsForSet().size(key));
                 break;
             case ZSET:
                 List<SysRedis.ScoreVal> zsetList = new ArrayList<>();
@@ -63,10 +66,12 @@ public class RedisDao {
                     zsetList.add(new SysRedis.ScoreVal(String.valueOf(next.getScore()), String.valueOf(next.getValue())));
                 }
                 sysRedis.setZsetList(zsetList);
+                sysRedis.setElCount(template.opsForZSet().size(key));
                 break;
             case HASH:
                 Map<String, Object> map = template.opsForHash().entries(key);
                 sysRedis.setValMap(map);
+                sysRedis.setElCount(template.opsForHash().size(key));
                 break;
             default:
                 break;
@@ -143,30 +148,47 @@ public class RedisDao {
     /**
      * 删除集合中的元素
      *
-     * @param key    集合的key
-     * @param elName 集合的元素名称
+     * @param key     集合的key
+     * @param element 集合的元素,如果是list则为元素的索引
      */
-    public void remove(Object key, Object elName) {
+    public void remove(Object key, Object element) {
         DataType type = template.type(key);
         switch (type) {
             case STRING:
                 break;
             case LIST:
-                // TODO 需要按索引删除元素
-                template.opsForList().rightPop(key);
+                this.delListValue(String.valueOf(key), Integer.parseInt(String.valueOf(element)));
                 break;
             case SET:
-                template.opsForSet().remove(key, elName);
+                template.opsForSet().remove(key, element);
                 break;
             case ZSET:
-                template.opsForZSet().remove(key, elName);
+                template.opsForZSet().remove(key, element);
                 break;
             case HASH:
-                template.opsForHash().delete(key, elName);
+                template.opsForHash().delete(key, element);
                 break;
             case NONE:
                 break;
         }
+    }
+
+    /**
+     * 按索引删除元素
+     *
+     * @param redisKey
+     * @param currentIndex
+     */
+    public void delListValue(String redisKey, int currentIndex) {
+        List<Object> list = template.opsForList().range(redisKey, 0, -1);
+        List<Object> newList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (i != currentIndex) {
+                newList.add(list.get(i));
+            }
+            template.opsForList().rightPop(redisKey);
+        }
+        template.opsForList().rightPushAll(redisKey, newList);
     }
 
     public void rename(Object oldKey, Object newKey) {
