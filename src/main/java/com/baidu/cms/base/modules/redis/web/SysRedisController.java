@@ -117,7 +117,7 @@ public class SysRedisController extends BaseController {
     public String addValue(SysRedis sysRedis, RedirectAttributes redirectAttributes) {
         redisService.addValue(sysRedis);
         redirectAttributes.addAttribute("redisKey", sysRedis.getRedisKey());
-        redirectAttributes.addAttribute("message", "元素更新成功");
+        addMessage(redirectAttributes, "元素更新成功");
         return "redirect:" + Global.getAdminPath() + "/redis/sysRedis/form?repage";
     }
 }
