@@ -133,7 +133,7 @@ public class RedisDao {
                 break;
         }
         // 更新过期时间
-        setExpire(key, redisModel.getExpire());
+        updateExpire(key, redisModel.getExpire());
     }
 
     public void del(String key) {
@@ -179,7 +179,7 @@ public class RedisDao {
      * @param key    缓存key
      * @param expire 过期时间,单位秒
      */
-    public void setExpire(String key, Long expire) {
+    public void updateExpire(String key, Long expire) {
         // 忽略等于0的过期时间
         if (expire != null && expire != 0) {
             if (expire < 0) {
@@ -187,6 +187,39 @@ public class RedisDao {
             } else {
                 template.expire(key, expire * 1000, TimeUnit.MILLISECONDS);
             }
+        }
+    }
+
+    /**
+     * 往集合中添加元素
+     *
+     * @param sysRedis
+     */
+    public void addValue(SysRedis sysRedis) {
+        String key = sysRedis.getRedisKey();
+        DataType type = template.type(key);
+        switch (type) {
+            case STRING:
+                stringRedisTemplate.opsForValue().set(key, sysRedis.getRedisValue());
+                break;
+            case LIST:
+                if ("1".equals(sysRedis.getFromLeft())) {
+                    template.opsForList().leftPush(sysRedis.getRedisKey(), sysRedis.getRedisValue());
+                } else {
+                    template.opsForList().rightPush(sysRedis.getRedisKey(), sysRedis.getRedisValue());
+                }
+                break;
+            case SET:
+                template.opsForSet().add(sysRedis.getRedisKey(), sysRedis.getRedisValue());
+                break;
+            case ZSET:
+                template.opsForZSet().add(sysRedis.getRedisKey(), sysRedis.getRedisValue(), StringUtils.toDouble(sysRedis.getScore()));
+                break;
+            case HASH:
+                template.opsForHash().put(sysRedis.getRedisKey(), sysRedis.getHashKey(), sysRedis.getRedisValue());
+                break;
+            default:
+                break;
         }
     }
 

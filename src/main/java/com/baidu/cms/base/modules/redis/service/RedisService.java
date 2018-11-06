@@ -58,4 +58,12 @@ public class RedisService {
     public void rename(SysRedis sysRedis) {
         redisDao.rename(sysRedis.getOldRedisKey(), sysRedis.getRedisKey());
     }
+
+    public void updateExpire(SysRedis sysRedis) {
+        redisDao.updateExpire(sysRedis.getRedisKey(), StringUtils.toLong(sysRedis.getExpire()));
+    }
+
+    public void addValue(SysRedis sysRedis) {
+        redisDao.addValue(sysRedis);
+    }
 }

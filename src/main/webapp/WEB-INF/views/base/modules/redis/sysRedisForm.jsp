@@ -48,16 +48,16 @@
         // 更新redis缓存过期时间
         var updateExpire = function (a) {
             var dataType = $('#dataType').val();
-            var oldRedisKey = $('#oldRedisKey').val();
+            var redisKey = $('#oldRedisKey').val();
             var expire = $('#expire').val();
-            var url = redis.URL.updateExpireForm(dataType, oldRedisKey, expire);
+            var url = redis.URL.updateExpireForm(dataType, redisKey, expire);
             a.href = '${ctx}/' + url;
         }
 
         // 修改redis缓存值
         var updateRedisValue = function (a, fromLeft) {
             var dataType = $('#dataType').val();
-            var oldRedisKey = $('#oldRedisKey').val();
+            var redisKey = $('#oldRedisKey').val();
             var redisValue = '';
             var hashKey = '';
             var score = 0;
@@ -76,7 +76,7 @@
             } else {
                 alert("00000000")
             }
-            var url = redis.URL.updateRedisValueForm(dataType, oldRedisKey, redisValue, fromLeft, hashKey, score);
+            var url = redis.URL.addValueForm(dataType, redisKey, redisValue, fromLeft, hashKey, score);
             a.href = '${ctx}/' + url;
         }
     </script>
@@ -89,13 +89,13 @@
             name="redis:sysRedis:edit">查看</shiro:lacksPermission>缓存</a></li>
 </ul>
 <br/>
+<sys:message content="${message}"/>
 <c:choose>
     <%--如果没有数据类型--%>
     <c:when test="${empty sysRedis.dataType}">
         <form:form id="inputForm" modelAttribute="sysRedis" action="${ctx}/redis/sysRedis/form" method="post"
                    class="form-horizontal">
             <form:hidden path="id"/>
-            <sys:message content="${message}"/>
             <div class="control-group">
                 <label class="control-label">数据类型:</label>
                 <div class="controls">
@@ -425,11 +425,11 @@
             updateRedisKeyForm: function (dataType, oldRedisKey, redisKey) {
                 return '/redis/sysRedis/rename?oldRedisKey=' + oldRedisKey + '&redisKey=' + redisKey;
             },
-            updateExpireForm: function (dataType, oldRedisKey, expire) {
-                return '/redis/sysRedis/updateExpire?dataType=' + dataType + '&oldRedisKey=' + oldRedisKey + '&expire=' + expire;
+            updateExpireForm: function (dataType, redisKey, expire) {
+                return '/redis/sysRedis/updateExpire?dataType=' + dataType + '&redisKey=' + redisKey + '&expire=' + expire;
             },
-            updateRedisValueForm: function (dataType, oldRedisKey, redisValue, fromLeft, hashKey, score) {
-                return '/redis/sysRedis/updateRedisValue?dataType=' + dataType + '&oldRedisKey=' + oldRedisKey + '&redisValue=' + redisValue + '&fromLeft=' + fromLeft + '&hashKey=' + hashKey+ '&score=' + score;
+            addValueForm: function (dataType, redisKey, redisValue, fromLeft, hashKey, score) {
+                return '/redis/sysRedis/addValue?dataType=' + dataType + '&redisKey=' + redisKey + '&redisValue=' + redisValue + '&fromLeft=' + fromLeft + '&hashKey=' + hashKey+ '&score=' + score;
             }
         }
     }
